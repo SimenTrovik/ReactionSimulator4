@@ -14,7 +14,6 @@ namespace Tests
             timer.TimesUp();
         }
         
-
         [Test]
         public void ShouldBehaveAsSingleton() {
             Timer timer1 = Timer.Instance();
@@ -26,7 +25,7 @@ namespace Tests
         public void ShouldStart() {
             timer.StartTimer();
             System.Threading.Thread.Sleep(waitTime);
-            double x = timer.GetTime().TotalMilliseconds;
+            double x = timer.GetTimeMs();
             Assert.That(x > 0);
         }
 
@@ -35,9 +34,9 @@ namespace Tests
             timer.StartTimer();
             System.Threading.Thread.Sleep(waitTime);
             timer.StopTimer();
-            double x = timer.GetTime().TotalMilliseconds;
+            double x = timer.GetTimeMs();
             System.Threading.Thread.Sleep(waitTime);
-            double y = timer.GetTime().TotalMilliseconds;
+            double y = timer.GetTimeMs();
             Assert.AreEqual(x, y);
         }
 
@@ -46,7 +45,7 @@ namespace Tests
             timer.StartTimer();
             System.Threading.Thread.Sleep(waitTime);
             timer.TimesUp();
-            double x = timer.GetTime().TotalMilliseconds;
+            int x = timer.GetTimeMs();
             Assert.That(x == 0);
         }
 

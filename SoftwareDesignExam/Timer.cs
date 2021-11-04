@@ -18,11 +18,12 @@ namespace SoftwareDesignExam
         }
 
         public void TimesUp() {
+            // lage delegate?
             _stopWatch.Reset();
         }
 
-        public TimeSpan GetTime() {
-            return _stopWatch.Elapsed;
+        public int GetTimeMs() {
+            return _stopWatch.Elapsed.Milliseconds;
         }
 
         public static Timer Instance() {
