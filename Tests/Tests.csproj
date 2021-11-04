@@ -18,14 +18,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\SoftwareDesignExam\SoftwareDesignExam.csproj" />
   </ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\SoftwareDesignExam\SoftwareDesignExam.csproj" />
-	</ItemGroup>
 
 </Project>
