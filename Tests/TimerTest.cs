@@ -26,7 +26,7 @@ namespace Tests
         public void ShouldStart() {
             timer.StartTimer();
             System.Threading.Thread.Sleep(waitTime);
-            int x = (int)timer.GetTime().TotalMilliseconds;
+            double x = timer.GetTime().TotalMilliseconds;
             Assert.That(x > 0);
         }
 
@@ -35,9 +35,9 @@ namespace Tests
             timer.StartTimer();
             System.Threading.Thread.Sleep(waitTime);
             timer.StopTimer();
-            int x = (int)timer.GetTime().TotalMilliseconds;
+            double x = timer.GetTime().TotalMilliseconds;
             System.Threading.Thread.Sleep(waitTime);
-            int y = (int)timer.GetTime().TotalMilliseconds;
+            double y = timer.GetTime().TotalMilliseconds;
             Assert.AreEqual(x, y);
         }
 
@@ -46,7 +46,7 @@ namespace Tests
             timer.StartTimer();
             System.Threading.Thread.Sleep(waitTime);
             timer.TimesUp();
-            int x = (int)timer.GetTime().TotalMilliseconds;
+            double x = timer.GetTime().TotalMilliseconds;
             Assert.That(x == 0);
         }
 
