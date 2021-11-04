@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SoftwareDesignExam {
-    class PlayerFactory
+﻿namespace SoftwareDesignExam
+{
+    public abstract class PlayerFactory
     {
+        public enum PlayerType
+        {
+            Normal,
+            Easy
+        }
+
+        public abstract IPlayer GetPlayer(string name, PlayerType type);
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SoftwareDesignExam.ScoreDB;
 
+
 namespace SoftwareDesignExam {
 	public class ScoreDao {
 
@@ -81,4 +82,5 @@ namespace SoftwareDesignExam {
 		}
 
 	}
+
 }
