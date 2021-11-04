@@ -6,6 +6,15 @@ namespace Tests
 {
     public class Tests
     {
+        int waitTime = 10;
+        Timer timer = Timer.Instance();
+        
+        [TearDown]
+        public void Cleanup() {
+            timer.TimesUp();
+        }
+        
+
         [Test]
         public void ShouldBehaveAsSingleton() {
             Timer timer1 = Timer.Instance();
@@ -14,38 +23,30 @@ namespace Tests
         }
 
         [Test]
-        public void ShouldStartAndPause() {
-            int waitTime = 10;
-            Timer timer = Timer.Instance();
+        public void ShouldStart() {
+            timer.StartTimer();
+            System.Threading.Thread.Sleep(waitTime);
             int x = (int)timer.GetTime().TotalMilliseconds;
-            Assert.That(x == 0); // Stopwatch has not yet started
+            Assert.That(x > 0);
+        }
 
-            // Let stopwatch run for some time
+        [Test]
+        public void shouldStop() {
             timer.StartTimer();
             System.Threading.Thread.Sleep(waitTime);
             timer.StopTimer();
-
-            // Collect time for x, wait a bit and collect timespan for y
-            x = (int)timer.GetTime().TotalMilliseconds;
+            int x = (int)timer.GetTime().TotalMilliseconds;
             System.Threading.Thread.Sleep(waitTime);
             int y = (int)timer.GetTime().TotalMilliseconds;
-
-            Assert.That(x > waitTime);  // Stopwatch has started
-            Assert.AreEqual(x, y);      // Stopwatch has stopped
+            Assert.AreEqual(x, y);
         }
 
         [Test]
         public void ShouldReset() {
-            int waitTime = 10;
-            Timer timer = Timer.Instance();
-
-            // Let stopwatch run for some time, then reset
             timer.StartTimer();
             System.Threading.Thread.Sleep(waitTime);
             timer.TimesUp();
-
             int x = (int)timer.GetTime().TotalMilliseconds;
-
             Assert.That(x == 0);
         }
 
