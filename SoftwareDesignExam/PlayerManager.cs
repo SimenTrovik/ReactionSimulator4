@@ -8,22 +8,20 @@ using System.Windows.Input;
 
 namespace SoftwareDesignExam
 {
-    internal class PlayerManager
+    public class PlayerManager
     {
         private readonly ConcretePlayerFactory _playerFactory;
         private readonly Dictionary<Key, IPlayer> _playerDictionary;
-        public PlayerManager()
+        public PlayerManager() 
         {
             _playerFactory = new ConcretePlayerFactory();
             _playerDictionary = new Dictionary<Key, IPlayer>();
         }
 
-        // Adds a new player to the dictionary, if the provided keyboard key is valid.
-        // Return true/false if the addition was successful or not.
-        // TODO Move input validation to IOManager?
-        public bool AddPlayer(string name, PlayerFactory.PlayerType type, Key key)
+        // Adds a new player to the dictionary
+        // Returns true/false if the addition was successful or not.
+        public bool AddPlayer(string name, PlayerType type, Key key)
         {
-            if (key is < Key.A or > Key.Z) return false;
             var newPlayer = _playerFactory.GetPlayer(name, type);
             return _playerDictionary.TryAdd(key, newPlayer);
         }
@@ -31,15 +29,34 @@ namespace SoftwareDesignExam
         {
             _playerDictionary.Clear();
         }
-
-        public List<IPlayer> GetPlayers()
+        
+        public IPlayer GetPlayerByKey(Key key)
         {
-            return null;
+            return _playerDictionary[key];
+        }
+        public List<IPlayer> GetPlayersAsList()
+        {
+            return _playerDictionary.Values.ToList();
         }
 
-        public void SetScore(Key key, int score)
+        public void RegisterTime(Key key, int time)
         {
-
+            _playerDictionary[key].TimeInMs = time;
         }
+
+        public bool RemovePlayer(Key key)
+        {
+            return _playerDictionary.Remove(key);
+        }
+
+        public int GetDictionaryLength()
+        {
+            return _playerDictionary.Count;
+        }
+    }
+    public enum PlayerType
+    {
+        Normal,
+        Easy
     }
 }

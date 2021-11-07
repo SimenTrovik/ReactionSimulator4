@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using SoftwareDesignExam;
 
@@ -22,26 +17,27 @@ namespace Tests
         [Test]
         public void ShouldCreateNormalPlayer()
         {
-            var player = _factory.GetPlayer("Simen", ConcretePlayerFactory.PlayerType.Normal);
+            var player = _factory.GetPlayer("Simen", PlayerType.Normal);
 
             Assert.That(player.Name == "Simen");
             Assert.That(player.ScoreMultiplier == 1.0f);
             Assert.That(player.Score == 0);
-
-            /*
-            How do??
-            Assert.That(player.GetType() == typeof(NormalPlayer);
-            */
+            Assert.That(player.GetPlayerType() == PlayerType.Normal);
         }
         [Test]
         public void ShouldCreateEasyPlayer()
         {
-            var player = _factory.GetPlayer("Kjell", ConcretePlayerFactory.PlayerType.Easy);
+            var player = _factory.GetPlayer("Kjell", PlayerType.Easy);
 
             Assert.That(player.Name == "Kjell");
             Assert.That(player.ScoreMultiplier == 0.8f);
             Assert.That(player.Score == 0);
-
+            Assert.That(player.GetPlayerType() == PlayerType.Easy);
+        }
+        [Test]
+        public void ShouldThrowArgumentException()
+        {
+            Assert.Throws<ArgumentException>(()=> _factory.GetPlayer("", PlayerType.Easy));
         }
     }
 }
