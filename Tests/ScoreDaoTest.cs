@@ -35,13 +35,13 @@ namespace Tests
 		public void ShouldUpdateScore()
 		{
 
-			var player = _factory.GetPlayer("Mario", PlayerFactory.PlayerType.Easy);
-			player.Score = 64;
+			var player = _factory.GetPlayer("Mario", PlayerType.Easy);
+			player.TimeInMs = 64;
 			ScoreDao.SaveScoreAndPlayer(player);
 
-			Assert.AreEqual(64, player.Score);
+			Assert.AreEqual(64, player.TimeInMs);
 
-			player.Score = 1;
+			player.TimeInMs = 1;
 			ScoreDao.SaveScore(player);
 
 			int? mariosUpdatedScore = ScoreDao.GetScore(player);
@@ -53,8 +53,8 @@ namespace Tests
 		[Test]
 		public void ShouldSaveScoreAndPlayer()
 		{
-			var player = _factory.GetPlayer("Halla", PlayerFactory.PlayerType.Normal);
-			var player2 = _factory.GetPlayer("Balla", PlayerFactory.PlayerType.Normal);
+			var player = _factory.GetPlayer("Halla", PlayerType.Normal);
+			var player2 = _factory.GetPlayer("Balla", PlayerType.Normal);
 
 
 			ScoreDao.SaveScoreAndPlayer(player);
@@ -74,8 +74,8 @@ namespace Tests
 		[Test]
 		public void ShouldGivePlayerScore()
 		{
-			var player = _factory.GetPlayer("Doge", PlayerFactory.PlayerType.Normal);
-			player.Score = 420;
+			var player = _factory.GetPlayer("Doge", PlayerType.Normal);
+			player.TimeInMs = 420;
 
 			ScoreDao.SaveScoreAndPlayer(player);
 
@@ -86,14 +86,14 @@ namespace Tests
 		[Test]
 		public void ShouldGiveListBasedOnHighestScore()
 		{
-			var player1 = _factory.GetPlayer("Forsen", PlayerFactory.PlayerType.Easy);
-			player1.Score = 3;
+			var player1 = _factory.GetPlayer("Forsen", PlayerType.Easy);
+			player1.TimeInMs = 3;
 
-			var player2 = _factory.GetPlayer("Asmongold", PlayerFactory.PlayerType.Normal);
-			player2.Score = 5;
+			var player2 = _factory.GetPlayer("Asmongold", PlayerType.Normal);
+			player2.TimeInMs = 5;
 			
-			var player3 = _factory.GetPlayer("Tyler1", PlayerFactory.PlayerType.Normal);
-			player3.Score = 1;
+			var player3 = _factory.GetPlayer("Tyler1", PlayerType.Normal);
+			player3.TimeInMs = 1;
 
 			ScoreDao.SaveScoreAndPlayer(player1);
 			ScoreDao.SaveScoreAndPlayer(player2);
@@ -108,20 +108,20 @@ namespace Tests
 		public void ShouldGivePlayerDifficulty()
 		{
 
-			var player = _factory.GetPlayer("Pepe", PlayerFactory.PlayerType.Easy);
+			var player = _factory.GetPlayer("Pepe", PlayerType.Easy);
 
 			ScoreDao.SaveScoreAndPlayer(player);
 
-			PlayerFactory.PlayerType playerDifficulty = ScoreDao.GetPlayerDifficulty(player);
+			PlayerType playerDifficulty = ScoreDao.GetPlayerDifficulty(player);
 
-			Assert.AreEqual(PlayerFactory.PlayerType.Easy, playerDifficulty);
+			Assert.AreEqual(PlayerType.Easy, playerDifficulty);
 		}
 
 
 		[Test]
 		public void ShouldUpdateAndGetPlayerTime()
 		{
-			var player = _factory.GetPlayer("TimeWizard", PlayerFactory.PlayerType.Normal);
+			var player = _factory.GetPlayer("TimeWizard", PlayerType.Normal);
 
 			ScoreDao.SaveScoreAndPlayer(player);
 

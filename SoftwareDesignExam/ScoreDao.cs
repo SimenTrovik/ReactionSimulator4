@@ -52,21 +52,13 @@ namespace SoftwareDesignExam {
 			//TODO
 			// need a getter to grab players difficulty instead of this way
 			//Veldig dårlig det her assa, men vil ikke endre på filer som andre jobber på uten å snakke med dem først
-			PlayerFactory.PlayerType wow;
-			if (player.ScoreMultiplier == 1)
-			{
-				wow = PlayerFactory.PlayerType.Normal;
-			}
-			else
-			{
-				wow = PlayerFactory.PlayerType.Easy;
-			}
+			
 
 			HighScore highScore = new()
 			{
 				PlayerName = player.Name,
 				Score = player.Score,
-				Difficulty = wow
+				Difficulty = player.GetPlayerType()
 				
 			};
 
@@ -79,6 +71,7 @@ namespace SoftwareDesignExam {
 		//Returns score saved in DB to x player
 		public static int? GetScore(IPlayer player)
 		{
+
 			using ScoreContext db = new();
 
 			int? sum = db.HighScores.First(c => c.PlayerName == player.Name).Score;
@@ -104,7 +97,7 @@ namespace SoftwareDesignExam {
 
 
 		// Returns players difficulty
-		public static PlayerFactory.PlayerType GetPlayerDifficulty(IPlayer player)
+		public static PlayerType GetPlayerDifficulty(IPlayer player)
 		{
 			using ScoreContext db = new();
 
