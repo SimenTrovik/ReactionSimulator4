@@ -30,7 +30,7 @@ namespace Tests
             var player = _factory.GetPlayer("Kjell", PlayerType.Easy);
 
             Assert.That(player.Name == "Kjell");
-            Assert.That(player.ScoreMultiplier == 0.8f);
+            Assert.That(player.ScoreMultiplier == 1.2f);
             Assert.That(player.Score == 0);
             Assert.That(player.GetPlayerType() == PlayerType.Easy);
         }
