@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using SoftwareDesignExam.ScoreDB;
 
@@ -9,41 +10,64 @@ namespace SoftwareDesignExam {
 	public class ScoreDao {
 
 		/*
-		 * Lagre spillere uten score?
+		 * MÅ GJØRES:
 		 * GetScore / GetHighScores?
 		 *
 		 *	+Metodene får inn IPlayer
-		 *	+Time column i DB som har tiden
-		 *	+Difficulty column i DB
-		 *	+Lagre string verdi av difficulty
 		 *	+GetHighScores skal sende de 10 beste
 		 *
 		 */
 
+		/*
+		 *	DONE:
+		 *	+Time column i DB som har tiden
+		 *	+Difficulty column i DB
+		 *	+Lagre string verdi av difficulty NB! Bare lagret det som enum siden 
+		 *	PlayerFactory lager enumene der :thumbsup:
+		 *	Lagre spillere uten score? SVAR: Nei, de lages etter de har spilt en runde (kan endres ofc)
+		 *
+		 */
 
+
+		
 		//Updates score of player already inside DB
-		public static void SaveScore(String PlayerName, int Score)
+		public static void SaveScore(IPlayer player)
 		{
 			using ScoreContext db = new();
 
-			var name = db.HighScores.First(c => c.PlayerName == PlayerName);
+			var name = db.HighScores.First(c => c.PlayerName == player.Name);
 
-			name.Score = Score;
+			name.Score = player.Score;
 
 			db.SaveChanges();
 		}
 
 
 		// Saves Player with anyscore into DB
-		public static void SaveScoreAndPlayer(string PlayerName, int Score)
+		public static void SaveScoreAndPlayer(IPlayer player)
 		{
 
 			using ScoreContext db = new();
 
+			//TODO
+			// need a getter to grab players difficulty instead of this way
+			//Veldig dårlig det her assa, men vil ikke endre på filer som andre jobber på uten å snakke med dem først
+			PlayerFactory.PlayerType wow;
+			if (player.ScoreMultiplier == 1)
+			{
+				wow = PlayerFactory.PlayerType.Normal;
+			}
+			else
+			{
+				wow = PlayerFactory.PlayerType.Easy;
+			}
+
 			HighScore highScore = new()
 			{
-				PlayerName = PlayerName,
-				Score = Score
+				PlayerName = player.Name,
+				Score = player.Score,
+				Difficulty = wow
+				
 			};
 
 			db.HighScores.Add(highScore);
@@ -53,18 +77,15 @@ namespace SoftwareDesignExam {
 
 
 		//Returns score saved in DB to x player
-		public static int? GetScore(string PlayerName)
+		public static int? GetScore(IPlayer player)
 		{
 			using ScoreContext db = new();
 
-			int? sum = db.HighScores.First(c => c.PlayerName == PlayerName).Score;
+			int? sum = db.HighScores.First(c => c.PlayerName == player.Name).Score;
 
-			if (sum == null)
-			{
-				return 0;
-			}
+			int sumNeverNull = sum ?? 0;
 
-			return sum;
+			return sumNeverNull;
 		}
 
 
@@ -80,6 +101,47 @@ namespace SoftwareDesignExam {
 
 			return playerNames;
 		}
+
+
+		// Returns players difficulty
+		public static PlayerFactory.PlayerType GetPlayerDifficulty(IPlayer player)
+		{
+			using ScoreContext db = new();
+
+			var playerType = db.HighScores.First(c => c.PlayerName == player.Name).Difficulty;
+
+			return playerType;
+
+		}
+
+
+		//Updates score of player already inside DB
+		public static void SavePlayerTime(IPlayer player, int Time)
+		{
+			using ScoreContext db = new();
+
+			var name = db.HighScores.First(c => c.PlayerName == player.Name);
+
+			name.Time = Time;
+
+			db.SaveChanges();
+		}
+
+
+		// Returns player time
+		public static int? GetPlayerTime(IPlayer player)
+		{
+
+			using ScoreContext db = new();
+
+			int? playerTime = db.HighScores.First(c => c.PlayerName == player.Name).Time;
+
+			int playerTimeNeverNull = playerTime ?? 0;
+
+			return playerTimeNeverNull;
+
+		}
+
 
 	}
 
