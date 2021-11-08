@@ -8,5 +8,9 @@ namespace SoftwareDesignExam
 {
     class GameLogic
     {
+        public GameLogic() {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
     }
 }
