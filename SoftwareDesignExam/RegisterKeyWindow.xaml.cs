@@ -28,7 +28,7 @@ namespace SoftwareDesignExam
         {
             MainWindow mainWindow = new();
             PlayerManager playerManager = new();
-            playerManager.AddPlayer(mainWindow.RegisteredPlayers, PlayerFactory.PlayerType.Easy, e.Key);
+            playerManager.AddPlayer(mainWindow.RegisteredPlayers, PlayerType.Normal, e.Key);
         }
     }
 }
