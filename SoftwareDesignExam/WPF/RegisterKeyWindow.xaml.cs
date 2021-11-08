@@ -19,16 +19,18 @@ namespace SoftwareDesignExam
     /// </summary>
     public partial class RegisterKeyWindow : Window
     {
-        public RegisterKeyWindow()
+        private string _name;
+        public RegisterKeyWindow(string name)
         {
             InitializeComponent();
+            _name = name;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            MainWindow mainWindow = new();
             PlayerManager playerManager = new();
-            playerManager.AddPlayer(mainWindow.RegisteredPlayers, PlayerType.Normal, e.Key);
+            playerManager.AddPlayer(_name, PlayerType.Normal, e.Key);
+            Hide();
         }
     }
 }
