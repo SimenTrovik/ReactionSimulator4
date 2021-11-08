@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SoftwareDesignExam {
+﻿namespace SoftwareDesignExam {
     public interface IPlayer
     {
         public string Name { get; set; }
-        public int Score { get; set; }
+        public int Score { get; }
         double ScoreMultiplier { get; set; }
+        int TimeInMs { get; set; }
+
+        public PlayerType GetPlayerType();
     }
-    
 }
