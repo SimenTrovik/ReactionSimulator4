@@ -1,17 +1,18 @@
 using NUnit.Framework;
-using SoftwareDesignExam;
 using System;
+using System.Threading;
+using Timer = SoftwareDesignExam.Timer;
 
 namespace Tests
 {
-    public class Tests
+    public class TimerTest
     {
-        int waitTime = 10;
-        Timer timer = Timer.Instance();
+        private readonly int _waitTime = 10;
+        private readonly Timer _timer = Timer.Instance();
         
         [TearDown]
         public void Cleanup() {
-            timer.TimesUp();
+            _timer.TimesUp();
         }
         
         [Test]
@@ -23,31 +24,64 @@ namespace Tests
 
         [Test]
         public void ShouldStart() {
-            timer.StartTimer();
-            System.Threading.Thread.Sleep(waitTime);
-            double x = timer.GetTimeMs();
+            _timer.StartTimer();
+            Thread.Sleep(_waitTime);
+            Thread.Sleep(_timer.RandomTimeToStartTimer+100);
+            double x = _timer.GetTimeMs();
             Assert.That(x > 0);
         }
 
         [Test]
-        public void shouldStop() {
-            timer.StartTimer();
-            System.Threading.Thread.Sleep(waitTime);
-            timer.StopTimer();
-            double x = timer.GetTimeMs();
-            System.Threading.Thread.Sleep(waitTime);
-            double y = timer.GetTimeMs();
+        public void ShouldStop() {
+            _timer.StartTimer();
+            Thread.Sleep(_waitTime);
+            _timer.StopTimer();
+            double x = _timer.GetTimeMs();
+            Thread.Sleep(_waitTime);
+            double y = _timer.GetTimeMs();
             Assert.AreEqual(x, y);
         }
 
         [Test]
         public void ShouldReset() {
-            timer.StartTimer();
-            System.Threading.Thread.Sleep(waitTime);
-            timer.TimesUp();
-            int x = timer.GetTimeMs();
+            _timer.StartTimer();
+            Thread.Sleep(_waitTime);
+            _timer.TimesUp();
+            int x = _timer.GetTimeMs();
             Assert.That(x == 0);
         }
 
+        [Test]
+        public void ShouldGetTimeMs()
+        {
+            _timer.StartTimer();
+            Thread.Sleep(_waitTime);
+            Assert.That(_timer.GetTimeMs() == 0);
+            Thread.Sleep(_timer.RandomTimeToStartTimer);
+            Assert.That(_timer.GetTimeMs() > 0 && _timer.GetTimeMs() < 100);
+        }
+
+        [Test]
+        public void ShouldResetAfterCountDownToTimesUp()
+        {
+            _timer.StartTimer();
+            Thread.Sleep(_waitTime);
+            Thread.Sleep(_timer.RandomTimeToStartTimer+_timer.TimesUpTime);
+            Assert.That(_timer.GetTimeMs() == 0);
+        }
+
+        [Test]
+        public void ShouldUpdateFinishedTimer()
+        {
+            _timer.StartTimer();
+            Thread.Sleep(_waitTime);
+            Assert.That(_timer.FinishedTimer == false);
+            _timer.TimesUp();
+            Thread.Sleep(_waitTime);
+            Assert.That(_timer.FinishedTimer);
+            _timer.StartTimer();
+            Thread.Sleep(_waitTime);
+            Assert.That(_timer.FinishedTimer == false);
+        }
     }
 }
