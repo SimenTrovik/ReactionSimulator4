@@ -5,31 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoftwareDesignExam"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        Background="Black">
+        Title="MainWindow" Height="800" Width="1600"
+        Background="White">
     <Grid>
-        <TextBlock Foreground="White" x:Name="WelcomeText" HorizontalAlignment="Center" Margin="0,40,0,0" Text="Welcome to [something]!" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48"/>
-        <Button Content="Start Game"
-                Foreground="Black"
-                FontSize="14"
-                FontWeight="Medium" Margin="316,351,316,32" Click="Button_Click"
-                >
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Cursor" Value="Hand"/>
-                </Style>
-            </Button.Style>
-
-        </Button>
-        <Button Foreground="Black" Name="Button" Click="RegisterPlayerClick" Content="Add Player" HorizontalAlignment="Left" Margin="496,0,0,0" VerticalAlignment="Center" Height="38" Width="92">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Cursor" Value="Hand"></Setter>
-                </Style>
-            </Button.Style>
-        </Button>
-        <TextBox x:Name="InputNameTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="133" Height="21"/>
-        <TextBox Foreground="Black" x:Name="RegisteredPlayer" HorizontalAlignment="Left" Margin="334,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Frame x:Name="MainFrame"/>
 
     </Grid>
 </Window>

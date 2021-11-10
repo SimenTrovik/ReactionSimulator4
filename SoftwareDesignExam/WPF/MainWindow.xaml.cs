@@ -27,7 +27,7 @@ namespace SoftwareDesignExam
             InitializeComponent();
         }
 
-        private void RegisterPlayerClick(object sender, RoutedEventArgs e)
+        /*private void RegisterPlayerClick(object sender, RoutedEventArgs e)
         {
             RegisterKeyWindow registerKeyWindow = new(InputNameTextBox.Text);
             registerKeyWindow.Show();
@@ -38,6 +38,6 @@ namespace SoftwareDesignExam
             GameWindow gameWindow = new();
             gameWindow.Show();
             Hide();
-        }
+        }*/
     }
 }
