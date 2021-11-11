@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Media.Animation;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using SoftwareDesignExam;
 using SoftwareDesignExam.ScoreDB;
-using System.Windows.Input;
 using Key = System.Windows.Input.Key;
 
 namespace Tests
@@ -36,14 +33,14 @@ namespace Tests
 		public void ShouldSaveScoreAndPlayer()
 		{
 			_manager.AddPlayer("Halla", PlayerType.Normal, Key.D);
-			var player6 = _manager.GetPlayerByKey(Key.D);
+			var player1 = _manager.GetPlayerByKey(Key.D);
 
 			_manager.AddPlayer("Hei", PlayerType.Easy, Key.A);
-			var player5 = _manager.GetPlayerByKey(Key.A);
+			var player2 = _manager.GetPlayerByKey(Key.A);
 
 			
-			ScoreDao.SaveScoreAndPlayer(player5);
-			ScoreDao.SaveScoreAndPlayer(player6);
+			ScoreDao.SavePlayer(player1);
+			ScoreDao.SavePlayer(player2);
 
 			using ScoreContext db = new();
 
@@ -76,9 +73,9 @@ namespace Tests
 
 			_manager.RegisterTime(Key.B, 1000);
 
-			ScoreDao.SaveScoreAndPlayer(player1);
-			ScoreDao.SaveScoreAndPlayer(player2);
-			ScoreDao.SaveScoreAndPlayer(player3);
+			ScoreDao.SavePlayer(player1);
+			ScoreDao.SavePlayer(player2);
+			ScoreDao.SavePlayer(player3);
 
 			Assert.AreEqual("Asmongold", ScoreDao.GetHighScores()[0].PlayerName);
 			Assert.AreEqual("Tyler1", ScoreDao.GetHighScores()[2].PlayerName);

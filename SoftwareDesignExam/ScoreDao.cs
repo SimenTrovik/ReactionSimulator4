@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
-using Microsoft.EntityFrameworkCore;
 using SoftwareDesignExam.ScoreDB;
 
 
@@ -12,35 +10,15 @@ namespace SoftwareDesignExam {
 		/*
 		 * MÅ GJØRES:
 		 * 
-		 * Nytt Score/highScore object som skal lagres i en liste som blir sendt ut 
-		 * via getHighScore metoden
-		 * 
 		 * Sjekke canvas via tomas og finne metode for å kjøre "update-database" automatisk
+		 * Fjerne unødvendige migrations
+		 * Legge til / teste om auto update-database funker
 		 * 
 		 */
 
 
-		//Returns All players on DB ordered by highest score to lowest
-		public static List<HighScore> GetHighScores()
-		{
-			using ScoreContext db = new();
-
-			var playerHighScores = db.HighScores.OrderByDescending( p => p.Score)
-				.Select(p => new HighScore
-				{
-					Id = p.Id,
-					PlayerName = p.PlayerName,
-					Score = p.Score,
-					Time = p.Time,
-					Difficulty = p.Difficulty
-				}).ToList();
-
-			return playerHighScores;
-		}
-
-
 		// Saves ONE Player with anyscore into DB
-		public static void SaveScoreAndPlayer(IPlayer player)
+		public static void SavePlayer(IPlayer player)
 		{
 
 			using ScoreContext db = new();
@@ -58,6 +36,7 @@ namespace SoftwareDesignExam {
 
 		}
 
+
 		// Saves List of IPlayers into DB
 		public static void SaveListOfPlayers(List<IPlayer> playerList)
 		{
@@ -67,71 +46,31 @@ namespace SoftwareDesignExam {
 			{
 				if(player.Score != 0)
 				{
-					SaveScoreAndPlayer(player);
+					SavePlayer(player);
 				}
 			}
 
-
 		}
 
 
-		//NOT NEEDED
-		//Updates score of player already inside DB
-		public static void SaveScore(IPlayer player)
+
+		//Returns All players on DB ordered by highest score to lowest
+		public static List<HighScore> GetHighScores()
 		{
 			using ScoreContext db = new();
 
-			var name = db.HighScores.First(c => c.PlayerName == player.Name);
+			var playerHighScores = db.HighScores.OrderByDescending(p => p.Score)
+				.Select(p => new HighScore
+				{
+					Id = p.Id,
+					PlayerName = p.PlayerName,
+					Score = p.Score,
+					Time = p.Time,
+					Difficulty = p.Difficulty
+				}).ToList();
 
-			name.Score = player.Score;
-
-			db.SaveChanges();
+			return playerHighScores;
 		}
-
-
-		//NOT NEEDED
-		//Returns score saved in DB to x player
-		public static int? GetScore(IPlayer player)
-		{
-
-			using ScoreContext db = new();
-
-			int? sum = db.HighScores.First(c => c.PlayerName == player.Name).Score;
-
-			int sumNeverNull = sum ?? 0;
-
-			return sumNeverNull;
-		}
-
-
-		//NOT NEEDED
-		// Returns players difficulty
-		public static PlayerType GetPlayerDifficulty(IPlayer player)
-		{
-			using ScoreContext db = new();
-
-			var playerType = db.HighScores.First(c => c.PlayerName == player.Name).Difficulty;
-
-			return playerType;
-
-		}
-
-
-		//NOT NEEDED
-		//Updates score of player already inside DB
-		public static void SavePlayerTime(IPlayer player, int Time)
-		{
-			using ScoreContext db = new();
-
-			var name = db.HighScores.First(c => c.PlayerName == player.Name);
-
-			name.Time = Time;
-
-			db.SaveChanges();
-		}
-
-
 
 	}
-
 }
