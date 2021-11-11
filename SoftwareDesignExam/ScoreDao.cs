@@ -59,7 +59,8 @@ namespace SoftwareDesignExam {
 		{
 			using ScoreContext db = new();
 
-			var playerHighScores = db.HighScores.OrderByDescending(p => p.Score)
+			var playerHighScores = db.HighScores
+				.OrderByDescending(p => p.Score)
 				.Select(p => new HighScore
 				{
 					Id = p.Id,
