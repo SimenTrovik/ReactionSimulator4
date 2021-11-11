@@ -21,36 +21,36 @@ namespace SoftwareDesignExam {
 
 
 		//Returns All players on DB ordered by highest score to lowest
-		public static List<string> GetHighScores()
+		public static List<HighScore> GetHighScores()
 		{
 			using ScoreContext db = new();
 
-			List<string> playerNames = db.HighScores
-				.OrderByDescending(c => c.Score)
-				.Select(c => c.PlayerName)
-				.ToList();
+			var playerHighScores = db.HighScores.OrderByDescending( p => p.Score)
+				.Select(p => new HighScore
+				{
+					Id = p.Id,
+					PlayerName = p.PlayerName,
+					Score = p.Score,
+					Time = p.Time,
+					Difficulty = p.Difficulty
+				}).ToList();
 
-			return playerNames;
+			return playerHighScores;
 		}
 
 
-		// Saves Player with anyscore into DB
+		// Saves ONE Player with anyscore into DB
 		public static void SaveScoreAndPlayer(IPlayer player)
 		{
 
 			using ScoreContext db = new();
 
-			//TODO
-			// need a getter to grab players difficulty instead of this way
-			//Veldig dårlig det her assa, men vil ikke endre på filer som andre jobber på uten å snakke med dem først
-			
-
 			HighScore highScore = new()
 			{
 				PlayerName = player.Name,
 				Score = player.Score,
-				Difficulty = player.GetPlayerType()
-				
+				Difficulty = player.GetPlayerType(),
+				Time = player.TimeInMs
 			};
 
 			db.HighScores.Add(highScore);

@@ -80,8 +80,8 @@ namespace Tests
 			ScoreDao.SaveScoreAndPlayer(player2);
 			ScoreDao.SaveScoreAndPlayer(player3);
 
-			Assert.AreEqual("Asmongold", ScoreDao.GetHighScores()[0]);
-			Assert.AreEqual("Tyler1", ScoreDao.GetHighScores()[2]);
+			Assert.AreEqual("Asmongold", ScoreDao.GetHighScores()[0].PlayerName);
+			Assert.AreEqual("Tyler1", ScoreDao.GetHighScores()[2].PlayerName);
 		}
 
 
