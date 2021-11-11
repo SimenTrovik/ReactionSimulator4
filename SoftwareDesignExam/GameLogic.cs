@@ -13,13 +13,11 @@ namespace SoftwareDesignExam
         private ScoreDao _playerDao = new();
         private MainWindow _mainWindow;
         private Timer _timer;
-        private RegisteredPlayerEvent _event;
 
         public GameLogic() {
-            _event = new(AddPlayer);
 
             _mainWindow = new MainWindow();
-            
+
             _timer = Timer.Instance();
 
             _mainWindow.Show();
@@ -30,11 +28,11 @@ namespace SoftwareDesignExam
         private void RegisterPlayers() {
             RegisterPlayerPage registerPlayerPage = new();
             _mainWindow.MainFrame.Navigate(registerPlayerPage);
-            //registerPlayerPage.registeredPlayerEvents += _event;
+            registerPlayerPage.registeredPlayerEvents += AddPlayer;
         }
 
-        private void AddPlayer(string name, PlayerType playerType, Key key) {
-            _playerManager.AddPlayer(name, playerType, key);
+        private void AddPlayer(Object sender, PlayerEventArgs e) {
+            _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
         }
 
         private void StartGame() {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,12 +19,12 @@ namespace SoftwareDesignExam.WPF {
     /// Interaction logic for RegisterPlayerPage.xaml
     /// </summary>
 
-    public delegate void RegisteredPlayerEvent(string name, PlayerType playerType, Key key);
+    public delegate void RegisteredPlayerEvent(Object sender, PlayerEventArgs e);
 
     public partial class RegisterPlayerPage : Page {
         private bool isListeningForKeys = false;
         private Key currentKey;
-        public RegisteredPlayerEvent[] registeredPlayerEvents;
+        public event RegisteredPlayerEvent registeredPlayerEvents;
 
         public RegisterPlayerPage() {
             InitializeComponent();
@@ -56,9 +57,12 @@ namespace SoftwareDesignExam.WPF {
             }
 
             Key key = currentKey;
-            foreach (var registeredPlayerEvent in registeredPlayerEvents) {
-                registeredPlayerEvent.Invoke(name, playerType, key);
-            }
+            var data = new PlayerEventArgs();
+            data.Name = name;
+            data.PlayerType = playerType;
+            data.Key = key;
+
+            registeredPlayerEvents.Invoke(this, data);
 
             ResetFields();
         }
