@@ -11,35 +11,26 @@ namespace SoftwareDesignExam {
 
 		/*
 		 * MÅ GJØRES:
-		 * GetScore / GetHighScores?
-		 *
-		 *	+Metodene får inn IPlayer
-		 *	+GetHighScores skal sende de 10 beste
-		 *
-		 */
-
-		/*
-		 *	DONE:
-		 *	+Time column i DB som har tiden
-		 *	+Difficulty column i DB
-		 *	+Lagre string verdi av difficulty NB! Bare lagret det som enum siden 
-		 *	PlayerFactory lager enumene der :thumbsup:
-		 *	Lagre spillere uten score? SVAR: Nei, de lages etter de har spilt en runde (kan endres ofc)
-		 *
+		 * 
+		 * Nytt Score/highScore object som skal lagres i en liste som blir sendt ut 
+		 * via getHighScore metoden
+		 * 
+		 * Sjekke canvas via tomas og finne metode for å kjøre "update-database" automatisk
+		 * 
 		 */
 
 
-		
-		//Updates score of player already inside DB
-		public static void SaveScore(IPlayer player)
+		//Returns All players on DB ordered by highest score to lowest
+		public static List<string> GetHighScores()
 		{
 			using ScoreContext db = new();
 
-			var name = db.HighScores.First(c => c.PlayerName == player.Name);
+			List<string> playerNames = db.HighScores
+				.OrderByDescending(c => c.Score)
+				.Select(c => c.PlayerName)
+				.ToList();
 
-			name.Score = player.Score;
-
-			db.SaveChanges();
+			return playerNames;
 		}
 
 
@@ -67,7 +58,38 @@ namespace SoftwareDesignExam {
 
 		}
 
+		// Saves List of IPlayers into DB
+		public static void SaveListOfPlayers(List<IPlayer> playerList)
+		{
+			//sjekk hvis score er 0 så skal den ikke lagres
+			
+			foreach (IPlayer player in playerList)
+			{
+				if(player.Score != 0)
+				{
+					SaveScoreAndPlayer(player);
+				}
+			}
 
+
+		}
+
+
+		//NOT NEEDED
+		//Updates score of player already inside DB
+		public static void SaveScore(IPlayer player)
+		{
+			using ScoreContext db = new();
+
+			var name = db.HighScores.First(c => c.PlayerName == player.Name);
+
+			name.Score = player.Score;
+
+			db.SaveChanges();
+		}
+
+
+		//NOT NEEDED
 		//Returns score saved in DB to x player
 		public static int? GetScore(IPlayer player)
 		{
@@ -82,20 +104,7 @@ namespace SoftwareDesignExam {
 		}
 
 
-		//Returns All players on DB ordered by highest score to lowest
-		public static List<string> GetHighScores()
-		{
-			using ScoreContext db = new();
-
-			List<string> playerNames = db.HighScores
-				.OrderByDescending(c => c.Score)
-				.Select(c => c.PlayerName)
-				.ToList();
-
-			return playerNames;
-		}
-
-
+		//NOT NEEDED
 		// Returns players difficulty
 		public static PlayerType GetPlayerDifficulty(IPlayer player)
 		{
@@ -108,6 +117,7 @@ namespace SoftwareDesignExam {
 		}
 
 
+		//NOT NEEDED
 		//Updates score of player already inside DB
 		public static void SavePlayerTime(IPlayer player, int Time)
 		{
@@ -120,20 +130,6 @@ namespace SoftwareDesignExam {
 			db.SaveChanges();
 		}
 
-
-		// Returns player time
-		public static int? GetPlayerTime(IPlayer player)
-		{
-
-			using ScoreContext db = new();
-
-			int? playerTime = db.HighScores.First(c => c.PlayerName == player.Name).Time;
-
-			int playerTimeNeverNull = playerTime ?? 0;
-
-			return playerTimeNeverNull;
-
-		}
 
 
 	}
