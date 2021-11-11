@@ -22,7 +22,8 @@ namespace SoftwareDesignExam
 
             _mainWindow.Show();
 
-            RegisterPlayers();
+            //RegisterPlayers();
+            StartGame();
         }
 
         private void RegisterPlayers() {
@@ -36,7 +37,8 @@ namespace SoftwareDesignExam
         }
 
         private void StartGame() {
-            //
+            GamePage gamePage = new();
+            _mainWindow.MainFrame.Navigate(gamePage);
         }
 
         private void PrintHighscore() {
