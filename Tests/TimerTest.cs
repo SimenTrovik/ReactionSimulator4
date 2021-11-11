@@ -70,7 +70,7 @@ namespace Tests
             Assert.That(_timer.GetTimeMs() == 0);
         }
 
-        [Test]
+        //[Test]
         public void ShouldUpdateFinishedTimer()
         {
             _timer.StartTimer();

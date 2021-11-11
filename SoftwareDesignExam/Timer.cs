@@ -23,7 +23,6 @@ namespace SoftwareDesignExam
 
         private void StartTimerThread()
         {
-            FinishedTimer = false;
             Random random = new Random();
             RandomTimeToStartTimer = random.Next(LeastRandomVal, MaxRandomVal);
             Thread.Sleep(RandomTimeToStartTimer);
@@ -33,6 +32,7 @@ namespace SoftwareDesignExam
         }
 
         private void CountDownToTimesUp() {
+            FinishedTimer = false;
             Thread.Sleep(TimesUpTime);
             TimesUp();
         }
