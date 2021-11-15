@@ -19,32 +19,45 @@ namespace SoftwareDesignExam.WPF {
     /// <summary>
     /// Interaction logic for GamePage.xaml
     /// </summary>
+    /// 
+
+    public delegate void RegisteredPlayerClickEvent(Object sender, KeyEventArgs e);
+
     public partial class GamePage : Page {
+        public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
+       
+
+        public void RegisterPlayerClick_KeyDown(object sender, KeyEventArgs e) {
+            registeredPlayerClickEvent.Invoke(this, e);
+        }
+
+        private void GamePage_Loaded(object sender, RoutedEventArgs e) {
+            var window = Window.GetWindow(this);
+            window.KeyDown += RegisterPlayerClick_KeyDown;
+        }
+
         private Timer timer = Timer.Instance();
         public GamePage() {
             InitializeComponent();
 
-            Task.Run(() => {
-                timer.StartTimer();
+            //Task.Run(() => {
+            //    timer.StartTimer();
 
-                while(timer.GetTimeMs() == 0) {
-                    Thread.Sleep(10);
-                }
+            //    while(timer.GetTimeMs() == 0) { Thread.Sleep(10); }
 
-                Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
+            //    Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
 
-                while (timer.TimeLeft() > 0) {
-                    Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
-                    Thread.Sleep(10);
-                }
+            //    while (timer.TimeLeft() > 0) {  
+            //        Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
+            //        Thread.Sleep(10);
+            //    }
 
-                Dispatcher.Invoke(() => {
-                    TimerText.Text = "Time's up!";
-                    TrafficLight.Fill = Colors.Red;
-                });
-            });
+            //    Dispatcher.Invoke(() => {
+            //        TimerText.Text = "Time's up!";
+            //        TrafficLight.Fill = Colors.Red;
+            //    });
+            //});
         }
-
     }
 
     public static class Colors {

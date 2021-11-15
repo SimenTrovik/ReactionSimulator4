@@ -13,6 +13,7 @@ namespace SoftwareDesignExam
         private ScoreDao _playerDao = new();
         private MainWindow _mainWindow;
         private Timer _timer;
+        private List<Key> activePlayers = new();
 
         public GameLogic() {
 
@@ -38,7 +39,14 @@ namespace SoftwareDesignExam
 
         private void StartGame() {
             GamePage gamePage = new();
+            activePlayers = _playerManager.GetPlayerKeys();
             _mainWindow.MainFrame.Navigate(gamePage);
+            gamePage.registeredPlayerClickEvent += RegisterInput;
+        
+        }
+
+        private void RegisterInput(object sender, KeyEventArgs e) {
+
         }
 
         private void PrintHighscore() {
