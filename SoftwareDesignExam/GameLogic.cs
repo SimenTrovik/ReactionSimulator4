@@ -18,7 +18,7 @@ namespace SoftwareDesignExam
 
             _mainWindow = new MainWindow();
 
-            _timer = Timer.Instance();
+            //_timer = Timer.Instance();
 
             _mainWindow.Show();
 

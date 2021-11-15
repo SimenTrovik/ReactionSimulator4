@@ -7,7 +7,7 @@ namespace SoftwareDesignExam
     public sealed class Timer {
         private static readonly Timer instance = new();
         private readonly Stopwatch _stopWatch = new();
-        public int TimesUpTime => 5000;
+        public int TimesUpTime => 3000;
         public int LeastRandomVal => 2000;
         public int MaxRandomVal => 5000;
         public bool FinishedTimer { get; set; }
@@ -35,6 +35,12 @@ namespace SoftwareDesignExam
             FinishedTimer = false;
             Thread.Sleep(TimesUpTime);
             TimesUp();
+        }
+
+        public int TimeLeft() {
+            if (FinishedTimer) {
+                return 0;
+            } else return TimesUpTime - GetTimeMs();
         }
 
         public void StopTimer() {

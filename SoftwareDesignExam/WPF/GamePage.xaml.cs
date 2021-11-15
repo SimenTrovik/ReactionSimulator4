@@ -13,28 +13,42 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SoftwareDesignExam.WPF {
     /// <summary>
     /// Interaction logic for GamePage.xaml
     /// </summary>
     public partial class GamePage : Page {
+        private Timer timer = Timer.Instance();
         public GamePage() {
             InitializeComponent();
 
-            StartGame();
+            Task.Run(() => {
+                timer.StartTimer();
+
+                while(timer.GetTimeMs() == 0) {
+                    Thread.Sleep(10);
+                }
+
+                Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
+
+                while (timer.TimeLeft() > 0) {
+                    Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
+                    Thread.Sleep(10);
+                }
+
+                Dispatcher.Invoke(() => {
+                    TimerText.Text = "Time's up!";
+                    TrafficLight.Fill = Colors.Red;
+                });
+            });
         }
 
-        private void StartGame() {
-            Timer timer = Timer.Instance();
-            timer.StartTimer();
-            while (timer.GetTimeMs() == 0) {
-                //
-            }
-            
-            while (timer.GetTimeMs() > 0 && !timer.FinishedTimer) {
-                TimerText.Text = timer.GetTimeMs().ToString();
-            }
-        }
+    }
+
+    public static class Colors {
+        public static SolidColorBrush Green { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("Green");
+        public static SolidColorBrush Red { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkRed");
     }
 }
