@@ -40,7 +40,6 @@ namespace SoftwareDesignExam
         }
 
         private void StartNewGame(object sender, EventArgs e) {
-            _playerManager.ResetPlayers();
             RegisterPlayers();
         }
 
@@ -63,6 +62,7 @@ namespace SoftwareDesignExam
         }
 
         private void ClearListedPlayers() {
+            _playerManager.ResetPlayers();
             _registerPlayerPage.PlayerListBlock.Text = "";
         }
 

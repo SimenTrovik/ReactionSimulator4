@@ -31,6 +31,36 @@ namespace SoftwareDesignExam.WPF
         public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
         public event PlayAgainClickEvent playAgainClickEvent;
         public event ShowMenyClickEvent showMenyClickEvent;
+        
+        private Timer timer = Timer.Instance();
+
+        public GamePage()
+        {
+            InitializeComponent();
+        }
+
+        public void Start()
+        {
+            Task.Run(() =>
+            {
+                timer.StartTimer();
+                while (timer.GetTimeMs() == 0) { Thread.Sleep(10); }
+
+                Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
+                while (timer.TimeLeft() > 0)
+                {
+                    Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
+                    Thread.Sleep(10);
+                }
+
+                Dispatcher.Invoke(() => { TimesUpStyling(); });
+            });
+        }
+
+        public void Stop()
+        {
+            timer.TimesUp();
+        }
 
         public void RegisterPlayerClick_KeyDown(object sender, KeyEventArgs e)
         {
@@ -39,9 +69,7 @@ namespace SoftwareDesignExam.WPF
 
         private void PlayAgain(object sender, EventArgs e) {
             playAgainClickEvent.Invoke(this, e);
-            ScoreText.Text = "Scores:";
-            TimerText.Text = "Get ready...";
-            TrafficLight.Fill = Colors.Yellow;
+            ReadyStyling();
         }
 
         private void ShowMeny(object sender, EventArgs e) {
@@ -54,54 +82,15 @@ namespace SoftwareDesignExam.WPF
             window.KeyDown += RegisterPlayerClick_KeyDown;
         }
 
-        private Timer timer = Timer.Instance();
-        public GamePage()
-        {
-            InitializeComponent();
-
-            /* 
-
-
-
-             */
+        private void ReadyStyling() {
+            ScoreText.Text = "Scores:";
+            TimerText.Text = "Get ready...";
+            TrafficLight.Fill = Colors.Yellow;
         }
 
-        public void Start()
-        {
-            Task.Run(() =>
-            {
-                Timer timer = Timer.Instance();
-                timer.StartTimer();
-                while (timer.GetTimeMs() == 0) { Thread.Sleep(10); }
-
-
-                Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
-                while (timer.TimeLeft() > 0)
-                {
-                    Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
-                    Thread.Sleep(10);
-                }
-
-                Dispatcher.Invoke(() =>
-                {
-                    TimerText.Text = "Time's up!";
-                    TrafficLight.Fill = Colors.Red;
-                });
-            });
+        private void TimesUpStyling() {
+            TimerText.Text = "Time's up!";
+            TrafficLight.Fill = Colors.Red;
         }
-
-        public void Stop()
-        {
-            Timer timer = Timer.Instance();
-            timer.TimesUp();
-
-        }
-    }
-
-    public static class Colors
-    {
-        public static SolidColorBrush Green { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("Green");
-        public static SolidColorBrush Red { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkRed");
-        public static SolidColorBrush Yellow { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("Yellow");
     }
 }
