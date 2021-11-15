@@ -19,16 +19,22 @@ namespace SoftwareDesignExam.WPF {
     /// Interaction logic for RegisterPlayerPage.xaml
     /// </summary>
 
-    public delegate void RegisteredPlayerEvent(Object sender, PlayerEventArgs e);
+    public delegate void RegisteredPlayerEvent(object sender, PlayerEventArgs e);
+    public delegate void StartGameEvent(object sender, EventArgs e);
 
     public partial class RegisterPlayerPage : Page {
         private bool isListeningForKeys = false;
         private Key currentKey;
         public event RegisteredPlayerEvent registeredPlayerEvents;
+        public event StartGameEvent startGameEvent;
 
         public RegisterPlayerPage() {
             InitializeComponent();
             KeyPressGrid.Opacity = 0;
+        }
+
+        private void StartGame(object sender, EventArgs e) {
+            startGameEvent.Invoke(this, e);
         }
 
         private void AddPlayerButton_Click(object sender, RoutedEventArgs e) {
@@ -71,6 +77,7 @@ namespace SoftwareDesignExam.WPF {
             NormalRadio.IsChecked = true;
             InputNameTextBox.Text = "";
             currentKey = new();
+            KeyPressGrid.Opacity = 0;
         }
     }
 }

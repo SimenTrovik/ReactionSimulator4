@@ -13,7 +13,5 @@
         <Ellipse x:Name="TrafficLight" Fill="DarkRed" HorizontalAlignment="Center" Height="232" Stroke="Black" VerticalAlignment="Center" Width="232"/>
         <TextBlock Foreground="Black" HorizontalAlignment="Center" Margin="0,36,0,0" Text="Press your key when the light turns green!" TextWrapping="Wrap" VerticalAlignment="Top" Height="39" Width="384" FontSize="20"/>
         <TextBlock x:Name="TimerText" HorizontalAlignment="Center" Margin="0,0,0,0" Text="Get ready..." TextWrapping="Wrap" VerticalAlignment="Center" FontSize="30"/>
-        <TextBox x:Name="TestTextBox" HorizontalAlignment="Left" Margin="364,358,0,0" Text="Ikke noe" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
-        <TextBlock x:Name="TestTextBlock" HorizontalAlignment="Left" Margin="364,426,0,0" Text="Enda mindre" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
     </Grid>
 </Page>

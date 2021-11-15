@@ -13,40 +13,39 @@ namespace SoftwareDesignExam
         private ScoreDao _playerDao = new();
         private MainWindow _mainWindow;
         private Timer _timer;
-        private List<Key> activePlayers = new();
+        private List<Key> activePlayerKeys = new();
 
         public GameLogic() {
 
             _mainWindow = new MainWindow();
 
-            //_timer = Timer.Instance();
-
             _mainWindow.Show();
 
-            //RegisterPlayers();
-            StartGame();
+            RegisterPlayers();
         }
 
         private void RegisterPlayers() {
             RegisterPlayerPage registerPlayerPage = new();
             _mainWindow.MainFrame.Navigate(registerPlayerPage);
             registerPlayerPage.registeredPlayerEvents += AddPlayer;
+            registerPlayerPage.startGameEvent += StartGame;
         }
 
         private void AddPlayer(Object sender, PlayerEventArgs e) {
             _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
         }
 
-        private void StartGame() {
+        private void StartGame(object sender, EventArgs e) {
             GamePage gamePage = new();
-            activePlayers = _playerManager.GetPlayerKeys();
+            activePlayerKeys = _playerManager.GetPlayerKeys();
             _mainWindow.MainFrame.Navigate(gamePage);
             gamePage.registeredPlayerClickEvent += RegisterInput;
-        
         }
 
         private void RegisterInput(object sender, KeyEventArgs e) {
+            //if (activePlayerKeys.Contains(e.Key)) {
 
+            //}
         }
 
         private void PrintHighscore() {

@@ -25,7 +25,7 @@ namespace SoftwareDesignExam.WPF {
 
     public partial class GamePage : Page {
         public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
-       
+        
 
         public void RegisterPlayerClick_KeyDown(object sender, KeyEventArgs e) {
             registeredPlayerClickEvent.Invoke(this, e);
@@ -40,23 +40,23 @@ namespace SoftwareDesignExam.WPF {
         public GamePage() {
             InitializeComponent();
 
-            //Task.Run(() => {
-            //    timer.StartTimer();
+            Task.Run(() => {
+                timer.StartTimer();
 
-            //    while(timer.GetTimeMs() == 0) { Thread.Sleep(10); }
+                while (timer.GetTimeMs() == 0) { Thread.Sleep(10); }
 
-            //    Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
+                Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
 
-            //    while (timer.TimeLeft() > 0) {  
-            //        Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
-            //        Thread.Sleep(10);
-            //    }
+                while (timer.TimeLeft() > 0) {
+                    Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
+                    Thread.Sleep(10);
+                }
 
-            //    Dispatcher.Invoke(() => {
-            //        TimerText.Text = "Time's up!";
-            //        TrafficLight.Fill = Colors.Red;
-            //    });
-            //});
+                Dispatcher.Invoke(() => {
+                    TimerText.Text = "Time's up!";
+                    TrafficLight.Fill = Colors.Red;
+                });
+            });
         }
     }
 

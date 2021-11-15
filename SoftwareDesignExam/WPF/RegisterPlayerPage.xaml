@@ -12,6 +12,8 @@
     <Grid>
         <TextBlock Foreground="Black" x:Name="WelcomeText" HorizontalAlignment="Center" Margin="0,40,0,0" Text="Welcome to [something]!" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48" FontWeight="Bold"/>
         <Button Content="Start Game"
+                x:Name="StartGameButton"
+                Click="StartGame"
                 Foreground="Black"
                 FontSize="26"
                 FontWeight="Medium" Margin="0,400,0,0" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center">
