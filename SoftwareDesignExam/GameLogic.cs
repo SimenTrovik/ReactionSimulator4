@@ -16,6 +16,7 @@ namespace SoftwareDesignExam
         private Timer _timer = Timer.Instance();
         private List<Key> _activePlayerKeys = new();
         private RegisterPlayerPage _registerPlayerPage = new();
+        private MenyPage _menyPage = new();
         private GamePage _gamePage = new();
 
         public GameLogic()
@@ -25,13 +26,27 @@ namespace SoftwareDesignExam
 
             _mainWindow.Show();
 
+            MenyPage();
+
+        }
+
+        private void MenyPage() {
+            _mainWindow.MainFrame.Navigate(_menyPage);
+            _menyPage.startNewGameEvent += StartNewGame;
+        }
+
+        private void ShowRegisterPlayerPage() {
+            _mainWindow.MainFrame.Navigate(_registerPlayerPage);
+        }
+
+        private void StartNewGame(object sender, EventArgs e) {
             RegisterPlayers();
         }
 
         private void RegisterPlayers()
         {
             //RegisterPlayerPage _registerPlayerPage = new();
-            _mainWindow.MainFrame.Navigate(_registerPlayerPage);
+            ShowRegisterPlayerPage();
             _registerPlayerPage.registeredPlayerEvents += AddPlayer;
             _registerPlayerPage.registeredPlayerEvents += DisplayPlayers;
             _registerPlayerPage.startGameEvent += StartGame;
@@ -49,9 +64,14 @@ namespace SoftwareDesignExam
 
         private void StartGame(object sender, EventArgs e)
         {
-
             _mainWindow.MainFrame.Navigate(_gamePage);
             _gamePage.registeredPlayerClickEvent += RegisterInput;
+            _gamePage.playAgainClickEvent += PlayAgain;
+            ActiveGame();
+        }
+
+        private void PlayAgain(object sender, EventArgs e) {
+
             ActiveGame();
         }
 
@@ -68,19 +88,17 @@ namespace SoftwareDesignExam
 
         }
 
-        private void ActiveGame()
-        {
+        private void ActiveGame() {
             _activePlayerKeys = _playerManager.GetPlayerKeys();
             _gamePage.Start();
-            Task.Run(() =>
-            {
-                while (_activePlayerKeys.Count != 0)
-                {
+            Task.Run(() => {
+                while (_activePlayerKeys.Count != 0) {
 
                 }
                 _gamePage.Stop();
             });
         }
+
 
         private void PrintHighscore()
         {

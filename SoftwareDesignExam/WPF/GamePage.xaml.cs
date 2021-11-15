@@ -23,15 +23,22 @@ namespace SoftwareDesignExam.WPF
     /// 
 
     public delegate void RegisteredPlayerClickEvent(Object sender, KeyEventArgs e);
+    public delegate void PlayAgainClickEvent(Object sender, EventArgs e);
 
     public partial class GamePage : Page
     {
         public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
-
+        public event PlayAgainClickEvent playAgainClickEvent;
 
         public void RegisterPlayerClick_KeyDown(object sender, KeyEventArgs e)
         {
             registeredPlayerClickEvent.Invoke(this, e);
+        }
+
+        private void PlayAgain(object sender, EventArgs e) {
+            playAgainClickEvent.Invoke(this, e);
+            TimerText.Text = "Get ready...";
+            TrafficLight.Fill = Colors.Yellow;
         }
 
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
@@ -60,8 +67,8 @@ namespace SoftwareDesignExam.WPF
                 timer.StartTimer();
                 while (timer.GetTimeMs() == 0) { Thread.Sleep(10); }
 
-                Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
 
+                Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
                 while (timer.TimeLeft() > 0)
                 {
                     Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
@@ -88,5 +95,6 @@ namespace SoftwareDesignExam.WPF
     {
         public static SolidColorBrush Green { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("Green");
         public static SolidColorBrush Red { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkRed");
+        public static SolidColorBrush Yellow { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("Yellow");
     }
 }
