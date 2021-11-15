@@ -11,7 +11,7 @@
 
     <Grid>
         <Ellipse x:Name="TrafficLight" Fill="DarkRed" HorizontalAlignment="Center" Height="232" Stroke="Black" VerticalAlignment="Center" Width="232"/>
-        <TextBlock Foreground="Black" HorizontalAlignment="Center" Margin="0,36,0,0" Text="Press your key when the light turns green!" TextWrapping="Wrap" VerticalAlignment="Top" Height="39" Width="384" FontSize="20"/>
+        <TextBlock x:Name="TitleText" Foreground="Black" HorizontalAlignment="Center" Margin="0,36,0,0" Text="Press your key when the light turns green!" TextWrapping="Wrap" VerticalAlignment="Top" Height="39" Width="384" FontSize="20"/>
         <TextBlock x:Name="TimerText" HorizontalAlignment="Center" Margin="0,0,0,0" Text="Get ready..." TextWrapping="Wrap" VerticalAlignment="Center" FontSize="30"/>
     </Grid>
 </Page>

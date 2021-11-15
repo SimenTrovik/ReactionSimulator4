@@ -10,6 +10,7 @@
       Background="White">
 
     <Grid>
+        <TextBlock x:Name="PlayerListBlock" Margin="42,182,1099,80" FontSize="36"></TextBlock>
         <TextBlock Foreground="Black" x:Name="WelcomeText" HorizontalAlignment="Center" Margin="0,40,0,0" Text="Welcome to [something]!" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48" FontWeight="Bold"/>
         <Button Content="Start Game"
                 x:Name="StartGameButton"
