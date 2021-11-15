@@ -10,9 +10,7 @@ namespace SoftwareDesignExam {
 		/*
 		 * MÅ GJØRES:
 		 * 
-		 * Sjekke canvas via tomas og finne metode for å kjøre "update-database" automatisk
-		 * Fjerne unødvendige migrations
-		 * Legge til / teste om auto update-database funker
+		 * Skrive om DB modell, valg(hvorfor den er slik den er) og NF den er i og hvorfor
 		 * 
 		 */
 
@@ -51,7 +49,6 @@ namespace SoftwareDesignExam {
 			}
 
 		}
-
 
 
 		//Returns All players on DB ordered by highest score to lowest

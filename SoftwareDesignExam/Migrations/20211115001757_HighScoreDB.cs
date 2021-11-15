@@ -2,7 +2,7 @@
 
 namespace SoftwareDesignExam.Migrations
 {
-    public partial class CreatedDB : Migration
+    public partial class HighScoreDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,9 @@ namespace SoftwareDesignExam.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PlayerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Score = table.Column<int>(type: "int", nullable: true)
+                    Score = table.Column<int>(type: "int", nullable: false),
+                    Time = table.Column<int>(type: "int", nullable: false),
+                    Difficulty = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
