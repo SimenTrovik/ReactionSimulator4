@@ -12,7 +12,7 @@ namespace SoftwareDesignExam
     {
         private readonly ConcretePlayerFactory _playerFactory;
         private readonly Dictionary<Key, IPlayer> _playerDictionary;
-        public PlayerManager() 
+        public PlayerManager()
         {
             _playerFactory = new ConcretePlayerFactory();
             _playerDictionary = new Dictionary<Key, IPlayer>();
@@ -29,7 +29,12 @@ namespace SoftwareDesignExam
         {
             _playerDictionary.Clear();
         }
-        
+
+        public List<Key> GetPlayerKeys()
+        {
+            return _playerDictionary.Keys.ToList();
+        }
+
         public IPlayer GetPlayerByKey(Key key)
         {
             return _playerDictionary[key];
