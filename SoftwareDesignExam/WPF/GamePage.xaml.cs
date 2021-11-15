@@ -24,11 +24,13 @@ namespace SoftwareDesignExam.WPF
 
     public delegate void RegisteredPlayerClickEvent(Object sender, KeyEventArgs e);
     public delegate void PlayAgainClickEvent(Object sender, EventArgs e);
+    public delegate void ShowMenyClickEvent(Object sender, EventArgs e);
 
     public partial class GamePage : Page
     {
         public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
         public event PlayAgainClickEvent playAgainClickEvent;
+        public event ShowMenyClickEvent showMenyClickEvent;
 
         public void RegisterPlayerClick_KeyDown(object sender, KeyEventArgs e)
         {
@@ -39,6 +41,10 @@ namespace SoftwareDesignExam.WPF
             playAgainClickEvent.Invoke(this, e);
             TimerText.Text = "Get ready...";
             TrafficLight.Fill = Colors.Yellow;
+        }
+
+        private void ShowMeny(object sender, EventArgs e) {
+            showMenyClickEvent.Invoke(this, e);        
         }
 
         private void GamePage_Loaded(object sender, RoutedEventArgs e)

@@ -40,12 +40,18 @@ namespace SoftwareDesignExam
         }
 
         private void StartNewGame(object sender, EventArgs e) {
+            _playerManager.ResetPlayers();
             RegisterPlayers();
+        }
+
+        private void ShowMenyPage(object sender, EventArgs e) {
+            MenyPage();
         }
 
         private void RegisterPlayers()
         {
             //RegisterPlayerPage _registerPlayerPage = new();
+            ClearListedPlayers();
             ShowRegisterPlayerPage();
             _registerPlayerPage.registeredPlayerEvents += AddPlayer;
             _registerPlayerPage.registeredPlayerEvents += DisplayPlayers;
@@ -55,6 +61,10 @@ namespace SoftwareDesignExam
         private void DisplayPlayers(Object sender, PlayerEventArgs e)
         {
             _registerPlayerPage.PlayerListBlock.Text += $"Name: {e.Name}\nDifficulty: {e.PlayerType}\nKey: {e.Key}\n";
+        }
+
+        private void ClearListedPlayers() {
+            _registerPlayerPage.PlayerListBlock.Text = "";
         }
 
         private void AddPlayer(Object sender, PlayerEventArgs e)
@@ -67,11 +77,11 @@ namespace SoftwareDesignExam
             _mainWindow.MainFrame.Navigate(_gamePage);
             _gamePage.registeredPlayerClickEvent += RegisterInput;
             _gamePage.playAgainClickEvent += PlayAgain;
+            _gamePage.showMenyClickEvent += ShowMenyPage;
             ActiveGame();
         }
 
         private void PlayAgain(object sender, EventArgs e) {
-
             ActiveGame();
         }
 
