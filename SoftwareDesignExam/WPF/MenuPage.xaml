@@ -16,9 +16,22 @@
                 Click="NewGame"
                 Foreground="Black"
                 FontSize="26"
-                FontWeight="Medium" Margin="0,400,0,0" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top">
+                FontWeight="Medium" Margin="555,400,0,0" Width="200" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button.Style>
                 <Style TargetType="Button">
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Style>
+            </Button.Style>
+
+        </Button>
+        <Button Content="Highscores"
+            x:Name="HighscoresButton"
+            Click="ShowHighscores"
+            Foreground="Black"
+            FontSize="26"
+            FontWeight="Medium" Margin="873,400,0,0" Width="200" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
                     <Setter Property="Cursor" Value="Hand"/>
                 </Style>
             </Button.Style>

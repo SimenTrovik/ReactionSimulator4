@@ -50,7 +50,6 @@ namespace SoftwareDesignExam
 
         private void RegisterPlayers()
         {
-            //RegisterPlayerPage _registerPlayerPage = new();
             ClearListedPlayers();
             ShowRegisterPlayerPage();
             _registerPlayerPage.registeredPlayerEvents += AddPlayer;

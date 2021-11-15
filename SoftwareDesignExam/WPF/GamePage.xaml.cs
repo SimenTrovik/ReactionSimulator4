@@ -39,6 +39,7 @@ namespace SoftwareDesignExam.WPF
 
         private void PlayAgain(object sender, EventArgs e) {
             playAgainClickEvent.Invoke(this, e);
+            ScoreText.Text = "Scores:";
             TimerText.Text = "Get ready...";
             TrafficLight.Fill = Colors.Yellow;
         }
