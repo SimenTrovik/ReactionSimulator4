@@ -11,6 +11,7 @@ namespace SoftwareDesignExam
         public int LeastRandomVal => 2000;
         public int MaxRandomVal => 5000;
         public bool FinishedTimer { get; set; }
+        private bool _falseStart;
         public int RandomTimeToStartTimer { get; set; }
 
         private Timer() {}
@@ -25,7 +26,9 @@ namespace SoftwareDesignExam
         {
             Random random = new Random();
             RandomTimeToStartTimer = random.Next(LeastRandomVal, MaxRandomVal);
+            _falseStart = true;
             Thread.Sleep(RandomTimeToStartTimer);
+            _falseStart = false;
             _stopWatch.Start();
             Thread thread2 = new Thread(CountDownToTimesUp);
             thread2.Start();
@@ -38,7 +41,7 @@ namespace SoftwareDesignExam
         }
 
         public int TimeLeft() {
-            if (FinishedTimer) {
+            if (FinishedTimer || _falseStart) {
                 return 0;
             } else return TimesUpTime - GetTimeMs();
         }

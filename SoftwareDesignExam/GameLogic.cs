@@ -8,16 +8,18 @@ using SoftwareDesignExam.WPF;
 
 namespace SoftwareDesignExam
 {
-    class GameLogic {
+    class GameLogic
+    {
         private PlayerManager _playerManager = new();
         private ScoreDao _playerDao = new();
         private MainWindow _mainWindow;
-        private Timer _timer;
-        private List<Key> activePlayerKeys = new();
-        private RegisterPlayerPage registerPlayerPage = new();
-        private GamePage gamePage = new();
+        private Timer _timer = Timer.Instance();
+        private List<Key> _activePlayerKeys = new();
+        private RegisterPlayerPage _registerPlayerPage = new();
+        private GamePage _gamePage = new();
 
-        public GameLogic() {
+        public GameLogic()
+        {
 
             _mainWindow = new MainWindow();
 
@@ -26,43 +28,72 @@ namespace SoftwareDesignExam
             RegisterPlayers();
         }
 
-        private void RegisterPlayers() {
-            //RegisterPlayerPage registerPlayerPage = new();
-            _mainWindow.MainFrame.Navigate(registerPlayerPage);
-            registerPlayerPage.registeredPlayerEvents += AddPlayer;
-            registerPlayerPage.registeredPlayerEvents += DisplayPlayers;
-            registerPlayerPage.startGameEvent += StartGame;
+        private void RegisterPlayers()
+        {
+            //RegisterPlayerPage _registerPlayerPage = new();
+            _mainWindow.MainFrame.Navigate(_registerPlayerPage);
+            _registerPlayerPage.registeredPlayerEvents += AddPlayer;
+            _registerPlayerPage.registeredPlayerEvents += DisplayPlayers;
+            _registerPlayerPage.startGameEvent += StartGame;
         }
 
-        private void DisplayPlayers(Object sender, PlayerEventArgs e) {
-            registerPlayerPage.PlayerListBlock.Text += $"Name: {e.Name}\nDifficulty: {e.PlayerType}\nKey: {e.Key}\n";
+        private void DisplayPlayers(Object sender, PlayerEventArgs e)
+        {
+            _registerPlayerPage.PlayerListBlock.Text += $"Name: {e.Name}\nDifficulty: {e.PlayerType}\nKey: {e.Key}\n";
         }
 
-        private void AddPlayer(Object sender, PlayerEventArgs e) {
+        private void AddPlayer(Object sender, PlayerEventArgs e)
+        {
             _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
         }
 
-        private void StartGame(object sender, EventArgs e) {
-            activePlayerKeys = _playerManager.GetPlayerKeys();
-            _mainWindow.MainFrame.Navigate(gamePage);
-            gamePage.registeredPlayerClickEvent += RegisterInput;
+        private void StartGame(object sender, EventArgs e)
+        {
+
+            _mainWindow.MainFrame.Navigate(_gamePage);
+            _gamePage.registeredPlayerClickEvent += RegisterInput;
+            ActiveGame();
         }
 
-        private void RegisterInput(object sender, KeyEventArgs e) {
-            if (activePlayerKeys.Contains(e.Key)) {
-                gamePage.TitleText.Text = e.Key.ToString() + " won/lost";
+        private void RegisterInput(object sender, KeyEventArgs e)
+        {
+            if (_activePlayerKeys.Contains(e.Key))
+            {
+                int time = _timer.TimeLeft();
+                _playerManager.RegisterTime(e.Key, time);
+                _activePlayerKeys.Remove(e.Key);
+                _gamePage.ScoreText.Text +=
+                    $"\n {_playerManager.GetPlayerByKey(e.Key).Name}: {_playerManager.GetPlayerByKey(e.Key).Score}";
             }
+
         }
 
-        private void PrintHighscore() {
+        private void ActiveGame()
+        {
+            _activePlayerKeys = _playerManager.GetPlayerKeys();
+            _gamePage.Start();
+            Task.Run(() =>
+            {
+                while (_activePlayerKeys.Count != 0)
+                {
+
+                }
+                _gamePage.Stop();
+            });
+        }
+
+        private void PrintHighscore()
+        {
             //
         }
 
-        private void PrintPlayer(int boxId, IPlayer p) {
+        private void PrintPlayer(int boxId, IPlayer p)
+        {
             //
         }
 
-        private void PrintTimer() {
+        private void PrintTimer()
+        {
             //
         }
     }
