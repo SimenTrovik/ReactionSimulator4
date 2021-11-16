@@ -110,7 +110,7 @@ namespace SoftwareDesignExam
                 _playerManager.RegisterTime(e.Key, time);
                 _activePlayerKeys.Remove(e.Key);
 
-                if (!_timer.FinishedTimer && _timer.TimeLeft() == 0)
+                if (_timer.TimeLeft() == 0)
                 {
                     _gamePage.ScoreText.Text +=
                     $"\n {_playerManager.GetPlayerByKey(e.Key).Name}: EARLY START";
