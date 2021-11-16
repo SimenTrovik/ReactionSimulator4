@@ -24,7 +24,7 @@ namespace SoftwareDesignExam.WPF
         private bool _isListeningForKeys;
         private Key _currentKey = Key.A;
 
-        private int _playerNumber = 0;
+        private int _playerNumber;
 
         public RegisterPlayerPage()
         {
@@ -50,14 +50,13 @@ namespace SoftwareDesignExam.WPF
             }
         }
 
-        public void DisplayPlayer(Dictionary<Key, IPlayer> registeredPlayers, PlayerEventArgs e)
+        public void DisplayPlayer(PlayerEventArgs e)
         {
 
             string name = e.Name;
             string difficulty = e.PlayerType.ToString();
             string key = e.Key.ToString();
-                //_dictionaryIndex++;
-                _playerNumber++;
+            _playerNumber++;
 
                 switch (_playerNumber)
                 {

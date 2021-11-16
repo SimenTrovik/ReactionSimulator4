@@ -39,6 +39,7 @@ namespace SoftwareDesignExam
 
         private void GameLoop()
         {
+            _gamePage.DisplayPlayers(_playerManager.GetPlayerDictionary());
             _activePlayerKeys = _playerManager.GetPlayerKeyList();
             _gamePage.Start();
             Task.Run(() =>
@@ -83,7 +84,7 @@ namespace SoftwareDesignExam
 
         private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
         {
-            _registerPlayerPage.DisplayPlayer(_playerManager.GetPlayerDictionary(), e);
+            _registerPlayerPage.DisplayPlayer(e);
         }
 
         private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
