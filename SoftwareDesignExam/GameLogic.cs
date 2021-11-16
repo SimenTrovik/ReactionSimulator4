@@ -14,6 +14,7 @@ namespace SoftwareDesignExam
         private MainWindow _mainWindow;
         private MenuPage _menuPage = new();
         private RegisterPlayerPage _registerPlayerPage = new();
+        private ShowHighScorePage _showHighScorePage = new();
         private GamePage _gamePage = new();
         private Timer _timer = Timer.Instance();
         private ScoreDao _scoreDao = new();
@@ -64,6 +65,11 @@ namespace SoftwareDesignExam
             ResetPlayers();
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
         }
+        
+        private void NavigateToShowHighScorePage()
+        {
+	        _mainWindow.MainFrame.Navigate(_showHighScorePage);
+        }
 
         private void NavigateToGamePage()
         {
@@ -73,6 +79,11 @@ namespace SoftwareDesignExam
         private void NavigateToRegisterPlayersPageEventHandler(object sender, EventArgs e)
         {
             NavigateToRegisterPlayerPage();
+        }
+        
+        private void NavigateToShowHighScorePageEventHandler(object sender, EventArgs e)
+        {
+	        NavigateToShowHighScorePage();
         }
 
         private void NavigateToMenuPageEventHandler(object sender, EventArgs e)
@@ -84,6 +95,7 @@ namespace SoftwareDesignExam
         {
             _registerPlayerPage.DisplayPlayer(_playerManager.GetPlayerDictionary());
         }
+        
 
         private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
         {
@@ -128,6 +140,7 @@ namespace SoftwareDesignExam
             _gamePage.showMenyClickEvent += NavigateToMenuPageEventHandler;
 
             _menuPage.StartNewGameEvent += NavigateToRegisterPlayersPageEventHandler;
+            _menuPage.ShowHighScoreEvent += NavigateToShowHighScorePageEventHandler;
         }
         private void SaveHighScores()
         {
