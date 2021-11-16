@@ -48,6 +48,14 @@ namespace SoftwareDesignExam.WPF {
             }
         }
 
+        public void DisplayPlayer(PlayerEventArgs e)
+        {
+            PlayerListBlock.Text +=
+                $"Name: {e.Name}\n" +
+                $"Difficulty: {e.PlayerType}\n" +
+                $"Key: {e.Key}\n";
+        }
+
         private void SetCurrentKey(Key key) {
             currentKey = key;
             CurrKey.Text = "Your chosen key: " + currentKey;
@@ -71,6 +79,11 @@ namespace SoftwareDesignExam.WPF {
             registeredPlayerEvents.Invoke(this, data);
 
             ResetFields();
+        }
+
+        public void ClearDisplayedPlayers()
+        {
+            PlayerListBlock.Text = "";
         }
 
         private void ResetFields() {

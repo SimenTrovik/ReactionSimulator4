@@ -22,16 +22,98 @@ namespace SoftwareDesignExam.WPF
     /// </summary>
     /// 
 
-    public delegate void RegisteredPlayerClickEvent(Object sender, KeyEventArgs e);
+    public delegate void RegisteredPlayerClickEvent(object sender, KeyEventArgs e);
+    public delegate void PlayAgainClickEvent(object sender, EventArgs e);
+    public delegate void ShowMenyClickEvent(object sender, EventArgs e);
 
     public partial class GamePage : Page
     {
         public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
+        public event PlayAgainClickEvent playAgainClickEvent;
+        public event ShowMenyClickEvent showMenyClickEvent;
 
+        private Timer timer = Timer.Instance();
+
+        public GamePage()
+        {
+            InitializeComponent();
+        }
+
+        public void Start()
+        {
+            Task.Run(() =>
+            {
+                timer.StartTimer();
+
+                ReadyStyling();
+
+                HideOptions();
+
+                WaitForGoSignal();
+
+                GameOnStyling();
+
+                UpdateTimerTextWithCountdown();
+
+                TimesUpStyling();
+
+                ShowOptions();
+            });
+        }
+
+        private void WaitForGoSignal()
+        {
+            while (timer.GetTimeMs() == 0) { Thread.Sleep(10); }
+        }
+
+        private void UpdateTimerTextWithCountdown()
+        {
+            while (timer.TimeLeft() > 0)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    TimerText.Text = timer.TimeLeft().ToString();
+                });
+                Thread.Sleep(10);
+            }
+        }
+
+        public void ShowOptions()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                PlayAgainButton.Opacity = 1;
+                MenyButton.Opacity = 1;
+            });
+        }
+
+        public void HideOptions()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                PlayAgainButton.Opacity = 0;
+                MenyButton.Opacity = 0;
+            });
+        }
+
+        public void Stop()
+        {
+            timer.TimesUp();
+        }
 
         public void RegisterPlayerClick_KeyDown(object sender, KeyEventArgs e)
         {
             registeredPlayerClickEvent.Invoke(this, e);
+        }
+
+        private void PlayAgain(object sender, EventArgs e)
+        {
+            playAgainClickEvent.Invoke(this, e);
+        }
+
+        private void ShowMeny(object sender, EventArgs e)
+        {
+            showMenyClickEvent.Invoke(this, e);
         }
 
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
@@ -40,53 +122,37 @@ namespace SoftwareDesignExam.WPF
             window.KeyDown += RegisterPlayerClick_KeyDown;
         }
 
-        private Timer timer = Timer.Instance();
-        public GamePage()
+        public void DisplayScoreByPlayer(IPlayer player)
         {
-            InitializeComponent();
-
-            /* 
-
-
-
-             */
+            ScoreText.Text +=
+                $"\n {player.Name}: {player.Score}";
         }
 
-        public void Start()
+        private void ReadyStyling()
         {
-            Task.Run(() =>
+            Dispatcher.Invoke(() =>
             {
-                Timer timer = Timer.Instance();
-                timer.StartTimer();
-                while (timer.GetTimeMs() == 0) { Thread.Sleep(10); }
-
-                Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
-
-                while (timer.TimeLeft() > 0)
-                {
-                    Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
-                    Thread.Sleep(10);
-                }
-
-                Dispatcher.Invoke(() =>
-                {
-                    TimerText.Text = "Time's up!";
-                    TrafficLight.Fill = Colors.Red;
-                });
+                ScoreText.Text = "Scores:";
+                TimerText.Text = "Get ready...";
+                TrafficLight.Fill = Colors.Yellow;
             });
         }
 
-        public void Stop()
-        {
-            Timer timer = Timer.Instance();
-            timer.TimesUp();
-
+        private void GameOnStyling()
+        { 
+            Dispatcher.Invoke(() =>
+            {
+                TrafficLight.Fill = Colors.Green;
+            });
         }
-    }
 
-    public static class Colors
-    {
-        public static SolidColorBrush Green { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("Green");
-        public static SolidColorBrush Red { get; } = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkRed");
+        private void TimesUpStyling() 
+        {
+            Dispatcher.Invoke(() =>
+            {
+                TimerText.Text = "Done!";
+                TrafficLight.Fill = Colors.Red;
+            });
+        }
     }
 }

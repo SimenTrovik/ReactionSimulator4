@@ -14,4 +14,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="WPF\MenuPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
 </Project>
