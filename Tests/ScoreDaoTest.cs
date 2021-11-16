@@ -18,11 +18,15 @@ namespace Tests
 		{
 			using ScoreContext db = new();
 
-			//db.Database.Migrate(); lager Databasen når koden blir kjørt akkurat som "update-database" (tror jeg)
+			// Deletes and creates the DB
+			db.Database.EnsureDeleted();
+			db.Database.EnsureCreated();
 
-			db.HighScores.RemoveRange(db.HighScores.ToList());
-
-			db.SaveChanges();
+			/*
+			 * for å tømme db kjør linjen under:
+			 * db.HighScores.RemoveRange(db.HighScores.ToList());
+			 *
+			 */
 
 			_manager = new PlayerManager();
 
