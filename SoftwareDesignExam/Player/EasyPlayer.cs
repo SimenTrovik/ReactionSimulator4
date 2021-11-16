@@ -10,7 +10,7 @@ namespace SoftwareDesignExam
     {
         public string Name { get; set; }
         public int Score { get; private set; }
-        public double ScoreMultiplier { get; set; } = 1.2f;
+        public double ScoreMultiplier { get; set; } = GameParameters.multipliers[PlayerType.Easy];
         private int _timeInMs;
 
         public int TimeInMs
@@ -19,7 +19,7 @@ namespace SoftwareDesignExam
             set
             {
                 _timeInMs = value;
-                Score = (int)(_timeInMs * ScoreMultiplier);
+                Score = GameParameters.CalculateScore(GetPlayerType(), _timeInMs); ;
             }
         }
         public EasyPlayer(string name)
