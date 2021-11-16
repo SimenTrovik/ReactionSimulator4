@@ -27,7 +27,7 @@ namespace SoftwareDesignExam
 
             SetupPagesWithDelegateEvents();
 
-            NavigateToMenyPage();
+            NavigateToMenuPage();
         }
 
         private void ClearListedPlayers()
@@ -49,7 +49,7 @@ namespace SoftwareDesignExam
             });
         }
 
-        private void NavigateToMenyPage() 
+        private void NavigateToMenuPage() 
         {
             _mainWindow.MainFrame.Navigate(_menyPage);
         }
@@ -70,9 +70,9 @@ namespace SoftwareDesignExam
             NavigateToRegisterPlayerPage();
         }
 
-        private void NavigateToMenyPageEventHandler(object sender, EventArgs e) 
+        private void NavigateToMenuPageEventHandler(object sender, EventArgs e) 
         {
-            NavigateToMenyPage();
+            NavigateToMenuPage();
         }
 
         private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
@@ -96,7 +96,6 @@ namespace SoftwareDesignExam
             ActiveGame();
         }
 
-
         private void RegisterInputEventHandler(object sender, KeyEventArgs e)
         {
             if (_activePlayerKeys.Contains(e.Key))
@@ -116,7 +115,7 @@ namespace SoftwareDesignExam
 
             _gamePage.registeredPlayerClickEvent += RegisterInputEventHandler;
             _gamePage.playAgainClickEvent += PlayAgainEventHandler;
-            _gamePage.showMenyClickEvent += NavigateToMenyPageEventHandler;
+            _gamePage.showMenyClickEvent += NavigateToMenuPageEventHandler;
 
             _menyPage.startNewGameEvent += NavigateToRegisterPlayersPageEventHandler;
         }
