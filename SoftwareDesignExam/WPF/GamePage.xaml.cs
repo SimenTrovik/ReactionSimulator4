@@ -44,6 +44,7 @@ namespace SoftwareDesignExam.WPF
             Task.Run(() =>
             {
                 timer.StartTimer();
+                ReadyStyling();
                 HideOptions();
                 WaitForGoSignal();
                 GameOnStyling();
@@ -101,7 +102,6 @@ namespace SoftwareDesignExam.WPF
         private void PlayAgain(object sender, EventArgs e)
         {
             playAgainClickEvent.Invoke(this, e);
-            ReadyStyling();
         }
 
         private void ShowMeny(object sender, EventArgs e)
@@ -117,9 +117,12 @@ namespace SoftwareDesignExam.WPF
 
         private void ReadyStyling()
         {
-            ScoreText.Text = "Scores:";
-            TimerText.Text = "Get ready...";
-            TrafficLight.Fill = Colors.Yellow;
+            Dispatcher.Invoke(() =>
+            {
+                ScoreText.Text = "Scores:";
+                TimerText.Text = "Get ready...";
+                TrafficLight.Fill = Colors.Yellow;
+            });
         }
 
         private void GameOnStyling()
