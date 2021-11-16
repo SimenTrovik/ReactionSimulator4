@@ -32,6 +32,25 @@ namespace SoftwareDesignExam
 
         }
 
+        private void ClearListedPlayers()
+        {
+            _playerManager.ResetPlayers();
+            _registerPlayerPage.PlayerListBlock.Text = "";
+        }
+
+        private void ActiveGame()
+        {
+            _activePlayerKeys = _playerManager.GetPlayerKeys();
+            _gamePage.Start();
+            Task.Run(() => {
+                while (_activePlayerKeys.Count != 0)
+                {
+
+                }
+                _gamePage.Stop();
+            });
+        }
+
         private void NavigateToMenyPage() 
         {
             _mainWindow.MainFrame.Navigate(_menyPage);
@@ -90,26 +109,17 @@ namespace SoftwareDesignExam
                 int time = _timer.TimeLeft();
                 _playerManager.RegisterTime(e.Key, time);
                 _activePlayerKeys.Remove(e.Key);
-                _gamePage.ScoreText.Text +=
+
+                if (!_timer.FinishedTimer && _timer.TimeLeft() == 0)
+                {
+                    _gamePage.ScoreText.Text +=
+                    $"\n {_playerManager.GetPlayerByKey(e.Key).Name}: EARLY START";
+                } else
+                { 
+                    _gamePage.ScoreText.Text +=
                     $"\n {_playerManager.GetPlayerByKey(e.Key).Name}: {_playerManager.GetPlayerByKey(e.Key).Score}";
-            }
-        }
-
-        private void ClearListedPlayers() {
-            _playerManager.ResetPlayers();
-            _registerPlayerPage.PlayerListBlock.Text = "";
-        }
-
-        private void ActiveGame() 
-        {
-            _activePlayerKeys = _playerManager.GetPlayerKeys();
-            _gamePage.Start();
-            Task.Run(() => {
-                while (_activePlayerKeys.Count != 0) {
-
                 }
-                _gamePage.Stop();
-            });
+            }
         }
 
         private void SetupPagesWithDelegateEvents() 

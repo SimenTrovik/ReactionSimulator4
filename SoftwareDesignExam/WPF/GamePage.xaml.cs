@@ -31,7 +31,7 @@ namespace SoftwareDesignExam.WPF
         public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
         public event PlayAgainClickEvent playAgainClickEvent;
         public event ShowMenyClickEvent showMenyClickEvent;
-        
+
         private Timer timer = Timer.Instance();
 
         public GamePage()
@@ -44,16 +44,47 @@ namespace SoftwareDesignExam.WPF
             Task.Run(() =>
             {
                 timer.StartTimer();
-                while (timer.GetTimeMs() == 0) { Thread.Sleep(10); }
+                HideOptions();
+                WaitForGoSignal();
+                GameOnStyling();
+                UpdateTimerTextWithCountdown();
+                TimesUpStyling();
+                ShowOptions();
+            });
+        }
 
-                Dispatcher.Invoke(() => { TrafficLight.Fill = Colors.Green; });
-                while (timer.TimeLeft() > 0)
+        private void WaitForGoSignal()
+        {
+            while (timer.GetTimeMs() == 0) { Thread.Sleep(10); }
+        }
+
+        private void UpdateTimerTextWithCountdown()
+        {
+            while (timer.TimeLeft() > 0)
+            {
+                Dispatcher.Invoke(() =>
                 {
-                    Dispatcher.Invoke(() => { TimerText.Text = timer.TimeLeft().ToString(); });
-                    Thread.Sleep(10);
-                }
+                    TimerText.Text = timer.TimeLeft().ToString();
+                });
+                Thread.Sleep(10);
+            }
+        }
 
-                Dispatcher.Invoke(() => { TimesUpStyling(); });
+        public void ShowOptions()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                PlayAgainButton.Opacity = 1;
+                MenyButton.Opacity = 1;
+            });
+        }
+
+        public void HideOptions()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                PlayAgainButton.Opacity = 0;
+                MenyButton.Opacity = 0;
             });
         }
 
@@ -67,13 +98,15 @@ namespace SoftwareDesignExam.WPF
             registeredPlayerClickEvent.Invoke(this, e);
         }
 
-        private void PlayAgain(object sender, EventArgs e) {
+        private void PlayAgain(object sender, EventArgs e)
+        {
             playAgainClickEvent.Invoke(this, e);
             ReadyStyling();
         }
 
-        private void ShowMeny(object sender, EventArgs e) {
-            showMenyClickEvent.Invoke(this, e);        
+        private void ShowMeny(object sender, EventArgs e)
+        {
+            showMenyClickEvent.Invoke(this, e);
         }
 
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
@@ -82,15 +115,28 @@ namespace SoftwareDesignExam.WPF
             window.KeyDown += RegisterPlayerClick_KeyDown;
         }
 
-        private void ReadyStyling() {
+        private void ReadyStyling()
+        {
             ScoreText.Text = "Scores:";
             TimerText.Text = "Get ready...";
             TrafficLight.Fill = Colors.Yellow;
         }
 
-        private void TimesUpStyling() {
-            TimerText.Text = "Time's up!";
-            TrafficLight.Fill = Colors.Red;
+        private void GameOnStyling()
+        { 
+            Dispatcher.Invoke(() =>
+            {
+                TrafficLight.Fill = Colors.Green;
+            });
+        }
+
+        private void TimesUpStyling() 
+        {
+            Dispatcher.Invoke(() =>
+            {
+                TimerText.Text = "Time's up!";
+                TrafficLight.Fill = Colors.Red;
+            });
         }
     }
 }

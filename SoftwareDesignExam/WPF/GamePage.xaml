@@ -15,6 +15,7 @@
         <TextBlock x:Name="TimerText" HorizontalAlignment="Center" Margin="0,0,0,0" Text="Get ready..." TextWrapping="Wrap" VerticalAlignment="Center" FontSize="30"/>
         <TextBlock x:Name="ScoreText" HorizontalAlignment="Left" Margin="86,144,0,0" Text="Scores:" TextWrapping="Wrap" VerticalAlignment="Top" Height="421" Width="254" FontSize="20"/>
         <Button Content="Play again"
+                Opacity="0"
                 x:Name="PlayAgainButton"
                 Click="PlayAgain"
                 Foreground="Black"
@@ -27,6 +28,7 @@
             </Button.Style>
         </Button>
         <Button Content="Meny"
+                Opacity="0"
             x:Name="MenyButton"
             Click="ShowMeny"
             Foreground="Black"
