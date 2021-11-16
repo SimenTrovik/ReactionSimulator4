@@ -10,14 +10,28 @@
       Background="White">
 
     <Grid>
-        <TextBlock x:Name="PlayerListBlock" Margin="42,182,1099,80" FontSize="36"></TextBlock>
-        <TextBlock Foreground="Black" x:Name="WelcomeText" HorizontalAlignment="Center" Margin="0,40,0,0" Text="Welcome to [something]!" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48" FontWeight="Bold"/>
+
+        <TextBlock 
+            Foreground="Black" 
+            x:Name="WelcomeText" 
+            HorizontalAlignment="Center"
+            Margin="0,40,0,0" 
+            Text="Reaction Simulator 2022" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            FontSize="48" 
+            FontWeight="Bold"/>
         <Button Content="Start Game"
                 x:Name="StartGameButton"
                 Click="StartGame"
                 Foreground="Black"
                 FontSize="26"
-                FontWeight="Medium" Margin="0,400,0,0" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center">
+                FontWeight="Medium" 
+                Margin="0,400,0,0" 
+                Width="200" 
+                Height="50" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Cursor" Value="Hand"/>
@@ -25,7 +39,16 @@
             </Button.Style>
 
         </Button>
-        <Button Foreground="Black" x:Name="AddPlayerButton" Content="Add Player" HorizontalAlignment="Center" Margin="800,0,0,0" VerticalAlignment="Center" Height="40" Width="150" FontSize="20" Click="AddPlayerButton_Click">
+        <Button Foreground="Black" 
+                x:Name="AddPlayerButton" 
+                Content="Add Player" 
+                HorizontalAlignment="Center" 
+                Margin="800,0,0,0" 
+                VerticalAlignment="Center" 
+                Height="40" 
+                Width="150" 
+                FontSize="20" 
+                Click="AddPlayerButton_Click">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Cursor" Value="Hand"></Setter>
@@ -65,5 +88,131 @@
             </StackPanel>
             <Button x:Name="ConfirmPlayerButton" Width="100" Height="25" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Click="ConfirmPlayerButton_Click">Confirm</Button>
         </Grid>
+        <Border 
+            BorderBrush="Black"
+            Opacity="0"
+            x:Name="Player1Box"
+            HorizontalAlignment="Left" 
+            CornerRadius="8"
+            Height="106" 
+            Margin="32,21,0,0" 
+            Background="Coral"
+            VerticalAlignment="Top" 
+            Width="266">
+            <TextBlock 
+                x:Name="Player1BoxText"
+                FontSize="20"
+                Foreground="Black" 
+                Margin="14,10,14,10">
+                    <Run x:Name="Box1Name" Text="Name:"/><Run/><LineBreak/>
+                    <Run x:Name="Box1Difficulty" Text="Difficulty: "/><LineBreak/>
+                    <Run x:Name="Box1Key" Language="en-gb" Text="Key: "/>
+            </TextBlock>
+        </Border>
+        <Border 
+            BorderBrush="Black"
+            Opacity="0"
+            x:Name="Player2Box"
+            HorizontalAlignment="Left" 
+            CornerRadius="8"
+            Height="106" 
+            Margin="32,140,0,0" 
+            Background="Aqua"
+            VerticalAlignment="Top" 
+            Width="266">
+            <TextBlock 
+                x:Name="Player2BoxText"
+                FontSize="20"
+                Foreground="Black" 
+                Margin="14,10,14,10">
+                <Run x:Name="Box2Name" Text="Name:"/><Run/><LineBreak/>
+                <Run x:Name="Box2Difficulty" Text="Difficulty: "/><LineBreak/>
+                <Run x:Name="Box2Key" Language="en-gb" Text="Key: "/>
+            </TextBlock>
+        </Border>
+        <Border 
+            BorderBrush="Black"
+            Opacity="0"
+            x:Name="Player3Box"
+            HorizontalAlignment="Left" 
+            CornerRadius="8"
+            Height="106" 
+            Margin="32,263,0,0" 
+            Background="GreenYellow"
+            VerticalAlignment="Top" 
+            Width="266">
+            <TextBlock 
+                x:Name="Player3BoxText"
+                FontSize="20"
+                Foreground="Black" 
+                Margin="14,10,14,10">
+                <Run x:Name="Box3Name" Text="Name:"/><Run/><LineBreak/>
+                <Run x:Name="Box3Difficulty" Text="Difficulty: "/><LineBreak/>
+                <Run x:Name="Box3Key" Language="en-gb" Text="Key: "/>
+            </TextBlock>
+        </Border>
+        <Border 
+            BorderBrush="Black"
+            Opacity="0"
+            x:Name="Player4Box"
+            HorizontalAlignment="Left" 
+            CornerRadius="8"
+            Height="106" 
+            Margin="32,388,0,0" 
+            Background="Pink"
+            VerticalAlignment="Top" 
+            Width="266">
+            <TextBlock 
+                x:Name="Player4BoxText"
+                FontSize="20"
+                Foreground="Black" 
+                Margin="14,10,14,10">
+                <Run x:Name="Box4Name" Text="Name:"/><Run/><LineBreak/>
+                <Run x:Name="Box4Difficulty" Text="Difficulty: "/><LineBreak/>
+                <Run x:Name="Box4Key" Language="en-gb" Text="Key: "/>
+            </TextBlock>
+        </Border>
+        <Border 
+            BorderBrush="Black"
+            Opacity="0"
+            x:Name="Player5Box"
+            HorizontalAlignment="Left" 
+            CornerRadius="8"
+            Height="106" 
+            Margin="32,515,0,0" 
+            Background="PowderBlue"
+            VerticalAlignment="Top" 
+            Width="266">
+            <TextBlock 
+                x:Name="Player5BoxText"
+                FontSize="20"
+                Foreground="Black" 
+                Margin="14,10,14,10">
+                <Run x:Name="Box5Name" Text="Name:"/><Run/><LineBreak/>
+                <Run x:Name="Box5Difficulty" Text="Difficulty: "/><LineBreak/>
+                <Run x:Name="Box5Key" Language="en-gb" Text="Key: "/>
+            </TextBlock>
+        </Border>
+        <Border 
+            BorderBrush="Black"
+            Opacity="0"
+            x:Name="Player6Box"
+            HorizontalAlignment="Left" 
+            CornerRadius="8"
+            Height="106" 
+            Margin="32,640,0,0" 
+            Background="Orange"
+            VerticalAlignment="Top" 
+            Width="266">
+            <TextBlock 
+                x:Name="Player6BoxText"
+                FontSize="20"
+                Foreground="Black" 
+                Margin="14,10,14,10">
+                <Run x:Name="Box6Name" Text="Name:"/><Run/><LineBreak/>
+                <Run x:Name="Box6Difficulty" Text="Difficulty: "/><LineBreak/>
+                <Run x:Name="Box6Key" Language="en-gb" Text="Key: "/>
+            </TextBlock>
+        </Border>
     </Grid>
 </Page>

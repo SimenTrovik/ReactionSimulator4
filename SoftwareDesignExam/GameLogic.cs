@@ -34,7 +34,7 @@ namespace SoftwareDesignExam
         private void ResetPlayers()
         {
             _playerManager.ResetPlayers();
-            _registerPlayerPage.ClearDisplayedPlayers();
+            //_registerPlayerPage.ClearDisplayedPlayers();
         }
 
         private void GameLoop()
@@ -68,6 +68,7 @@ namespace SoftwareDesignExam
         private void NavigateToGamePage()
         {
             _mainWindow.MainFrame.Navigate(_gamePage);
+            _mainWindow.MainFrame.Navigate(_gamePage);
         }
 
         private void NavigateToRegisterPlayersPageEventHandler(object sender, EventArgs e)
@@ -82,7 +83,7 @@ namespace SoftwareDesignExam
 
         private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
         {
-            _registerPlayerPage.DisplayPlayer(_playerManager.GetPlayerDictionary());
+            _registerPlayerPage.DisplayPlayer(_playerManager.GetPlayerDictionary(), e);
         }
 
         private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
@@ -125,7 +126,7 @@ namespace SoftwareDesignExam
 
             _gamePage.registeredPlayerClickEvent += RegisterPlayerClickEventHandler;
             _gamePage.playAgainClickEvent += PlayAgainEventHandler;
-            _gamePage.showMenyClickEvent += NavigateToMenuPageEventHandler;
+            _gamePage.showMenuClickEvent += NavigateToMenuPageEventHandler;
 
             _menuPage.StartNewGameEvent += NavigateToRegisterPlayersPageEventHandler;
         }
