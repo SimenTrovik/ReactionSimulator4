@@ -22,9 +22,9 @@ namespace SoftwareDesignExam.WPF
     /// </summary>
     /// 
 
-    public delegate void RegisteredPlayerClickEvent(Object sender, KeyEventArgs e);
-    public delegate void PlayAgainClickEvent(Object sender, EventArgs e);
-    public delegate void ShowMenyClickEvent(Object sender, EventArgs e);
+    public delegate void RegisteredPlayerClickEvent(object sender, KeyEventArgs e);
+    public delegate void PlayAgainClickEvent(object sender, EventArgs e);
+    public delegate void ShowMenyClickEvent(object sender, EventArgs e);
 
     public partial class GamePage : Page
     {
