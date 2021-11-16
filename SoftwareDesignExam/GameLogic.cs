@@ -32,73 +32,58 @@ namespace SoftwareDesignExam
 
         }
 
-        private void SetupPagesWithDelegateEvents() {
-            _mainWindow.MainFrame.Navigate(_registerPlayerPage);
-            _registerPlayerPage.registeredPlayerEvents += AddPlayer;
-            _registerPlayerPage.registeredPlayerEvents += DisplayPlayers;
-            _registerPlayerPage.startGameEvent += StartGame;
-
-            _mainWindow.MainFrame.Navigate(_menyPage);
-            _menyPage.startNewGameEvent += StartNewGame;
-
-            _mainWindow.MainFrame.Navigate(_gamePage);
-            _gamePage.registeredPlayerClickEvent += RegisterInput;
-            _gamePage.playAgainClickEvent += PlayAgain;
-            _gamePage.showMenyClickEvent += ShowMenyPage;
-        }
-
-        private void NavigateToMenyPage() {
+        private void NavigateToMenyPage() 
+        {
             _mainWindow.MainFrame.Navigate(_menyPage);
         }
 
-        private void NavigateToRegisterPlayerPage() {
-            _mainWindow.MainFrame.Navigate(_registerPlayerPage);
-        }
-
-        private void StartNewGame(object sender, EventArgs e) {
-            RegisterPlayers();
-        }
-
-        private void ShowMenyPage(object sender, EventArgs e) {
-            NavigateToMenyPage();
-        }
-
-        private void RegisterPlayers()
+        private void NavigateToRegisterPlayerPage() 
         {
             ClearListedPlayers();
+            _mainWindow.MainFrame.Navigate(_registerPlayerPage);
+        }
+
+        private void NavigateToGamePage() 
+        {
+            _mainWindow.MainFrame.Navigate(_gamePage);
+        }
+
+        private void NavigateToRegisterPlayersPageEventHandler(object sender, EventArgs e) 
+        {
             NavigateToRegisterPlayerPage();
         }
 
-        private void DisplayPlayers(Object sender, PlayerEventArgs e)
+        private void NavigateToMenyPageEventHandler(object sender, EventArgs e) 
         {
-            _registerPlayerPage.PlayerListBlock.Text += $"Name: {e.Name}\nDifficulty: {e.PlayerType}\nKey: {e.Key}\n";
+            NavigateToMenyPage();
         }
 
-        private void ClearListedPlayers() {
-            _playerManager.ResetPlayers();
-            _registerPlayerPage.PlayerListBlock.Text = "";
+        private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
+        {
+            _registerPlayerPage.PlayerListBlock.Text += 
+                $"Name: {e.Name}\n" +
+                $"Difficulty: {e.PlayerType}\n" +
+                $"Key: {e.Key}\n";
         }
 
-        private void AddPlayer(Object sender, PlayerEventArgs e)
+        private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
         {
             _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
         }
 
-        private void StartGame(object sender, EventArgs e)
+        private void StartGameEventHandler(object sender, EventArgs e)
         {
             NavigateToGamePage();
             ActiveGame();
         }
 
-        private void PlayAgain(object sender, EventArgs e) {
+        private void PlayAgainEventHandler(object sender, EventArgs e) 
+        {
             ActiveGame();
         }
 
-        private void NavigateToGamePage() {
-            _mainWindow.MainFrame.Navigate(_gamePage);
-        }
 
-        private void RegisterInput(object sender, KeyEventArgs e)
+        private void RegisterInputEventHandler(object sender, KeyEventArgs e)
         {
             if (_activePlayerKeys.Contains(e.Key))
             {
@@ -108,10 +93,15 @@ namespace SoftwareDesignExam
                 _gamePage.ScoreText.Text +=
                     $"\n {_playerManager.GetPlayerByKey(e.Key).Name}: {_playerManager.GetPlayerByKey(e.Key).Score}";
             }
-
         }
 
-        private void ActiveGame() {
+        private void ClearListedPlayers() {
+            _playerManager.ResetPlayers();
+            _registerPlayerPage.PlayerListBlock.Text = "";
+        }
+
+        private void ActiveGame() 
+        {
             _activePlayerKeys = _playerManager.GetPlayerKeys();
             _gamePage.Start();
             Task.Run(() => {
@@ -122,6 +112,18 @@ namespace SoftwareDesignExam
             });
         }
 
+        private void SetupPagesWithDelegateEvents() 
+        {
+            _registerPlayerPage.registeredPlayerEvents += AddPlayerEventHandler;
+            _registerPlayerPage.registeredPlayerEvents += DisplayPlayersEventHandler;
+            _registerPlayerPage.startGameEvent += StartGameEventHandler;
+
+            _gamePage.registeredPlayerClickEvent += RegisterInputEventHandler;
+            _gamePage.playAgainClickEvent += PlayAgainEventHandler;
+            _gamePage.showMenyClickEvent += NavigateToMenyPageEventHandler;
+
+            _menyPage.startNewGameEvent += NavigateToRegisterPlayersPageEventHandler;
+        }
 
         private void PrintHighscore()
         {
