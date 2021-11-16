@@ -75,6 +75,15 @@ namespace Tests
             Assert.That(!_manager.RemovePlayer(Key.L));
             Assert.That(_manager.GetDictionaryLength() == 1);
         }
+        [Test]
+        public void ShouldResetPlayers() {
+            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+
+            _manager.ResetPlayers();
+
+            Assert.That(_manager.GetDictionaryLength() == 0);
+        }
 
     }
 }

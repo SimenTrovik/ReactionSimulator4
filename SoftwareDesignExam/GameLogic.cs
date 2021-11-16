@@ -26,16 +26,32 @@ namespace SoftwareDesignExam
 
             _mainWindow.Show();
 
-            MenyPage();
+            SetupPagesWithDelegateEvents();
+
+            NavigateToMenyPage();
 
         }
 
-        private void MenyPage() {
+        private void SetupPagesWithDelegateEvents() {
+            _mainWindow.MainFrame.Navigate(_registerPlayerPage);
+            _registerPlayerPage.registeredPlayerEvents += AddPlayer;
+            _registerPlayerPage.registeredPlayerEvents += DisplayPlayers;
+            _registerPlayerPage.startGameEvent += StartGame;
+
             _mainWindow.MainFrame.Navigate(_menyPage);
             _menyPage.startNewGameEvent += StartNewGame;
+
+            _mainWindow.MainFrame.Navigate(_gamePage);
+            _gamePage.registeredPlayerClickEvent += RegisterInput;
+            _gamePage.playAgainClickEvent += PlayAgain;
+            _gamePage.showMenyClickEvent += ShowMenyPage;
         }
 
-        private void ShowRegisterPlayerPage() {
+        private void NavigateToMenyPage() {
+            _mainWindow.MainFrame.Navigate(_menyPage);
+        }
+
+        private void NavigateToRegisterPlayerPage() {
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
         }
 
@@ -44,16 +60,13 @@ namespace SoftwareDesignExam
         }
 
         private void ShowMenyPage(object sender, EventArgs e) {
-            MenyPage();
+            NavigateToMenyPage();
         }
 
         private void RegisterPlayers()
         {
             ClearListedPlayers();
-            ShowRegisterPlayerPage();
-            _registerPlayerPage.registeredPlayerEvents += AddPlayer;
-            _registerPlayerPage.registeredPlayerEvents += DisplayPlayers;
-            _registerPlayerPage.startGameEvent += StartGame;
+            NavigateToRegisterPlayerPage();
         }
 
         private void DisplayPlayers(Object sender, PlayerEventArgs e)
@@ -73,15 +86,16 @@ namespace SoftwareDesignExam
 
         private void StartGame(object sender, EventArgs e)
         {
-            _mainWindow.MainFrame.Navigate(_gamePage);
-            _gamePage.registeredPlayerClickEvent += RegisterInput;
-            _gamePage.playAgainClickEvent += PlayAgain;
-            _gamePage.showMenyClickEvent += ShowMenyPage;
+            NavigateToGamePage();
             ActiveGame();
         }
 
         private void PlayAgain(object sender, EventArgs e) {
             ActiveGame();
+        }
+
+        private void NavigateToGamePage() {
+            _mainWindow.MainFrame.Navigate(_gamePage);
         }
 
         private void RegisterInput(object sender, KeyEventArgs e)
