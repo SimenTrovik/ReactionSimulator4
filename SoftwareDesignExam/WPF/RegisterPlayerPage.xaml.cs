@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 
 
@@ -102,7 +101,7 @@ namespace SoftwareDesignExam.WPF
         {
             NormalRadio.IsChecked = true;
             InputNameTextBox.Text = "";
-            _currentKey = Key.A;
+            CurrKey.Text = "Your chosen key: ";
             KeyPressGrid.Opacity = 0;
             _isListeningForKeys = false;
         }
