@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.RightsManagement;
 using System.Windows.Input;
 
 namespace SoftwareDesignExam
@@ -30,7 +27,7 @@ namespace SoftwareDesignExam
             _playerDictionary.Clear();
         }
 
-        public List<Key> GetPlayerKeys()
+        public List<Key> GetPlayerKeyList()
         {
             return _playerDictionary.Keys.ToList();
         }
@@ -39,24 +36,35 @@ namespace SoftwareDesignExam
         {
             return _playerDictionary[key];
         }
-        public List<IPlayer> GetPlayersAsList()
+        public List<IPlayer> GetPlayerList()
         {
             return _playerDictionary.Values.ToList();
         }
 
-        public void RegisterTime(Key key, int time)
+        public Dictionary<Key,IPlayer> GetPlayerDictionary()
+        {
+            return _playerDictionary;
+        }
+
+        public void RegisterPlayerReactionTime(Key key, int time)
         {
             _playerDictionary[key].TimeInMs = time;
         }
 
+        // Remove?
         public bool RemovePlayer(Key key)
         {
             return _playerDictionary.Remove(key);
         }
 
-        public int GetDictionaryLength()
+        public int GetAmountOfPlayers()
         {
             return _playerDictionary.Count;
+        }
+
+        public bool IsKeyTaken(Key key)
+        {
+            return _playerDictionary.ContainsKey(key);
         }
     }
     public enum PlayerType

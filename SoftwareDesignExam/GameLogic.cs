@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SoftwareDesignExam.WPF;
@@ -10,14 +11,14 @@ namespace SoftwareDesignExam
 {
     class GameLogic
     {
-        private PlayerManager _playerManager = new();
-        private ScoreDao _playerDao = new();
         private MainWindow _mainWindow;
-        private Timer _timer = Timer.Instance();
-        private List<Key> _activePlayerKeys = new();
+        private MenuPage _menuPage = new();
         private RegisterPlayerPage _registerPlayerPage = new();
-        private MenyPage _menyPage = new();
         private GamePage _gamePage = new();
+        private Timer _timer = Timer.Instance();
+        private ScoreDao _scoreDao = new();
+        private PlayerManager _playerManager = new();
+        private List<Key> _activePlayerKeys = new();
 
         public GameLogic()
         {
@@ -25,104 +26,117 @@ namespace SoftwareDesignExam
 
             _mainWindow.Show();
 
-            SetupPagesWithDelegateEvents();
+            SetupDelegateEvents();
 
             NavigateToMenuPage();
         }
 
-        private void ClearListedPlayers()
+        private void ResetPlayers()
         {
             _playerManager.ResetPlayers();
             _registerPlayerPage.ClearDisplayedPlayers();
         }
 
-        private void ActiveGame()
+        private void GameLoop()
         {
-            _activePlayerKeys = _playerManager.GetPlayerKeys();
+            _activePlayerKeys = _playerManager.GetPlayerKeyList();
             _gamePage.Start();
-            Task.Run(() => {
+            Task.Run(() =>
+            {
                 while (_activePlayerKeys.Count != 0)
                 {
-
+                    Thread.Sleep(10);
                 }
                 _gamePage.Stop();
+                SaveHighScores();
+
             });
         }
 
-        private void NavigateToMenuPage() 
+
+        private void NavigateToMenuPage()
         {
-            _mainWindow.MainFrame.Navigate(_menyPage);
+            _mainWindow.MainFrame.Navigate(_menuPage);
         }
 
-        private void NavigateToRegisterPlayerPage() 
+        private void NavigateToRegisterPlayerPage()
         {
-            ClearListedPlayers();
+            ResetPlayers();
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
         }
 
-        private void NavigateToGamePage() 
+        private void NavigateToGamePage()
         {
             _mainWindow.MainFrame.Navigate(_gamePage);
         }
 
-        private void NavigateToRegisterPlayersPageEventHandler(object sender, EventArgs e) 
+        private void NavigateToRegisterPlayersPageEventHandler(object sender, EventArgs e)
         {
             NavigateToRegisterPlayerPage();
         }
 
-        private void NavigateToMenuPageEventHandler(object sender, EventArgs e) 
+        private void NavigateToMenuPageEventHandler(object sender, EventArgs e)
         {
             NavigateToMenuPage();
         }
 
         private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
         {
-            _registerPlayerPage.DisplayPlayer(e);
+            _registerPlayerPage.DisplayPlayer(_playerManager.GetPlayerDictionary());
         }
 
         private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
         {
-            _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
+            if (!_playerManager.IsKeyTaken(e.Key))
+            {
+                _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
+            }
+            else
+            {
+                // Display "Key taken"
+            }
+
         }
 
         private void StartGameEventHandler(object sender, EventArgs e)
         {
             NavigateToGamePage();
-            ActiveGame();
+            GameLoop();
         }
 
-        private void PlayAgainEventHandler(object sender, EventArgs e) 
+        private void PlayAgainEventHandler(object sender, EventArgs e)
         {
-            ActiveGame();
+            GameLoop();
         }
 
-        private void RegisterInputEventHandler(object sender, KeyEventArgs e)
+        private void RegisterPlayerClickEventHandler(object sender, KeyEventArgs e)
         {
-            if (_activePlayerKeys.Contains(e.Key))
-            {
-                int time = _timer.TimeLeft();
-                _playerManager.RegisterTime(e.Key, time);
-                _activePlayerKeys.Remove(e.Key);
-                _gamePage.DisplayScoreByPlayer(_playerManager.GetPlayerByKey(e.Key));
-            }
+            if (!_activePlayerKeys.Contains(e.Key)) return;
+            _playerManager.RegisterPlayerReactionTime(e.Key, _timer.TimeLeft());
+            _activePlayerKeys.Remove(e.Key);
+            _gamePage.DisplayScoreByPlayer(_playerManager.GetPlayerByKey(e.Key));
         }
 
-        private void SetupPagesWithDelegateEvents() 
+        private void SetupDelegateEvents()
         {
-            _registerPlayerPage.registeredPlayerEvents += AddPlayerEventHandler;
-            _registerPlayerPage.registeredPlayerEvents += DisplayPlayersEventHandler;
-            _registerPlayerPage.startGameEvent += StartGameEventHandler;
+            _registerPlayerPage.RegisterPlayerEvents += AddPlayerEventHandler;
+            _registerPlayerPage.RegisterPlayerEvents += DisplayPlayersEventHandler;
+            _registerPlayerPage.StartGameEvent += StartGameEventHandler;
 
-            _gamePage.registeredPlayerClickEvent += RegisterInputEventHandler;
+            _gamePage.registeredPlayerClickEvent += RegisterPlayerClickEventHandler;
             _gamePage.playAgainClickEvent += PlayAgainEventHandler;
             _gamePage.showMenyClickEvent += NavigateToMenuPageEventHandler;
 
-            _menyPage.startNewGameEvent += NavigateToRegisterPlayersPageEventHandler;
+            _menuPage.StartNewGameEvent += NavigateToRegisterPlayersPageEventHandler;
+        }
+        private void SaveHighScores()
+        {
+            _scoreDao.SaveListOfPlayers(_playerManager.GetPlayerList());
         }
 
         private void PrintHighscore()
         {
-            //
+
         }
 
         private void PrintPlayer(int boxId, IPlayer p)

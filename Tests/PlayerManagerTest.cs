@@ -41,7 +41,7 @@ namespace Tests
             _manager.AddPlayer("Torstein", PlayerType.Easy, Key.A);
             _manager.AddPlayer("Ruben", PlayerType.Easy, Key.O);
 
-            var list = _manager.GetPlayersAsList();
+            var list = _manager.GetPlayerList();
 
             Assert.That(list.Exists(item => item.Name == "Simen" && item.GetPlayerType() == PlayerType.Normal));
             Assert.That(list.Exists(item => item.Name == "Martin" && item.GetPlayerType() == PlayerType.Easy));
@@ -57,8 +57,8 @@ namespace Tests
             _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
             _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
 
-            _manager.RegisterTime(Key.L, 1000);
-            _manager.RegisterTime(Key.M, 1000);
+            _manager.RegisterPlayerReactionTime(Key.L, 1000);
+            _manager.RegisterPlayerReactionTime(Key.M, 1000);
 
             Assert.That(_manager.GetPlayerByKey(Key.L).Score == 1000);
             Assert.That(_manager.GetPlayerByKey(Key.M).Score == 1200);
@@ -73,7 +73,7 @@ namespace Tests
             _manager.RemovePlayer(Key.L);
 
             Assert.That(!_manager.RemovePlayer(Key.L));
-            Assert.That(_manager.GetDictionaryLength() == 1);
+            Assert.That(_manager.GetAmountOfPlayers() == 1);
         }
         [Test]
         public void ShouldResetPlayers() {
@@ -82,7 +82,7 @@ namespace Tests
 
             _manager.ResetPlayers();
 
-            Assert.That(_manager.GetDictionaryLength() == 0);
+            Assert.That(_manager.GetAmountOfPlayers() == 0);
         }
 
     }

@@ -11,7 +11,7 @@ namespace Tests
 	public class ScoreDaoTest
 	{
 		private PlayerManager _manager;
-
+        private ScoreDao _scoreDao; 
 
 		[SetUp]
 		public void EmptyHighScoreTable()
@@ -29,13 +29,14 @@ namespace Tests
 			 */
 
 			_manager = new PlayerManager();
-
+            _scoreDao = new();
 		}
 
 
 		[Test]
 		public void ShouldSaveScoreAndPlayer()
-		{
+        {
+            ScoreDao _scoreDao = new();
 			_manager.AddPlayer("Halla", PlayerType.Normal, Key.D);
 			var player1 = _manager.GetPlayerByKey(Key.D);
 
@@ -43,8 +44,8 @@ namespace Tests
 			var player2 = _manager.GetPlayerByKey(Key.A);
 
 			
-			ScoreDao.SavePlayer(player1);
-			ScoreDao.SavePlayer(player2);
+			_scoreDao.SavePlayer(player1);
+			_scoreDao.SavePlayer(player2);
 
 			using ScoreContext db = new();
 
@@ -71,18 +72,18 @@ namespace Tests
 			_manager.AddPlayer("Tyler1", PlayerType.Normal, Key.B);
 			var player3 = _manager.GetPlayerByKey(Key.B);
 
-			_manager.RegisterTime(Key.D, 1100);
+			_manager.RegisterPlayerReactionTime(Key.D, 1100);
 
-			_manager.RegisterTime(Key.A, 1200);
+			_manager.RegisterPlayerReactionTime(Key.A, 1200);
 
-			_manager.RegisterTime(Key.B, 1000);
+			_manager.RegisterPlayerReactionTime(Key.B, 1000);
 
-			ScoreDao.SavePlayer(player1);
-			ScoreDao.SavePlayer(player2);
-			ScoreDao.SavePlayer(player3);
+            _scoreDao.SavePlayer(player1);
+            _scoreDao.SavePlayer(player2);
+            _scoreDao.SavePlayer(player3);
 
-			Assert.AreEqual("Asmongold", ScoreDao.GetHighScores()[0].PlayerName);
-			Assert.AreEqual("Tyler1", ScoreDao.GetHighScores()[2].PlayerName);
+			Assert.AreEqual("Asmongold", _scoreDao.GetHighScores()[0].PlayerName);
+			Assert.AreEqual("Tyler1", _scoreDao.GetHighScores()[2].PlayerName);
 		}
 
 
@@ -96,13 +97,13 @@ namespace Tests
 			_manager.AddPlayer("Torstein", PlayerType.Easy, Key.A);
 			_manager.AddPlayer("Ruben", PlayerType.Easy, Key.O);
 
-			_manager.RegisterTime(Key.L, 1000);
+			_manager.RegisterPlayerReactionTime(Key.L, 1000);
 
-			var list = _manager.GetPlayersAsList();
+			var list = _manager.GetPlayerList();
 
-			ScoreDao.SaveListOfPlayers(list);
+            _scoreDao.SaveListOfPlayers(list);
 
-			var list2 = ScoreDao.GetHighScores();
+			var list2 = _scoreDao.GetHighScores();
 
 			Assert.AreEqual(1, list2.Count);
 

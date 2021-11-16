@@ -1,82 +1,94 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SoftwareDesignExam.WPF {
+
+namespace SoftwareDesignExam.WPF
+{
     /// <summary>
     /// Interaction logic for RegisterPlayerPage.xaml
     /// </summary>
 
-    public delegate void RegisteredPlayerEvent(object sender, PlayerEventArgs e);
+    public delegate void RegisterPlayerEvent(object sender, PlayerEventArgs e);
     public delegate void StartGameEvent(object sender, EventArgs e);
 
-    public partial class RegisterPlayerPage : Page {
-        private bool isListeningForKeys = false;
-        private Key currentKey;
-        public event RegisteredPlayerEvent registeredPlayerEvents;
-        public event StartGameEvent startGameEvent;
+    public partial class RegisterPlayerPage : Page
+    {
+        public event RegisterPlayerEvent RegisterPlayerEvents;
+        public event StartGameEvent StartGameEvent;
 
-        public RegisterPlayerPage() {
+        private bool _isListeningForKeys;
+        private Key _currentKey = Key.A;
+
+        public RegisterPlayerPage()
+        {
             InitializeComponent();
-            KeyPressGrid.Opacity = 0;
         }
 
-        private void StartGame(object sender, EventArgs e) {
-            startGameEvent.Invoke(this, e);
+        private void StartGame(object sender, EventArgs e)
+        {
+            StartGameEvent?.Invoke(this, e);
         }
 
-        private void AddPlayerButton_Click(object sender, RoutedEventArgs e) {
+        private void AddPlayerButton_Click(object sender, RoutedEventArgs e)
+        {
             KeyPressGrid.Opacity = 1;
-            isListeningForKeys = true;
+            _isListeningForKeys = true;
         }
 
-        private void RegisterPlayerP_KeyDown(object sender, KeyEventArgs e) {
-            if (isListeningForKeys && e.Key is >= Key.A and <= Key.Z) {
+        private void RegisterPlayerP_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (_isListeningForKeys && e.Key is >= Key.A and <= Key.Z)
+            {
                 SetCurrentKey(e.Key);
             }
         }
 
-        public void DisplayPlayer(PlayerEventArgs e)
+        public void DisplayPlayer(Dictionary<Key, IPlayer> registeredPlayers)
         {
-            PlayerListBlock.Text +=
-                $"Name: {e.Name}\n" +
-                $"Difficulty: {e.PlayerType}\n" +
-                $"Key: {e.Key}\n";
+            PlayerListBlock.Text = "";
+
+            foreach (KeyValuePair<Key, IPlayer> entry in registeredPlayers)
+            {
+                PlayerListBlock.Text +=
+                    $"Name: {entry.Value.Name}\n" +
+                    $"Difficulty: {entry.Value.GetPlayerType().ToString()}\n" +
+                    $"Key: {entry.Key}\n";
+            }
+
         }
 
-        private void SetCurrentKey(Key key) {
-            currentKey = key;
-            CurrKey.Text = "Your chosen key: " + currentKey;
+        private void SetCurrentKey(Key key)
+        {
+            _currentKey = key;
+            CurrKey.Text = "Your chosen key: " + _currentKey;
         }
 
-        private void ConfirmPlayerButton_Click(object sender, RoutedEventArgs e) {
-            string name = InputNameTextBox.Text;
-            PlayerType playerType = PlayerType.Normal;
-            if (NormalRadio.IsChecked != null && NormalRadio.IsChecked.Value) {
+        private void ConfirmPlayerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var name = InputNameTextBox.Text;
+            var playerType = PlayerType.Normal;
+            if (NormalRadio.IsChecked != null && NormalRadio.IsChecked.Value)
+            {
                 playerType = PlayerType.Normal;
-            } else if (EasyRadio.IsChecked != null && EasyRadio.IsChecked.Value) {
+            }
+            else if (EasyRadio.IsChecked != null && EasyRadio.IsChecked.Value)
+            {
                 playerType = PlayerType.Easy;
             }
 
-            Key key = currentKey;
-            var data = new PlayerEventArgs();
-            data.Name = name;
-            data.PlayerType = playerType;
-            data.Key = key;
+            var key = _currentKey;
+            var data = new PlayerEventArgs
+            {
+                Name = name,
+                PlayerType = playerType,
+                Key = key
+            };
 
-            registeredPlayerEvents.Invoke(this, data);
+            RegisterPlayerEvents?.Invoke(this, data);
 
             ResetFields();
         }
@@ -86,11 +98,13 @@ namespace SoftwareDesignExam.WPF {
             PlayerListBlock.Text = "";
         }
 
-        private void ResetFields() {
+        private void ResetFields()
+        {
             NormalRadio.IsChecked = true;
             InputNameTextBox.Text = "";
-            currentKey = new();
+            _currentKey = Key.A;
             KeyPressGrid.Opacity = 0;
+            _isListeningForKeys = false;
         }
     }
 }

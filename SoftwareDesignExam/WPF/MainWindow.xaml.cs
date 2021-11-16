@@ -21,23 +21,9 @@ namespace SoftwareDesignExam
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
         }
-
-        /*private void RegisterPlayerClick(object sender, RoutedEventArgs e)
-        {
-            RegisterKeyWindow registerKeyWindow = new(InputNameTextBox.Text);
-            registerKeyWindow.Show();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            GameWindow gameWindow = new();
-            gameWindow.Show();
-            Hide();
-        }*/
     }
 }
