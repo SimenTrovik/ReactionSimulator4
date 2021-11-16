@@ -21,7 +21,6 @@ namespace SoftwareDesignExam
 
         public GameLogic()
         {
-
             _mainWindow = new MainWindow();
 
             _mainWindow.Show();
@@ -29,13 +28,12 @@ namespace SoftwareDesignExam
             SetupPagesWithDelegateEvents();
 
             NavigateToMenyPage();
-
         }
 
         private void ClearListedPlayers()
         {
             _playerManager.ResetPlayers();
-            _registerPlayerPage.PlayerListBlock.Text = "";
+            _registerPlayerPage.ClearDisplayedPlayers();
         }
 
         private void ActiveGame()
@@ -79,10 +77,7 @@ namespace SoftwareDesignExam
 
         private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
         {
-            _registerPlayerPage.PlayerListBlock.Text += 
-                $"Name: {e.Name}\n" +
-                $"Difficulty: {e.PlayerType}\n" +
-                $"Key: {e.Key}\n";
+            _registerPlayerPage.DisplayPlayer(e);
         }
 
         private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
@@ -109,16 +104,7 @@ namespace SoftwareDesignExam
                 int time = _timer.TimeLeft();
                 _playerManager.RegisterTime(e.Key, time);
                 _activePlayerKeys.Remove(e.Key);
-
-                if (_timer.TimeLeft() == 0)
-                {
-                    _gamePage.ScoreText.Text +=
-                    $"\n {_playerManager.GetPlayerByKey(e.Key).Name}: EARLY START";
-                } else
-                { 
-                    _gamePage.ScoreText.Text +=
-                    $"\n {_playerManager.GetPlayerByKey(e.Key).Name}: {_playerManager.GetPlayerByKey(e.Key).Score}";
-                }
+                _gamePage.DisplayScoreByPlayer(_playerManager.GetPlayerByKey(e.Key));
             }
         }
 

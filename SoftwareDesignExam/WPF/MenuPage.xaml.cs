@@ -32,6 +32,5 @@ namespace SoftwareDesignExam.WPF {
         private void ShowHighscores(object sender, EventArgs e) {
             MessageBox.Show("HIGHSCORES!");
         }
-
     };
 }

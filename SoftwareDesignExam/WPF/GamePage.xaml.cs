@@ -44,12 +44,19 @@ namespace SoftwareDesignExam.WPF
             Task.Run(() =>
             {
                 timer.StartTimer();
+
                 ReadyStyling();
+
                 HideOptions();
+
                 WaitForGoSignal();
+
                 GameOnStyling();
+
                 UpdateTimerTextWithCountdown();
+
                 TimesUpStyling();
+
                 ShowOptions();
             });
         }
@@ -115,6 +122,12 @@ namespace SoftwareDesignExam.WPF
             window.KeyDown += RegisterPlayerClick_KeyDown;
         }
 
+        public void DisplayScoreByPlayer(IPlayer player)
+        {
+            ScoreText.Text +=
+                $"\n {player.Name}: {player.Score}";
+        }
+
         private void ReadyStyling()
         {
             Dispatcher.Invoke(() =>
@@ -137,7 +150,7 @@ namespace SoftwareDesignExam.WPF
         {
             Dispatcher.Invoke(() =>
             {
-                TimerText.Text = "Time's up!";
+                TimerText.Text = "Done!";
                 TrafficLight.Fill = Colors.Red;
             });
         }
