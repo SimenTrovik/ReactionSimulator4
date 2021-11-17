@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoftwareDesignExam"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1600"
+        Title="Reaction Simulator 4: The Game" Height="800" Width="1600"
         Background="White">
     <Grid>
         <Frame x:Name="MainFrame"
