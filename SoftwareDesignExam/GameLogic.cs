@@ -85,7 +85,7 @@ namespace SoftwareDesignExam
             NavigateToRegisterPlayerPage();
         }
         
-        //Button for MenyPage -> HighScorePage
+        //Button for MenuPage -> HighScorePage
         private void NavigateToShowHighScorePageEventHandler(object sender, EventArgs e)
         {
 	        NavigateToShowHighScorePage();
@@ -153,7 +153,7 @@ namespace SoftwareDesignExam
             _menuPage.ShowHighScoreEvent += NavigateToShowHighScorePageEventHandler;
 
             _showHighScorePage.loadHighScoreEvent += DisplayHighScoresEventHandler;
-            _showHighScorePage.showMenyClickEvent += NavigateToMenuPageEventHandler;
+            _showHighScorePage.showMenuClickEvent += NavigateToMenuPageEventHandler;
             //_showHighScorePage.delegatenavn += navn på event
         }
         private void SaveHighScores()

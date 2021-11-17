@@ -39,7 +39,7 @@
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Cursor" Value="Hand"/>
-                    <EventSetter Event="Click" Handler="BackToMeny" />
+                    <EventSetter Event="Click" Handler="BackToMenu" />
                 </Style>
             </Button.Style>
         </Button>

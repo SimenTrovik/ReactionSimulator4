@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SoftwareDesignExam;
 using NUnit.Framework;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using Key = System.Windows.Input.Key;
 
 
@@ -84,5 +85,11 @@ namespace Tests
             Assert.AreEqual(_manager.GetPlayerByKey(Key.M),_manager.GetWinner());
         }
 
+        public void ShouldReturnKeyIsTaken()
+        {
+            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
+            Assert.True(_manager.IsKeyTaken(Key.L));
+
+        }
     }
 }
