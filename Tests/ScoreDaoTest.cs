@@ -72,25 +72,26 @@ namespace Tests
 		{
 
 			_manager.AddPlayer("Forsen", PlayerType.Normal, Key.D);
-			var player1 = _manager.GetPlayerByKey(Key.D);
-
+            
 			_manager.AddPlayer("Asmongold", PlayerType.Normal, Key.A);
-			var player2 = _manager.GetPlayerByKey(Key.A);
 
-			_manager.AddPlayer("Tyler1", PlayerType.Normal, Key.B);
-			var player3 = _manager.GetPlayerByKey(Key.B);
+            _manager.AddPlayer("Tyler1", PlayerType.Normal, Key.B);
 
-			_manager.RegisterPlayerReactionTime(Key.D, 1100);
+            _manager.RegisterPlayerReactionTime(Key.D, 600);
 
-			_manager.RegisterPlayerReactionTime(Key.A, 1000);
+			_manager.RegisterPlayerReactionTime(Key.A, 500);
 
-			_manager.RegisterPlayerReactionTime(Key.B, 1200);
+			_manager.RegisterPlayerReactionTime(Key.B, 700);
 
-            _scoreDao.SavePlayer(player1);
+            var player1 = _manager.GetPlayerByKey(Key.D);
+            var player2 = _manager.GetPlayerByKey(Key.A);
+            var player3 = _manager.GetPlayerByKey(Key.B);
+
+			_scoreDao.SavePlayer(player1);
             _scoreDao.SavePlayer(player2);
             _scoreDao.SavePlayer(player3);
 
-			Assert.AreEqual("Asmongold", _scoreDao.GetHighScores()[0].PlayerName);
+            Assert.AreEqual("Asmongold", _scoreDao.GetHighScores()[0].PlayerName);
 			Assert.AreEqual("Tyler1", _scoreDao.GetHighScores()[2].PlayerName);
 		}
 
