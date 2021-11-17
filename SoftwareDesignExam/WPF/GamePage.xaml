@@ -76,8 +76,8 @@
 
         <Border 
             BorderBrush="Black"
-            Opacity="1"
-            x:Name="Player1Box"
+            Opacity="0"
+            x:Name="Player1Border"
             HorizontalAlignment="Left" 
             CornerRadius="8"
             Height="130" 
@@ -86,20 +86,16 @@
             VerticalAlignment="Top" 
             Width="207">
             <TextBlock 
-                x:Name="Player1BoxText"
+                x:Name="Player1Text"
                 FontSize="20"
                 Foreground="Black" 
                 Margin="14,10,14,10">
-                    <Run x:Name="Box1Name" Text=""/><Run/><LineBreak/>
-                    <Run x:Name="Box1Difficulty" Text=""/><LineBreak/>
-                    <Run x:Name="Box1Key" Language="en-gb" Text=""/><LineBreak/>
-                    <Run x:Name="Box1Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
-            x:Name="Player2Box"
+            Opacity="0"
+            x:Name="Player2Border"
             HorizontalAlignment="Left" 
             CornerRadius="8"
             Height="134" 
@@ -108,20 +104,16 @@
             VerticalAlignment="Top" 
             Width="207">
             <TextBlock 
-                x:Name="Player2BoxText"
+                x:Name="Player2Text"
                 FontSize="20"
                 Foreground="Black" 
                 Margin="14,10,14,10">
-                <Run x:Name="Box2Name" Text=""/><Run/><LineBreak/>
-                <Run x:Name="Box2Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box2Key" Language="en-gb" Text=""/><LineBreak/>
-                <Run x:Name="Box2Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
-            x:Name="Player3Box"
+            Opacity="0"
+            x:Name="Player3Border"
             HorizontalAlignment="Left" 
             CornerRadius="8"
             Height="124" 
@@ -130,20 +122,16 @@
             VerticalAlignment="Top" 
             Width="207">
             <TextBlock 
-                x:Name="Player3BoxText"
+                x:Name="Player3Text"
                 FontSize="20"
                 Foreground="Black" 
                 Margin="14,10,14,10">
-                <Run x:Name="Box3Name" Text=""/><Run/><LineBreak/>
-                <Run x:Name="Box3Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box3Key" Language="en-gb" Text=""/><LineBreak/>
-                <Run x:Name="Box3Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
-            x:Name="Player4Box"
+            Opacity="0"
+            x:Name="Player4Border"
             HorizontalAlignment="Left" 
             CornerRadius="8"
             Height="130" 
@@ -152,20 +140,16 @@
             VerticalAlignment="Top" 
             Width="206">
             <TextBlock 
-                x:Name="Player4BoxText"
+                x:Name="Player4Text"
                 FontSize="20"
                 Foreground="Black" 
                 Margin="14,10,14,10">
-                <Run x:Name="Box4Name" Text=""/><Run/><LineBreak/>
-                <Run x:Name="Box4Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box4Key" Language="en-gb" Text=""/><LineBreak/>
-                <Run x:Name="Box4Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
-            x:Name="Player5Box"
+            Opacity="0"
+            x:Name="Player5Border"
             HorizontalAlignment="Left" 
             CornerRadius="8"
             Height="134" 
@@ -174,20 +158,16 @@
             VerticalAlignment="Top" 
             Width="207">
             <TextBlock 
-                x:Name="Player5BoxText"
+                x:Name="Player5Text"
                 FontSize="20"
                 Foreground="Black" 
                 Margin="14,10,14,10">
-                <Run x:Name="Box5Name" Text=""/><Run/><LineBreak/>
-                <Run x:Name="Box5Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box5Key" Language="en-gb" Text=""/><LineBreak/>
-                <Run x:Name="Box5Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
-            x:Name="Player6Box"
+            Opacity="0"
+            x:Name="Player6Border"
             HorizontalAlignment="Left" 
             CornerRadius="8"
             Height="124" 
@@ -196,14 +176,10 @@
             VerticalAlignment="Top" 
             Width="206">
             <TextBlock 
-                x:Name="Player6BoxText"
+                x:Name="Player6Text"
                 FontSize="20"
                 Foreground="Black" 
                 Margin="14,10,14,10">
-                <Run x:Name="Box6Name" Text=""/><Run/><LineBreak/>
-                <Run x:Name="Box6Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box6Key" Language="en-gb" Text=""/><LineBreak/>
-                <Run x:Name="Box6Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
     </Grid>
