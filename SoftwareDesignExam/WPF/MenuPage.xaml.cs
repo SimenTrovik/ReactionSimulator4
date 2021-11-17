@@ -2,6 +2,7 @@
 
 using System.Windows;
 using System.Windows.Controls;
+using SoftwareDesignExam.ScoreDB;
 
 
 namespace SoftwareDesignExam.WPF {
@@ -16,6 +17,8 @@ namespace SoftwareDesignExam.WPF {
 
         public MenuPage() {
             InitializeComponent();
+            using ScoreContext db = new();
+            db.Database.EnsureCreated();
         }
 
         private void NewGame(object sender, EventArgs e)
