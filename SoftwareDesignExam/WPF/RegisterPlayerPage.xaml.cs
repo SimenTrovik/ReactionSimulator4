@@ -22,6 +22,7 @@ namespace SoftwareDesignExam.WPF
 
         private bool _isListeningForKeys;
         private Key _currentKey = Key.A;
+        private List<Key> _keyList = new();
 
         public RegisterPlayerPage()
         {
@@ -65,32 +66,42 @@ namespace SoftwareDesignExam.WPF
         {
             _currentKey = key;
             CurrKey.Text = "Your chosen key: " + _currentKey;
+            if (_keyList.Contains(_currentKey)) {
+                CurrKey.Foreground = Colors.Red;
+            } else CurrKey.Foreground = Colors.Green;
         }
 
         private void ConfirmPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            var name = InputNameTextBox.Text;
-            var playerType = PlayerType.Normal;
-            if (NormalRadio.IsChecked != null && NormalRadio.IsChecked.Value)
+            if (!_keyList.Contains(_currentKey))
             {
-                playerType = PlayerType.Normal;
+                var name = InputNameTextBox.Text;
+                var playerType = PlayerType.Normal;
+                if (NormalRadio.IsChecked != null && NormalRadio.IsChecked.Value)
+                {
+                    playerType = PlayerType.Normal;
+                }
+                else if (EasyRadio.IsChecked != null && EasyRadio.IsChecked.Value)
+                {
+                    playerType = PlayerType.Easy;
+                }
+
+                var key = _currentKey;
+                var data = new PlayerEventArgs
+                {
+                    Name = name,
+                    PlayerType = playerType,
+                    Key = key
+                };
+
+                RegisterPlayerEvents?.Invoke(this, data);
+                _keyList.Add(_currentKey);
+
+                ResetFields();
+            } else
+            {
+                MessageBox.Show("That key is taken!");
             }
-            else if (EasyRadio.IsChecked != null && EasyRadio.IsChecked.Value)
-            {
-                playerType = PlayerType.Easy;
-            }
-
-            var key = _currentKey;
-            var data = new PlayerEventArgs
-            {
-                Name = name,
-                PlayerType = playerType,
-                Key = key
-            };
-
-            RegisterPlayerEvents?.Invoke(this, data);
-
-            ResetFields();
         }
 
         public void ClearDisplayedPlayers()
