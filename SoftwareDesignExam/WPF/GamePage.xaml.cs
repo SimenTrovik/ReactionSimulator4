@@ -96,6 +96,14 @@ namespace SoftwareDesignExam.WPF
             });
         }
 
+        public void DisplayWinner(IPlayer winner)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                HeaderText.Text = $"{winner.Name} won!\n Score: {winner.Score}";
+            });
+        }
+
         public void Stop()
         {
             timer.TimesUp();
@@ -132,7 +140,7 @@ namespace SoftwareDesignExam.WPF
         {
             Dispatcher.Invoke(() =>
             {
-                ScoreText.Text = "Scores:";
+                HeaderText.Text = "Press your key when the light turns green!";
                 TimerText.Text = "Get ready...";
                 TrafficLight.Fill = Colors.Yellow;
             });
@@ -164,6 +172,7 @@ namespace SoftwareDesignExam.WPF
             string score;
 
             foreach (KeyValuePair<Key, IPlayer> kvp in registeredPlayers)
+                
             {
                 name = "Name: " + kvp.Value.Name;
                 difficulty = "Difficulty: " + kvp.Value.GetPlayerType();
