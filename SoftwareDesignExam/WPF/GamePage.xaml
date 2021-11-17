@@ -47,7 +47,7 @@
             x:Name="Player1Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
-            Height="106" 
+            Height="130" 
             Margin="86,270,0,0" 
             Background="Coral"
             VerticalAlignment="Top" 
@@ -59,7 +59,8 @@
                 Margin="14,10,14,10">
                     <Run x:Name="Box1Name" Text=""/><Run/><LineBreak/>
                     <Run x:Name="Box1Difficulty" Text=""/><LineBreak/>
-                    <Run x:Name="Box1Key" Language="en-gb" Text=""/>
+                    <Run x:Name="Box1Key" Language="en-gb" Text=""/><LineBreak/>
+                    <Run x:Name="Box1Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
@@ -68,7 +69,7 @@
             x:Name="Player2Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
-            Height="106" 
+            Height="134" 
             Margin="86,431,0,0" 
             Background="Aqua"
             VerticalAlignment="Top" 
@@ -80,7 +81,8 @@
                 Margin="14,10,14,10">
                 <Run x:Name="Box2Name" Text=""/><Run/><LineBreak/>
                 <Run x:Name="Box2Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box2Key" Language="en-gb" Text=""/>
+                <Run x:Name="Box2Key" Language="en-gb" Text=""/><LineBreak/>
+                <Run x:Name="Box2Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
@@ -89,7 +91,7 @@
             x:Name="Player3Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
-            Height="106" 
+            Height="124" 
             Margin="86,596,0,0" 
             Background="GreenYellow"
             VerticalAlignment="Top" 
@@ -101,7 +103,8 @@
                 Margin="14,10,14,10">
                 <Run x:Name="Box3Name" Text=""/><Run/><LineBreak/>
                 <Run x:Name="Box3Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box3Key" Language="en-gb" Text=""/>
+                <Run x:Name="Box3Key" Language="en-gb" Text=""/><LineBreak/>
+                <Run x:Name="Box3Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
@@ -110,7 +113,7 @@
             x:Name="Player4Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
-            Height="106" 
+            Height="130" 
             Margin="1281,270,0,0" 
             Background="Pink"
             VerticalAlignment="Top" 
@@ -122,7 +125,8 @@
                 Margin="14,10,14,10">
                 <Run x:Name="Box4Name" Text=""/><Run/><LineBreak/>
                 <Run x:Name="Box4Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box4Key" Language="en-gb" Text=""/>
+                <Run x:Name="Box4Key" Language="en-gb" Text=""/><LineBreak/>
+                <Run x:Name="Box4Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
@@ -131,7 +135,7 @@
             x:Name="Player5Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
-            Height="106" 
+            Height="134" 
             Margin="1281,431,0,0" 
             Background="PowderBlue"
             VerticalAlignment="Top" 
@@ -143,7 +147,8 @@
                 Margin="14,10,14,10">
                 <Run x:Name="Box5Name" Text=""/><Run/><LineBreak/>
                 <Run x:Name="Box5Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box5Key" Language="en-gb" Text=""/>
+                <Run x:Name="Box5Key" Language="en-gb" Text=""/><LineBreak/>
+                <Run x:Name="Box5Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
         <Border 
@@ -152,7 +157,7 @@
             x:Name="Player6Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
-            Height="106" 
+            Height="124" 
             Margin="1281,596,0,0" 
             Background="Orange"
             VerticalAlignment="Top" 
@@ -164,7 +169,8 @@
                 Margin="14,10,14,10">
                 <Run x:Name="Box6Name" Text=""/><Run/><LineBreak/>
                 <Run x:Name="Box6Difficulty" Text=""/><LineBreak/>
-                <Run x:Name="Box6Key" Language="en-gb" Text=""/>
+                <Run x:Name="Box6Key" Language="en-gb" Text=""/><LineBreak/>
+                <Run x:Name="Box6Score" Language="en-gb" Text=""/><LineBreak/>
             </TextBlock>
         </Border>
     </Grid>
