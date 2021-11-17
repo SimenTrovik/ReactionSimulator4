@@ -74,9 +74,9 @@ namespace Tests
 
 			_manager.RegisterPlayerReactionTime(Key.D, 1100);
 
-			_manager.RegisterPlayerReactionTime(Key.A, 1200);
+			_manager.RegisterPlayerReactionTime(Key.A, 1000);
 
-			_manager.RegisterPlayerReactionTime(Key.B, 1000);
+			_manager.RegisterPlayerReactionTime(Key.B, 1200);
 
             _scoreDao.SavePlayer(player1);
             _scoreDao.SavePlayer(player2);
@@ -97,7 +97,7 @@ namespace Tests
 			_manager.AddPlayer("Torstein", PlayerType.Easy, Key.A);
 			_manager.AddPlayer("Ruben", PlayerType.Easy, Key.O);
 
-			_manager.RegisterPlayerReactionTime(Key.L, 1000);
+			_manager.RegisterPlayerReactionTime(Key.L, 900);
 
 			var list = _manager.GetPlayerList();
 

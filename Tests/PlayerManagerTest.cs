@@ -57,11 +57,11 @@ namespace Tests
             _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
             _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
 
-            _manager.RegisterPlayerReactionTime(Key.L, 1000);
-            _manager.RegisterPlayerReactionTime(Key.M, 1000);
+            _manager.RegisterPlayerReactionTime(Key.L, 250);
+            _manager.RegisterPlayerReactionTime(Key.M, 250);
 
-            Assert.That(_manager.GetPlayerByKey(Key.L).Score == 1000);
-            Assert.That(_manager.GetPlayerByKey(Key.M).Score == 1200);
+            Assert.That(_manager.GetPlayerByKey(Key.L).Score == 75);
+            Assert.That(_manager.GetPlayerByKey(Key.M).Score == 69);
         }
 
         [Test]

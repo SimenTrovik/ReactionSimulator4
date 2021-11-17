@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using SoftwareDesignExam.WPF;
 
@@ -14,6 +15,7 @@ namespace SoftwareDesignExam
         private MainWindow _mainWindow;
         private MenuPage _menuPage = new();
         private RegisterPlayerPage _registerPlayerPage = new();
+        private ShowHighScorePage _showHighScorePage = new();
         private GamePage _gamePage = new();
         private Timer _timer = Timer.Instance();
         private ScoreDao _scoreDao = new();
@@ -34,11 +36,12 @@ namespace SoftwareDesignExam
         private void ResetPlayers()
         {
             _playerManager.ResetPlayers();
-            _registerPlayerPage.ClearDisplayedPlayers();
+            //_registerPlayerPage.ClearDisplayedPlayers();
         }
 
         private void GameLoop()
         {
+            _gamePage.DisplayPlayers(_playerManager.GetPlayerDictionary());
             _activePlayerKeys = _playerManager.GetPlayerKeyList();
             _gamePage.Start();
             Task.Run(() =>
@@ -64,15 +67,27 @@ namespace SoftwareDesignExam
             ResetPlayers();
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
         }
+        
+        private void NavigateToShowHighScorePage()
+        {
+	        _mainWindow.MainFrame.Navigate(_showHighScorePage);
+        }
 
         private void NavigateToGamePage()
         {
+            _mainWindow.MainFrame.Navigate(_gamePage);
             _mainWindow.MainFrame.Navigate(_gamePage);
         }
 
         private void NavigateToRegisterPlayersPageEventHandler(object sender, EventArgs e)
         {
             NavigateToRegisterPlayerPage();
+        }
+        
+        //Button for MenyPage -> HighScorePage
+        private void NavigateToShowHighScorePageEventHandler(object sender, EventArgs e)
+        {
+	        NavigateToShowHighScorePage();
         }
 
         private void NavigateToMenuPageEventHandler(object sender, EventArgs e)
@@ -82,7 +97,13 @@ namespace SoftwareDesignExam
 
         private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
         {
-            _registerPlayerPage.DisplayPlayer(_playerManager.GetPlayerDictionary());
+            _registerPlayerPage.DisplayPlayer(e);
+        }
+
+        //gets and sends Highscores to page
+        private void DisplayHighScoresEventHandler(Object sender, EventArgs e)
+        {
+            _showHighScorePage.DisplayHighScore(_scoreDao.GetHighScores());
         }
 
         private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
@@ -112,7 +133,7 @@ namespace SoftwareDesignExam
         private void RegisterPlayerClickEventHandler(object sender, KeyEventArgs e)
         {
             if (!_activePlayerKeys.Contains(e.Key)) return;
-            _playerManager.RegisterPlayerReactionTime(e.Key, _timer.TimeLeft());
+            _playerManager.RegisterPlayerReactionTime(e.Key, _timer.GetTimeMs());
             _activePlayerKeys.Remove(e.Key);
             _gamePage.DisplayScoreByPlayer(_playerManager.GetPlayerByKey(e.Key));
         }
@@ -125,9 +146,14 @@ namespace SoftwareDesignExam
 
             _gamePage.registeredPlayerClickEvent += RegisterPlayerClickEventHandler;
             _gamePage.playAgainClickEvent += PlayAgainEventHandler;
-            _gamePage.showMenyClickEvent += NavigateToMenuPageEventHandler;
+            _gamePage.showMenuClickEvent += NavigateToMenuPageEventHandler;
 
             _menuPage.StartNewGameEvent += NavigateToRegisterPlayersPageEventHandler;
+            _menuPage.ShowHighScoreEvent += NavigateToShowHighScorePageEventHandler;
+
+            _showHighScorePage.loadHighScoreEvent += DisplayHighScoresEventHandler;
+            _showHighScorePage.showMenyClickEvent += NavigateToMenuPageEventHandler;
+            //_showHighScorePage.delegatenavn += navn på event
         }
         private void SaveHighScores()
         {

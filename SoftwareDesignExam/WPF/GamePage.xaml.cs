@@ -24,13 +24,15 @@ namespace SoftwareDesignExam.WPF
 
     public delegate void RegisteredPlayerClickEvent(object sender, KeyEventArgs e);
     public delegate void PlayAgainClickEvent(object sender, EventArgs e);
-    public delegate void ShowMenyClickEvent(object sender, EventArgs e);
+    public delegate void ShowMenuClickEvent(object sender, EventArgs e);
 
     public partial class GamePage : Page
     {
         public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
         public event PlayAgainClickEvent playAgainClickEvent;
-        public event ShowMenyClickEvent showMenyClickEvent;
+        public event ShowMenuClickEvent showMenuClickEvent;
+
+        private int _playerNumber;
 
         private Timer timer = Timer.Instance();
 
@@ -113,7 +115,7 @@ namespace SoftwareDesignExam.WPF
 
         private void ShowMeny(object sender, EventArgs e)
         {
-            showMenyClickEvent.Invoke(this, e);
+            showMenuClickEvent.Invoke(this, e);
         }
 
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
@@ -141,7 +143,7 @@ namespace SoftwareDesignExam.WPF
         private void GameOnStyling()
         { 
             Dispatcher.Invoke(() =>
-            {
+            {   
                 TrafficLight.Fill = Colors.Green;
             });
         }
