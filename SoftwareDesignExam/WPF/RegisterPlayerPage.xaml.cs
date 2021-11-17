@@ -25,7 +25,6 @@ namespace SoftwareDesignExam.WPF
         private Key _currentKey = Key.A;
         private List<Key> _keyList = new();
         private List<String> _activePlayersList = new();
-        private int _playerNumber;
 
         public RegisterPlayerPage()
         {
@@ -35,13 +34,6 @@ namespace SoftwareDesignExam.WPF
         private void StartGame(object sender, EventArgs e)
         {
             _keyList.Clear();
-            _playerNumber = 0;
-            Player1Box.Opacity = 0;
-            Player2Box.Opacity = 0;
-            Player3Box.Opacity = 0;
-            Player4Box.Opacity = 0;
-            Player5Box.Opacity = 0;
-            Player6Box.Opacity = 0;
             StartGameEvent?.Invoke(this, e);
         }
 
@@ -57,55 +49,6 @@ namespace SoftwareDesignExam.WPF
             {
                 SetCurrentKey(e.Key);
             }
-        }
-
-        public void DisplayPlayer(PlayerEventArgs e)
-        {
-
-            string name = "Name: " + e.Name;
-            string difficulty = "Difficulty: " + e.PlayerType;
-            string key = "Key: " + e.Key;
-            _playerNumber++;
-
-                switch (_playerNumber)
-                {
-                    case 1:
-                        Player1Box.Opacity = 1;
-                        Box1Name.Text = name;
-                        Box1Difficulty.Text = difficulty;
-                        Box1Key.Text = key;
-                        break;
-                    case 2:
-                        Player2Box.Opacity = 1;
-                        Box2Name.Text = name;
-                        Box2Difficulty.Text = difficulty;
-                        Box2Key.Text = key;
-                        break;
-                    case 3:
-                        Player3Box.Opacity = 1;
-                        Box3Name.Text = name;
-                        Box3Difficulty.Text = difficulty;
-                        Box3Key.Text = key;
-                        break;
-                    case 4:
-                        Player4Box.Opacity = 1;
-                        Box4Name.Text = name;
-                        Box4Difficulty.Text = difficulty;
-                        Box4Key.Text += key;
-                        break;
-                    case 5:
-                        Player5Box.Opacity = 1;
-                        Box5Name.Text = name;
-                        Box5Difficulty.Text = difficulty;
-                        Box5Key.Text = key;
-                        break;
-                    case 6:
-                        Player6Box.Opacity = 1;
-                        Box6Name.Text = name;
-                        Box6Difficulty.Text = difficulty;
-                        Box6Key.Text = key;
-                        break;
-                }
         }
 
         private void SetCurrentKey(Key key)
@@ -154,11 +97,6 @@ namespace SoftwareDesignExam.WPF
                 _activePlayersList.Add(name);
                 ResetFields();
             }
-        }
-
-        public void ClearDisplayedPlayers()
-        {
-            Player1BoxText.Text = "";
         }
 
         private void ResetFields()
