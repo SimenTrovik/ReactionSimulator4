@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 
@@ -23,7 +24,7 @@ namespace SoftwareDesignExam.WPF
         private bool _isListeningForKeys;
         private Key _currentKey = Key.A;
         private List<Key> _keyList = new();
-
+        private List<String> _activePlayersList = new();
         private int _playerNumber;
 
         public RegisterPlayerPage()
@@ -115,12 +116,21 @@ namespace SoftwareDesignExam.WPF
                 CurrKey.Foreground = Colors.Red;
             } else CurrKey.Foreground = Colors.Green;
         }
-
+        
         private void ConfirmPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!_keyList.Contains(_currentKey))
+            var name = InputNameTextBox.Text;
+            
+            if (_keyList.Contains(_currentKey))
             {
-                var name = InputNameTextBox.Text;
+                MessageBox.Show("That key is taken!");
+            } 
+            else if (_activePlayersList.Contains(name))
+            {
+                MessageBox.Show("That name is taken!");
+            }
+            else
+            {
                 var playerType = PlayerType.Normal;
                 if (NormalRadio.IsChecked != null && NormalRadio.IsChecked.Value)
                 {
@@ -141,11 +151,8 @@ namespace SoftwareDesignExam.WPF
 
                 RegisterPlayerEvents?.Invoke(this, data);
                 _keyList.Add(_currentKey);
-
+                _activePlayersList.Add(name);
                 ResetFields();
-            } else
-            {
-                MessageBox.Show("That key is taken!");
             }
         }
 
