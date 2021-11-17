@@ -30,7 +30,7 @@
         <Button Content="Meny"
                 Opacity="0"
             x:Name="MenyButton"
-            Click="ShowMeny"
+            Click="ShowMenu"
             Foreground="Black"
             FontSize="26"
             FontWeight="Medium" Margin="841,588,0,0" Width="200" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top">

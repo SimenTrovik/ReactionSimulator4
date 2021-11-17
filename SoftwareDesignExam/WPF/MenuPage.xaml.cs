@@ -20,6 +20,7 @@ namespace SoftwareDesignExam.WPF {
 
         private void NewGame(object sender, EventArgs e)
         {
+
             StartNewGameEvent?.Invoke(this, e);
         }
 
