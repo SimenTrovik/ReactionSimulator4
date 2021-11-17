@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using SoftwareDesignExam.WPF;
 
@@ -14,6 +15,7 @@ namespace SoftwareDesignExam
         private MainWindow _mainWindow;
         private MenuPage _menuPage = new();
         private RegisterPlayerPage _registerPlayerPage = new();
+        private ShowHighScorePage _showHighScorePage = new();
         private GamePage _gamePage = new();
         private Timer _timer = Timer.Instance();
         private ScoreDao _scoreDao = new();
@@ -64,6 +66,11 @@ namespace SoftwareDesignExam
             ResetPlayers();
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
         }
+        
+        private void NavigateToShowHighScorePage()
+        {
+	        _mainWindow.MainFrame.Navigate(_showHighScorePage);
+        }
 
         private void NavigateToGamePage()
         {
@@ -74,6 +81,12 @@ namespace SoftwareDesignExam
         {
             NavigateToRegisterPlayerPage();
         }
+        
+        //Button for MenyPage -> HighScorePage
+        private void NavigateToShowHighScorePageEventHandler(object sender, EventArgs e)
+        {
+	        NavigateToShowHighScorePage();
+        }
 
         private void NavigateToMenuPageEventHandler(object sender, EventArgs e)
         {
@@ -83,6 +96,12 @@ namespace SoftwareDesignExam
         private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
         {
             _registerPlayerPage.DisplayPlayer(_playerManager.GetPlayerDictionary());
+        }
+
+        //gets and sends Highscores to page
+        private void DisplayHighScoresEventHandler(Object sender, EventArgs e)
+        {
+            _showHighScorePage.DisplayHighScore(_scoreDao.GetHighScores());
         }
 
         private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
@@ -128,6 +147,11 @@ namespace SoftwareDesignExam
             _gamePage.showMenyClickEvent += NavigateToMenuPageEventHandler;
 
             _menuPage.StartNewGameEvent += NavigateToRegisterPlayersPageEventHandler;
+            _menuPage.ShowHighScoreEvent += NavigateToShowHighScorePageEventHandler;
+
+            _showHighScorePage.loadHighScoreEvent += DisplayHighScoresEventHandler;
+            _showHighScorePage.showMenyClickEvent += NavigateToMenuPageEventHandler;
+            //_showHighScorePage.delegatenavn += navn på event
         }
         private void SaveHighScores()
         {

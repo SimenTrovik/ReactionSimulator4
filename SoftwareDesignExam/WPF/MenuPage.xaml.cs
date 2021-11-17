@@ -8,8 +8,11 @@ namespace SoftwareDesignExam.WPF {
 
     public delegate void StartNewGameEvent(object sender, EventArgs e);
 
+    public delegate void ShowHighScoreEvent(object sender, EventArgs e);
+
     public partial class MenuPage : Page {
         public event StartNewGameEvent StartNewGameEvent;
+        public event ShowHighScoreEvent ShowHighScoreEvent;
 
         public MenuPage() {
             InitializeComponent();
@@ -20,8 +23,10 @@ namespace SoftwareDesignExam.WPF {
             StartNewGameEvent?.Invoke(this, e);
         }
 
-        private void ShowHighscores(object sender, EventArgs e) {
-            MessageBox.Show("HIGHSCORES!");
+        private void ShowHighscores(object sender, EventArgs e)
+        {
+            ShowHighScoreEvent?.Invoke(this, e);
+	        //MessageBox.Show("HIGHSCORES!");
         }
     };
 }
