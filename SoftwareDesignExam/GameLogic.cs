@@ -36,7 +36,7 @@ namespace SoftwareDesignExam
         private void ResetPlayers()
         {
             _playerManager.ResetPlayers();
-            _mainWindow.HidePlayerBoxes();
+            //_registerPlayerPage.ClearDisplayedPlayers();
         }
 
         private void GameLoop()
@@ -60,7 +60,6 @@ namespace SoftwareDesignExam
         private void NavigateToMenuPage()
         {
             _mainWindow.MainFrame.Navigate(_menuPage);
-            _mainWindow.HidePlayerBoxes();
         }
 
         private void NavigateToRegisterPlayerPage()
@@ -85,7 +84,7 @@ namespace SoftwareDesignExam
             NavigateToRegisterPlayerPage();
         }
         
-        //Button for MenuPage -> HighScorePage
+        //Button for MenyPage -> HighScorePage
         private void NavigateToShowHighScorePageEventHandler(object sender, EventArgs e)
         {
 	        NavigateToShowHighScorePage();
@@ -159,21 +158,6 @@ namespace SoftwareDesignExam
         private void SaveHighScores()
         {
             _scoreDao.SaveListOfPlayers(_playerManager.GetPlayerList());
-        }
-
-        private void PrintHighscore()
-        {
-
-        }
-
-        private void PrintPlayer(int boxId, IPlayer p)
-        {
-            //
-        }
-
-        private void PrintTimer()
-        {
-            //
         }
     }
 }

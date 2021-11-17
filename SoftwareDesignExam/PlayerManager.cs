@@ -19,6 +19,7 @@ namespace SoftwareDesignExam
         // Returns true/false if the addition was successful or not.
         public bool AddPlayer(string name, PlayerType type, Key key)
         {
+            if (name == null) return false;
             var newPlayer = _playerFactory.GetPlayer(name, type);
             return _playerDictionary.TryAdd(key, newPlayer);
         }
@@ -63,6 +64,7 @@ namespace SoftwareDesignExam
 
         public IPlayer GetWinner()
         {
+            // TODO This is bugged
             Key maxKey = Key.None;
             int maxScore = 0; 
             foreach (var keyValuePair in _playerDictionary)
@@ -73,7 +75,6 @@ namespace SoftwareDesignExam
                     maxKey = keyValuePair.Key;
                 }
             }
-
             return _playerDictionary[maxKey];
         }
 
