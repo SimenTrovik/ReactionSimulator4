@@ -60,6 +60,23 @@ namespace SoftwareDesignExam
         {
             return _playerDictionary.ContainsKey(key);
         }
+
+        public IPlayer GetWinner()
+        {
+            Key maxKey = Key.None;
+            int maxScore = 0; 
+            foreach (var keyValuePair in _playerDictionary)
+            {
+                if (keyValuePair.Value.Score > maxScore)
+                {
+                    maxScore= keyValuePair.Value.Score;
+                    maxKey = keyValuePair.Key;
+                }
+            }
+
+            return _playerDictionary[maxKey];
+        }
+
     }
     public enum PlayerType
     {

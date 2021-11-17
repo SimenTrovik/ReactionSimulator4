@@ -17,15 +17,15 @@
                 <GridView>
                     <GridViewColumn
                         DisplayMemberBinding="{Binding PlayerName}"
-                        Width="50"
+                        Width="70"
                         Header="Name"></GridViewColumn>
                     <GridViewColumn 
                         DisplayMemberBinding="{Binding Score}"
-                        Width="50"
+                        Width="80"
                         Header="Score"></GridViewColumn>
                     <GridViewColumn 
                         DisplayMemberBinding="{Binding Time}"
-                        Width="50"
+                        Width="80"
                         Header="Time"></GridViewColumn>
                 </GridView>
             </ListView.View>
