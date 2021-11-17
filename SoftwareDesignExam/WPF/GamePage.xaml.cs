@@ -88,6 +88,14 @@ namespace SoftwareDesignExam.WPF
             });
         }
 
+        public void DisplayWinner(IPlayer winner)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                HeaderText.Text = $"{winner.Name} won!\n Score: {winner.Score}";
+            });
+        }
+
         public void Stop()
         {
             timer.TimesUp();
@@ -118,6 +126,7 @@ namespace SoftwareDesignExam.WPF
         {
             Dispatcher.Invoke(() =>
             {
+                HeaderText.Text = "Press your key when the light turns green!";
                 TimerText.Text = "Get ready...";
                 TrafficLight.Fill = Colors.Yellow;
             });

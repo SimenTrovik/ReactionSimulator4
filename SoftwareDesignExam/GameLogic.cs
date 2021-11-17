@@ -52,7 +52,7 @@ namespace SoftwareDesignExam
                 }
                 _gamePage.Stop();
                 SaveHighScores();
-
+                _gamePage.DisplayWinner(_playerManager.GetWinner());
             });
         }
 

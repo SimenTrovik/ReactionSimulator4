@@ -10,16 +10,45 @@
       Background="White" Loaded="GamePage_Loaded">
 
     <Grid>
-        <Ellipse x:Name="TrafficLight" Fill="Yellow" HorizontalAlignment="Center" Height="232" Stroke="Black" VerticalAlignment="Center" Width="232"/>
-        <TextBlock x:Name="TitleText" Foreground="Black" HorizontalAlignment="Left" Margin="420,113,0,0" Text="Press your key when the light turns green!" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Width="910" FontSize="40"/>
-        <TextBlock x:Name="TimerText" HorizontalAlignment="Center" Margin="0,0,0,0" Text="Get ready..." TextWrapping="Wrap" VerticalAlignment="Center" FontSize="30"/>
+        <Ellipse 
+            x:Name="TrafficLight" 
+            Fill="Yellow" 
+            HorizontalAlignment="Center" 
+            Height="232" 
+            Stroke="Black" 
+            VerticalAlignment="Center" 
+            Width="232"/>
+        <TextBlock 
+            x:Name="HeaderText" 
+            TextAlignment="Center" 
+            Foreground="Black" 
+            HorizontalAlignment="Center" 
+            Margin="0,120,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Height="60" 
+            Width="910" 
+            FontSize="40"/>
+        <TextBlock 
+            x:Name="TimerText" 
+            HorizontalAlignment="Center" 
+            Margin="0,0,0,0" 
+            Text="Get ready..." 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Center" 
+            FontSize="30"/>
         <Button Content="Play again"
-                Opacity="0"
+                Opacity="1"
                 x:Name="PlayAgainButton"
                 Click="PlayAgain"
                 Foreground="Black"
                 FontSize="26"
-                FontWeight="Medium" Margin="564,588,0,0" Width="200" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top">
+                FontWeight="Medium" 
+                Margin="564,588,0,0" 
+                Width="200" 
+                Height="50" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Cursor" Value="Hand"/>
@@ -27,12 +56,17 @@
             </Button.Style>
         </Button>
         <Button Content="Meny"
-                Opacity="0"
-            x:Name="MenyButton"
-            Click="ShowMenu"
-            Foreground="Black"
-            FontSize="26"
-            FontWeight="Medium" Margin="841,588,0,0" Width="200" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top">
+                Opacity="1"
+                x:Name="MenyButton"
+                Click="ShowMenu"
+                Foreground="Black"
+                FontSize="26"
+                FontWeight="Medium" 
+                Margin="841,588,0,0" 
+                Width="200" 
+                Height="50" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Cursor" Value="Hand"/>
