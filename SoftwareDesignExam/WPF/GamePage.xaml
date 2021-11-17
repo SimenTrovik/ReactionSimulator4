@@ -76,7 +76,7 @@
 
         <Border 
             BorderBrush="Black"
-            Opacity="1"
+            Opacity="0"
             x:Name="Player1Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
@@ -98,7 +98,7 @@
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
+            Opacity="0"
             x:Name="Player2Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
@@ -120,7 +120,7 @@
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
+            Opacity="0"
             x:Name="Player3Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
@@ -142,7 +142,7 @@
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
+            Opacity="0"
             x:Name="Player4Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
@@ -164,7 +164,7 @@
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
+            Opacity="0"
             x:Name="Player5Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
@@ -186,7 +186,7 @@
         </Border>
         <Border 
             BorderBrush="Black"
-            Opacity="1"
+            Opacity="0"
             x:Name="Player6Box"
             HorizontalAlignment="Left" 
             CornerRadius="8"
