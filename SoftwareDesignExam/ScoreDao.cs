@@ -45,7 +45,7 @@ namespace SoftwareDesignExam
 
             foreach (IPlayer player in playerList)
             {
-                if (player.Score != 0)
+                if (player.Score != 0 && player.TimeInMs != 0)
                 {
                     SavePlayer(player);
                 }

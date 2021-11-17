@@ -29,10 +29,10 @@ namespace SoftwareDesignExam.WPF {
 		public event ShowMenyClickEvent2 showMenyClickEvent;
 		public event LoadHighScoreEvent loadHighScoreEvent;
 
-		public ShowHighScorePage()
+        public ShowHighScorePage()
 		{
 			InitializeComponent();
-		}
+        }
 
 		private void BackToMeny(object sender, RoutedEventArgs e)
 		{
@@ -40,29 +40,33 @@ namespace SoftwareDesignExam.WPF {
 		}
 
 		public void DisplayHighScore(List<HighScore> highScoresList)
-		{
-			highScoreListBlock.Text = "";
+        {
+            LvDataBinding.ItemsSource = highScoresList;
 
-			int counter = 0;
-			string wow = "Rank | Name | Score | Time | Difficulty \n";
-			
-			foreach (HighScore playerHighScore in highScoresList)
-			{
-				counter++;
-				wow +=
-					counter +
-					$" {playerHighScore.PlayerName}, " +
-					$"{playerHighScore.Score}, " +
-					$"{playerHighScore.Time}, " +
-					$"{playerHighScore.Difficulty.ToString()}\n";
-			}
+            //highScoreListBlock.Text = "";
 
-			highScoreListBlock.Text = wow;
-		}
+            //int counter = 0;
+            //string wow = "Rank | Name | Score | Time | Difficulty \n";
+
+            //foreach (HighScore playerHighScore in highScoresList)
+            //{
+            //	counter++;
+            //	wow +=
+            //		counter +
+            //		$" {playerHighScore.PlayerName}, " +
+            //		$"{playerHighScore.Score}, " +
+            //		$"{playerHighScore.Time}, " +
+            //		$"{playerHighScore.Difficulty.ToString()}\n";
+            //}
+
+            //highScoreListBlock.Text = wow;
+
+
+        }
 
 		private void HighScoreListBlock_OnLoaded(object sender, RoutedEventArgs e)
-		{
-			loadHighScoreEvent.Invoke(this, e);
+        {
+            loadHighScoreEvent.Invoke(this, e);
 		}
 	}
 }

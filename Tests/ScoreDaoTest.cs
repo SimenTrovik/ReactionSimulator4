@@ -32,6 +32,14 @@ namespace Tests
             _scoreDao = new();
 		}
 
+        [TearDown]
+        public void DeleteDatabase()
+        {
+            using ScoreContext db = new();
+            db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
+        }
+
 
 		[Test]
 		public void ShouldSaveScoreAndPlayer()
@@ -106,9 +114,7 @@ namespace Tests
 			var list2 = _scoreDao.GetHighScores();
 
 			Assert.AreEqual(1, list2.Count);
-
+			
 		}
-	
-
-	}
+    }
 }

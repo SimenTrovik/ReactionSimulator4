@@ -27,7 +27,6 @@ namespace SoftwareDesignExam.WPF {
         private void ShowHighscores(object sender, EventArgs e)
         {
             ShowHighScoreEvent?.Invoke(this, e);
-	        //MessageBox.Show("HIGHSCORES!");
         }
     };
 }
