@@ -52,6 +52,8 @@ namespace Tests
             Thread.Sleep(_waitTime);
             Assert.That(_timer.GetTimeMs() == 0);
             Thread.Sleep(_timer.RandomTimeToStartTimer);
+            Console.WriteLine("Time: "+_timer.GetTimeMs());
+            Thread.Sleep(1);
             Assert.That(_timer.GetTimeMs() > 0 && _timer.GetTimeMs() < 100);
         }
 
