@@ -113,8 +113,14 @@ namespace SoftwareDesignExam.WPF
             playAgainClickEvent.Invoke(this, e);
         }
 
-        private void ShowMeny(object sender, EventArgs e)
+        private void ShowMenu(object sender, EventArgs e)
         {
+            Player1Box.Opacity = 0;
+            Player2Box.Opacity = 0;
+            Player3Box.Opacity = 0;
+            Player4Box.Opacity = 0;
+            Player5Box.Opacity = 0;
+            Player6Box.Opacity = 0;
             showMenuClickEvent.Invoke(this, e);
         }
 
@@ -160,9 +166,9 @@ namespace SoftwareDesignExam.WPF
         public void DisplayPlayers(Dictionary<Key, IPlayer> registeredPlayers)
         { 
             int _playerNumber = 0;
-            string name = "";
-            string difficulty = "";
-            string key = "";
+            string name;
+            string difficulty;
+            string key;
 
             foreach (KeyValuePair<Key, IPlayer> kvp in registeredPlayers)
             {
@@ -211,9 +217,6 @@ namespace SoftwareDesignExam.WPF
                         break;
                 }
             }
-
-            
-
         }
     }
 }

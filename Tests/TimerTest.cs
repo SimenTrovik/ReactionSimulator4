@@ -2,12 +2,13 @@ using NUnit.Framework;
 using System;
 using System.Threading;
 using Timer = SoftwareDesignExam.Timer;
+using GameParameters = SoftwareDesignExam.GameParameters;
 
 namespace Tests
 {
     public class TimerTest
     {
-        private readonly int _waitTime = 10;
+        private readonly int _waitTime = 1; // For threads to catch up
         private readonly Timer _timer = Timer.Instance();
         
         [TearDown]
@@ -29,17 +30,6 @@ namespace Tests
             Thread.Sleep(_timer.RandomTimeToStartTimer+100);
             double x = _timer.GetTimeMs();
             Assert.That(x > 0);
-        }
-
-        [Test]
-        public void ShouldStop() {
-            _timer.StartTimer();
-            Thread.Sleep(_waitTime);
-            _timer.StopTimer();
-            double x = _timer.GetTimeMs();
-            Thread.Sleep(_waitTime);
-            double y = _timer.GetTimeMs();
-            Assert.AreEqual(x, y);
         }
 
         [Test]
@@ -66,22 +56,22 @@ namespace Tests
         {
             _timer.StartTimer();
             Thread.Sleep(_waitTime);
-            Thread.Sleep(_timer.RandomTimeToStartTimer+_timer.TimesUpTime);
+            Thread.Sleep(_timer.RandomTimeToStartTimer + GameParameters.ReactionDeadline + 100);
             Assert.That(_timer.GetTimeMs() == 0);
         }
 
         //[Test]
-        public void ShouldUpdateFinishedTimer()
+        public void ShouldUpdateWaitingToStart()
         {
             _timer.StartTimer();
             Thread.Sleep(_waitTime);
-            Assert.That(_timer.FinishedTimer == false);
+            Assert.That(_timer.WaitingToStart == false);
             _timer.TimesUp();
             Thread.Sleep(_waitTime);
-            Assert.That(_timer.FinishedTimer);
+            Assert.That(_timer.WaitingToStart);
             _timer.StartTimer();
             Thread.Sleep(_waitTime);
-            Assert.That(_timer.FinishedTimer == false);
+            Assert.That(_timer.WaitingToStart == false);
         }
     }
 }

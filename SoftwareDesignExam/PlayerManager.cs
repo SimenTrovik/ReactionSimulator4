@@ -8,7 +8,7 @@ namespace SoftwareDesignExam
     public class PlayerManager
     {
         private readonly ConcretePlayerFactory _playerFactory;
-        private readonly Dictionary<Key, IPlayer> _playerDictionary;
+        public readonly Dictionary<Key, IPlayer> _playerDictionary;
         public PlayerManager()
         {
             _playerFactory = new ConcretePlayerFactory();

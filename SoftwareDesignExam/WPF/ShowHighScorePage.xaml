@@ -10,10 +10,29 @@
       Background="White">
 
     <Grid>
-        <TextBlock Foreground="Black" x:Name="HighScoreText" HorizontalAlignment="Center" Margin="0,10,0,0" Text="HighScore!" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48" FontWeight="Bold"/>
+        <TextBlock Foreground="Black" x:Name="HighScoreText" HorizontalAlignment="Center" Margin="0,10,0,0" Text="Highscores" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48" FontWeight="Bold"/>
         <TextBlock x:Name="highScoreListBlock" Loaded="HighScoreListBlock_OnLoaded" TextAlignment="Center" Margin="428,74,428,136" FontSize="30"></TextBlock>
+        <ListView Foreground="White" Background="IndianRed"  Name="LvDataBinding" Margin="671,169,671,231">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding PlayerName}"
+                        Width="50"
+                        Header="Name"></GridViewColumn>
+                    <GridViewColumn 
+                        DisplayMemberBinding="{Binding Score}"
+                        Width="50"
+                        Header="Score"></GridViewColumn>
+                    <GridViewColumn 
+                        DisplayMemberBinding="{Binding Time}"
+                        Width="50"
+                        Header="Time"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
         <Button Content="Back"
-                x:Name="BackButton"
+                x:Name="BackButton"     
                 Foreground="Black"
                 FontSize="26"
                 FontWeight="Medium" Margin="0,698,0,0" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top">

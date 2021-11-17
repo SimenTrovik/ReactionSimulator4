@@ -1,58 +1,48 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SoftwareDesignExam
 {
     public sealed class Timer {
         private static readonly Timer instance = new();
         private readonly Stopwatch _stopWatch = new();
-        public int TimesUpTime => GameConfig.TimesUpTime;
-        public int LeastRandomVal => GameConfig.LeastRandomVal;
-        public int MaxRandomVal => GameConfig.MaxRandomVal;
-        public bool FinishedTimer { get; set; }
-        private bool _falseStart;
+        public bool WaitingToStart { get; set; }
         public int RandomTimeToStartTimer { get; set; }
 
         private Timer() {}
 
         public void StartTimer()
         {
-            Thread thread1 = new Thread(StartTimerThread);
-            thread1.Start();
-        }
+            RandomTimeToStartTimer = new Random().Next(
+                GameParameters.StartTimeMinimum,
+                GameParameters.StartTimeMaximum
+            );
 
-        private void StartTimerThread()
-        {
-            Random random = new Random();
-            RandomTimeToStartTimer = random.Next(LeastRandomVal, MaxRandomVal);
-            _falseStart = true;
-            Thread.Sleep(RandomTimeToStartTimer);
-            _falseStart = false;
-            _stopWatch.Start();
-            Thread thread2 = new Thread(CountDownToTimesUp);
-            thread2.Start();
-        }
-
-        private void CountDownToTimesUp() {
-            FinishedTimer = false;
-            Thread.Sleep(TimesUpTime);
-            TimesUp();
+            Task.Run(() =>
+            {
+                WaitingToStart = true;
+                Thread.Sleep(RandomTimeToStartTimer);
+                WaitingToStart = false;
+                _stopWatch.Start();
+                Task.Run(() => {
+                    Thread.Sleep(GameParameters.ReactionDeadline);
+                    TimesUp();
+                });
+            });
         }
 
         public int TimeLeft() {
-            if (FinishedTimer || _falseStart) {
+            if (WaitingToStart)
+            {
                 return 0;
-            } else return TimesUpTime - GetTimeMs();
-        }
-
-        public void StopTimer() {
-            _stopWatch.Stop();
+            } else return GameParameters.ReactionDeadline - GetTimeMs();
         }
 
         public void TimesUp() {
             _stopWatch.Reset();
-            FinishedTimer = true;
+            WaitingToStart = true;
         }
 
         public int GetTimeMs() {
@@ -63,5 +53,4 @@ namespace SoftwareDesignExam
             return instance;
         }
     }
-
 }
