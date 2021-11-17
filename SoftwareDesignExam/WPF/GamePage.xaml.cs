@@ -32,9 +32,7 @@ namespace SoftwareDesignExam.WPF
         public event PlayAgainClickEvent playAgainClickEvent;
         public event ShowMenuClickEvent showMenuClickEvent;
 
-        private int _playerNumber;
-
-        private Timer timer = Timer.Instance();
+        private Timer timer = Timer.GetInstance();
 
         public GamePage()
         {

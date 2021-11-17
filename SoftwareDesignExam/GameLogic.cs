@@ -17,7 +17,7 @@ namespace SoftwareDesignExam
         private RegisterPlayerPage _registerPlayerPage = new();
         private ShowHighScorePage _showHighScorePage = new();
         private GamePage _gamePage = new();
-        private Timer _timer = Timer.Instance();
+        private Timer _timer = Timer.GetInstance();
         private ScoreDao _scoreDao = new();
         private PlayerManager _playerManager = new();
         private List<Key> _activePlayerKeys = new();
