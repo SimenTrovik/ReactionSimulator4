@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace SoftwareDesignExam.WPF
@@ -34,9 +26,14 @@ namespace SoftwareDesignExam.WPF
 
         private Timer timer = Timer.GetInstance();
 
+        private List<Border> _playerBorders = new();
+        private List<TextBlock> _playerTextBoxes = new();
+
         public GamePage()
         {
             InitializeComponent();
+            PopulateTextBoxList();
+            PopulateBorderList();
         }
 
         public void Start()
@@ -113,13 +110,16 @@ namespace SoftwareDesignExam.WPF
 
         private void ShowMenu(object sender, EventArgs e)
         {
-            Player1Box.Opacity = 0;
-            Player2Box.Opacity = 0;
-            Player3Box.Opacity = 0;
-            Player4Box.Opacity = 0;
-            Player5Box.Opacity = 0;
-            Player6Box.Opacity = 0;
+            HidePlayerBoxes();
             showMenuClickEvent.Invoke(this, e);
+        }
+
+        private void HidePlayerBoxes()
+        {
+            for (int i = 0; i < _playerBorders.Count; i++)
+            {
+                _playerBorders[i].Opacity = 0;
+            }
         }
 
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
@@ -132,21 +132,20 @@ namespace SoftwareDesignExam.WPF
         {
             Dispatcher.Invoke(() =>
             {
-                ScoreText.Text = "Scores:";
                 TimerText.Text = "Get ready...";
                 TrafficLight.Fill = Colors.Yellow;
             });
         }
 
         private void GameOnStyling()
-        { 
+        {
             Dispatcher.Invoke(() =>
-            {   
+            {
                 TrafficLight.Fill = Colors.Green;
             });
         }
 
-        private void TimesUpStyling() 
+        private void TimesUpStyling()
         {
             Dispatcher.Invoke(() =>
             {
@@ -156,67 +155,40 @@ namespace SoftwareDesignExam.WPF
         }
 
         public void DisplayPlayers(Dictionary<Key, IPlayer> registeredPlayers)
-        { 
+        {
             int _playerNumber = 0;
-            string name;
-            string difficulty;
-            string key;
-            string score;
 
             foreach (KeyValuePair<Key, IPlayer> kvp in registeredPlayers)
             {
-                name = "Name: " + kvp.Value.Name;
-                difficulty = "Difficulty: " + kvp.Value.GetPlayerType();
-                key = "Key: " + kvp.Key;
-                score = "Score: " + kvp.Value.Score;
-                _playerNumber++;
+                _playerTextBoxes[_playerNumber].Text =
+                    "Name: " + kvp.Value.Name + "\n" +
+                    "Difficulty: " + kvp.Value.GetPlayerType() + "\n" +
+                    "Key: " + kvp.Key.ToString() + "\n" +
+                    "Score: " + kvp.Value.Score;
+                _playerBorders[_playerNumber].Opacity = 1;
 
-                switch (_playerNumber)
-                {
-                    case 1:
-                        Player1Box.Opacity = 1;
-                        Box1Name.Text = name;
-                        Box1Difficulty.Text = difficulty;
-                        Box1Key.Text = key;
-                        Box1Score.Text = score; 
-                        break;
-                    case 2:
-                        Player2Box.Opacity = 1;
-                        Box2Name.Text = name;
-                        Box2Difficulty.Text = difficulty;
-                        Box2Score.Text = score;
-                        Box2Key.Text = key;
-                        break;
-                    case 3:
-                        Player3Box.Opacity = 1;
-                        Box3Name.Text = name;
-                        Box3Difficulty.Text = difficulty;
-                        Box3Key.Text = key;
-                        Box3Score.Text = score;
-                        break;
-                    case 4:
-                        Player4Box.Opacity = 1;
-                        Box4Name.Text = name;
-                        Box4Difficulty.Text = difficulty;
-                        Box4Key.Text = key;
-                        Box4Score.Text = score;
-                        break;
-                    case 5:
-                        Player5Box.Opacity = 1;
-                        Box5Name.Text = name;
-                        Box5Difficulty.Text = difficulty;
-                        Box5Key.Text = key;
-                        Box5Score.Text = score;
-                        break;
-                    case 6:
-                        Player6Box.Opacity = 1;
-                        Box6Name.Text = name;
-                        Box6Difficulty.Text = difficulty;
-                        Box6Key.Text = key;
-                        Box6Score.Text = score;
-                        break;
-                }
+                _playerNumber++;
             }
+        }
+
+        void PopulateTextBoxList()
+        {
+            _playerTextBoxes.Add(Player1Text);
+            _playerTextBoxes.Add(Player2Text);
+            _playerTextBoxes.Add(Player3Text);
+            _playerTextBoxes.Add(Player4Text);
+            _playerTextBoxes.Add(Player5Text);
+            _playerTextBoxes.Add(Player6Text);
+        }
+
+        void PopulateBorderList()
+        {
+            _playerBorders.Add(Player1Border);
+            _playerBorders.Add(Player2Border);
+            _playerBorders.Add(Player3Border);
+            _playerBorders.Add(Player4Border);
+            _playerBorders.Add(Player5Border);
+            _playerBorders.Add(Player6Border);
         }
     }
 }
