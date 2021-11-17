@@ -73,6 +73,16 @@ namespace Tests
 
             Assert.That(_manager.GetAmountOfPlayers() == 0);
         }
+        [Test]
+        public void ShouldGetWinner() {
+            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+
+            _manager.RegisterPlayerReactionTime(Key.L, 300);
+            _manager.RegisterPlayerReactionTime(Key.M, 200);
+
+            Assert.AreEqual(_manager.GetPlayerByKey(Key.M),_manager.GetWinner());
+        }
 
     }
 }
