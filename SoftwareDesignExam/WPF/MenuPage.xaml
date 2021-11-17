@@ -10,7 +10,19 @@
       Background="White">
 
     <Grid>
-        <TextBlock Foreground="Black" x:Name="WelcomeText" HorizontalAlignment="Center" Margin="0,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48" FontWeight="Bold"><Run Text="Welcome to "/><Run Language="nb-no" Text="Reaction Simulator 4:  &#x0a;                   The Game"/></TextBlock>
+        <TextBlock Foreground="Black" 
+                   x:Name="WelcomeText" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,133,0,0" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   FontSize="48" 
+                   FontWeight="Bold"
+                   Text="Welcome to Reaction Simulator 4:  &#x0a;The Game"
+                   Language="nb-no" 
+                   TextAlignment="Center"
+        />
+        
         <Button Content="New Game"
                 x:Name="NewGameButton"
                 Click="NewGame"

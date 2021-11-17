@@ -11,12 +11,13 @@
 
     <Grid>
 
-        <TextBlock 
+        <TextBlock
             Foreground="Black" 
             x:Name="WelcomeText" 
             HorizontalAlignment="Center"
             Margin="0,40,0,0" 
-            Text="Reaction Simulator 2022" 
+            Text="Reaction Simulator 4:&#x0a;The Game" 
+            TextAlignment="Center"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             FontSize="48" 
