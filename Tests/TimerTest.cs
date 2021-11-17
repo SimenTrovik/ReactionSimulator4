@@ -2,38 +2,42 @@ using NUnit.Framework;
 using System;
 using System.Threading;
 using Timer = SoftwareDesignExam.Timer;
-using GameParameters = SoftwareDesignExam.GameParameters;
+using SoftwareDesignExam;
 
 namespace Tests
 {
     public class TimerTest
     {
         private readonly int _waitTime = 1; // For threads to catch up
-        private readonly Timer _timer = Timer.Instance();
-        
+        private readonly Timer _timer = Timer.GetInstance();
+
         [TearDown]
-        public void Cleanup() {
+        public void Cleanup()
+        {
             _timer.TimesUp();
         }
-        
+
         [Test]
-        public void ShouldBehaveAsSingleton() {
-            Timer timer1 = Timer.Instance();
-            Timer timer2 = Timer.Instance();
+        public void ShouldBehaveAsSingleton()
+        {
+            Timer timer1 = Timer.GetInstance();
+            Timer timer2 = Timer.GetInstance();
             Assert.That(timer1 == timer2);
         }
 
         [Test]
-        public void ShouldStart() {
+        public void ShouldStart()
+        {
             _timer.StartTimer();
             Thread.Sleep(_waitTime);
-            Thread.Sleep(_timer.RandomTimeToStartTimer+100);
+            Thread.Sleep(_timer.RandomTimeToStartTimer + 100);
             double x = _timer.GetTimeMs();
             Assert.That(x > 0);
         }
 
         [Test]
-        public void ShouldReset() {
+        public void ShouldReset()
+        {
             _timer.StartTimer();
             Thread.Sleep(_waitTime);
             _timer.TimesUp();
@@ -48,6 +52,8 @@ namespace Tests
             Thread.Sleep(_waitTime);
             Assert.That(_timer.GetTimeMs() == 0);
             Thread.Sleep(_timer.RandomTimeToStartTimer);
+            Console.WriteLine("Time: "+_timer.GetTimeMs());
+            Thread.Sleep(1);
             Assert.That(_timer.GetTimeMs() > 0 && _timer.GetTimeMs() < 100);
         }
 
@@ -56,7 +62,7 @@ namespace Tests
         {
             _timer.StartTimer();
             Thread.Sleep(_waitTime);
-            Thread.Sleep(_timer.RandomTimeToStartTimer + GameParameters.ReactionDeadline + 100);
+            Thread.Sleep(_timer.RandomTimeToStartTimer + GameConfig.ReactionDeadline + 100);
             Assert.That(_timer.GetTimeMs() == 0);
         }
 
