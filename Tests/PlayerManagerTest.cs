@@ -64,18 +64,6 @@ namespace Tests
             Assert.That(Math.Abs(GameConfig.CalculateScore(PlayerType.Normal, 250) - 750) < 1);
             Assert.That(Math.Abs(GameConfig.CalculateScore(PlayerType.Easy, 250) - 775) < 1);
         }
-
-        [Test]
-        public void ShouldRemovePlayer()
-        {
-            Assert.That(_manager.AddPlayer("Simen", PlayerType.Normal, Key.L));
-            Assert.True(_manager.AddPlayer("Martin", PlayerType.Easy, Key.M));
-
-            _manager.RemovePlayer(Key.L);
-
-            Assert.That(!_manager.RemovePlayer(Key.L));
-            Assert.That(_manager.GetAmountOfPlayers() == 1);
-        }
         [Test]
         public void ShouldResetPlayers() {
             _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);

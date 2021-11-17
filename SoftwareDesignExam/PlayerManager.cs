@@ -8,7 +8,7 @@ namespace SoftwareDesignExam
     public class PlayerManager
     {
         private readonly ConcretePlayerFactory _playerFactory;
-        public readonly Dictionary<Key, IPlayer> _playerDictionary;
+        private readonly Dictionary<Key, IPlayer> _playerDictionary;
         public PlayerManager()
         {
             _playerFactory = new ConcretePlayerFactory();
@@ -49,12 +49,6 @@ namespace SoftwareDesignExam
         public void RegisterPlayerReactionTime(Key key, int time)
         {
             _playerDictionary[key].TimeInMs = time;
-        }
-
-        // Remove?
-        public bool RemovePlayer(Key key)
-        {
-            return _playerDictionary.Remove(key);
         }
 
         public int GetAmountOfPlayers()
