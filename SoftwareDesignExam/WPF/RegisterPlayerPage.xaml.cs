@@ -27,22 +27,30 @@ namespace SoftwareDesignExam.WPF
         private List<String> _activePlayersList = new();
         private int _playerNumber;
 
+        private List<Border> _playerBorders = new();
+        private List<TextBlock> _playerTextBlocks = new();
+
         public RegisterPlayerPage()
         {
             InitializeComponent();
+            PopulateTextBoxList();
+            PopulateBorderList();
         }
 
         private void StartGame(object sender, EventArgs e)
         {
             _keyList.Clear();
             _playerNumber = 0;
-            Player1Box.Opacity = 0;
-            Player2Box.Opacity = 0;
-            Player3Box.Opacity = 0;
-            Player4Box.Opacity = 0;
-            Player5Box.Opacity = 0;
-            Player6Box.Opacity = 0;
+            HidePlayerBoxes();
             StartGameEvent?.Invoke(this, e);
+        }
+
+        private void HidePlayerBoxes()
+        {
+            for (int i = 0; i < _playerBorders.Count; i++)
+            {
+                _playerBorders[i].Opacity = 0;
+            }
         }
 
         private void AddPlayerButton_Click(object sender, RoutedEventArgs e)
@@ -59,53 +67,20 @@ namespace SoftwareDesignExam.WPF
             }
         }
 
-        public void DisplayPlayer(PlayerEventArgs e)
+        public void DisplayPlayers(Dictionary<Key, IPlayer> registeredPlayers)
         {
+            int _playerNumber = 0;
 
-            string name = "Name: " + e.Name;
-            string difficulty = "Difficulty: " + e.PlayerType;
-            string key = "Key: " + e.Key;
-            _playerNumber++;
+            foreach (KeyValuePair<Key, IPlayer> kvp in registeredPlayers)
+            {
+                _playerTextBlocks[_playerNumber].Text =
+                    "Name: " + kvp.Value.Name + "\n" +
+                    "Difficulty: " + kvp.Value.GetPlayerType() + "\n" +
+                    "Key: " + kvp.Key.ToString() + "\n";
+                _playerBorders[_playerNumber].Opacity = 1;
 
-                switch (_playerNumber)
-                {
-                    case 1:
-                        Player1Box.Opacity = 1;
-                        Box1Name.Text = name;
-                        Box1Difficulty.Text = difficulty;
-                        Box1Key.Text = key;
-                        break;
-                    case 2:
-                        Player2Box.Opacity = 1;
-                        Box2Name.Text = name;
-                        Box2Difficulty.Text = difficulty;
-                        Box2Key.Text = key;
-                        break;
-                    case 3:
-                        Player3Box.Opacity = 1;
-                        Box3Name.Text = name;
-                        Box3Difficulty.Text = difficulty;
-                        Box3Key.Text = key;
-                        break;
-                    case 4:
-                        Player4Box.Opacity = 1;
-                        Box4Name.Text = name;
-                        Box4Difficulty.Text = difficulty;
-                        Box4Key.Text += key;
-                        break;
-                    case 5:
-                        Player5Box.Opacity = 1;
-                        Box5Name.Text = name;
-                        Box5Difficulty.Text = difficulty;
-                        Box5Key.Text = key;
-                        break;
-                    case 6:
-                        Player6Box.Opacity = 1;
-                        Box6Name.Text = name;
-                        Box6Difficulty.Text = difficulty;
-                        Box6Key.Text = key;
-                        break;
-                }
+                _playerNumber++;
+            }
         }
 
         private void SetCurrentKey(Key key)
@@ -156,11 +131,6 @@ namespace SoftwareDesignExam.WPF
             }
         }
 
-        public void ClearDisplayedPlayers()
-        {
-            Player1BoxText.Text = "";
-        }
-
         private void ResetFields()
         {
             NormalRadio.IsChecked = true;
@@ -173,6 +143,26 @@ namespace SoftwareDesignExam.WPF
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        void PopulateTextBoxList()
+        {
+            _playerTextBlocks.Add(Player1Text);
+            _playerTextBlocks.Add(Player2Text);
+            _playerTextBlocks.Add(Player3Text);
+            _playerTextBlocks.Add(Player4Text);
+            _playerTextBlocks.Add(Player5Text);
+            _playerTextBlocks.Add(Player6Text);
+        }
+
+        void PopulateBorderList()
+        {
+            _playerBorders.Add(Player1Border);
+            _playerBorders.Add(Player2Border);
+            _playerBorders.Add(Player3Border);
+            _playerBorders.Add(Player4Border);
+            _playerBorders.Add(Player5Border);
+            _playerBorders.Add(Player6Border);
         }
     }
 }

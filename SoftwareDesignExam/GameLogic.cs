@@ -97,7 +97,7 @@ namespace SoftwareDesignExam
 
         private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
         {
-            _registerPlayerPage.DisplayPlayer(e);
+            _registerPlayerPage.DisplayPlayers(_playerManager.GetPlayerDictionary());
         }
 
         //gets and sends Highscores to page
