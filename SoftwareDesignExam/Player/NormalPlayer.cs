@@ -19,7 +19,7 @@ namespace SoftwareDesignExam
             set
             {
                 _timeInMs = value;
-                Score = GameParameters.CalculateScore(GetPlayerType(), _timeInMs); ;
+                Score = (int)GameParameters.CalculateScore(GetPlayerType(), _timeInMs); ;
             }
         }
         public NormalPlayer(string name)
