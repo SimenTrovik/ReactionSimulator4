@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xaml.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SoftwareDesignExam;
@@ -54,21 +55,21 @@ namespace Tests
         [Test]
         public void ShouldCalculateScoreCorrectly()
         {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+            Assert.That(_manager.AddPlayer("Simen", PlayerType.Normal, Key.L));
+            Assert.True(_manager.AddPlayer("Martin", PlayerType.Easy, Key.M));
 
             _manager.RegisterPlayerReactionTime(Key.L, 250);
             _manager.RegisterPlayerReactionTime(Key.M, 250);
 
-            Assert.That(_manager.GetPlayerByKey(Key.L).Score == 75);
-            Assert.That(_manager.GetPlayerByKey(Key.M).Score == 69);
+            Assert.That(Math.Abs(GameConfig.CalculateScore(PlayerType.Normal, 250) - 750) < 1);
+            Assert.That(Math.Abs(GameConfig.CalculateScore(PlayerType.Easy, 250) - 775) < 1);
         }
 
         [Test]
         public void ShouldRemovePlayer()
         {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+            Assert.That(_manager.AddPlayer("Simen", PlayerType.Normal, Key.L));
+            Assert.True(_manager.AddPlayer("Martin", PlayerType.Easy, Key.M));
 
             _manager.RemovePlayer(Key.L);
 

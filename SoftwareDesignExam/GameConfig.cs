@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoftwareDesignExam
 {
-    public static class GameParameters
+    public static class GameConfig
     {
         public static int TimesUpTime { get; } = 1000;      // Milliseconds before timer stops and a game is over
         public static int LeastRandomVal { get; } = 2000;   // Least    amount of milliseconds before the light turns green
@@ -14,13 +14,13 @@ namespace SoftwareDesignExam
 
         // Multipliers for calculating player scores
         public static Dictionary<PlayerType, double> multipliers = new() {
-            { PlayerType.Easy, 1.1 },
+            { PlayerType.Easy, 0.9 },
             { PlayerType.Normal, 1 }
         };
 
         public static double CalculateScore(PlayerType playerType, int timeInMs)
         {
-            return 1000 - timeInMs / multipliers[playerType];
+            return 1000 - timeInMs * multipliers[playerType];
         }
     }
 }
