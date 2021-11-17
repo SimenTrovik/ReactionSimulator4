@@ -130,12 +130,6 @@ namespace SoftwareDesignExam.WPF
             window.KeyDown += RegisterPlayerClick_KeyDown;
         }
 
-        public void DisplayScoreByPlayer(IPlayer player)
-        {
-            ScoreText.Text +=
-                $"\n {player.Name}: {player.Score}";
-        }
-
         private void ReadyStyling()
         {
             Dispatcher.Invoke(() =>
@@ -169,12 +163,14 @@ namespace SoftwareDesignExam.WPF
             string name;
             string difficulty;
             string key;
+            string score;
 
             foreach (KeyValuePair<Key, IPlayer> kvp in registeredPlayers)
             {
                 name = "Name: " + kvp.Value.Name;
-                difficulty = "Difficulty: " + kvp.Value.GetPlayerType().ToString();
-                key = "Key: " + kvp.Key.ToString();
+                difficulty = "Difficulty: " + kvp.Value.GetPlayerType();
+                key = "Key: " + kvp.Key;
+                score = "Score: " + kvp.Value.Score;
                 _playerNumber++;
 
                 switch (_playerNumber)
@@ -184,6 +180,7 @@ namespace SoftwareDesignExam.WPF
                         Box1Name.Text = name;
                         Box1Difficulty.Text = difficulty;
                         Box1Key.Text = key;
+                        Box1Score.Text = score; 
                         break;
                     case 2:
                         Player2Box.Opacity = 1;

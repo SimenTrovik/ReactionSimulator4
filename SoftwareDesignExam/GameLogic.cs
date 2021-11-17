@@ -134,8 +134,8 @@ namespace SoftwareDesignExam
         {
             if (!_activePlayerKeys.Contains(e.Key)) return;
             _playerManager.RegisterPlayerReactionTime(e.Key, _timer.GetTimeMs());
+            _gamePage.DisplayPlayers(_playerManager.GetPlayerDictionary());
             _activePlayerKeys.Remove(e.Key);
-            _gamePage.DisplayScoreByPlayer(_playerManager.GetPlayerByKey(e.Key));
         }
 
         private void SetupDelegateEvents()
