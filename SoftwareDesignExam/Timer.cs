@@ -7,9 +7,9 @@ namespace SoftwareDesignExam
     public sealed class Timer {
         private static readonly Timer instance = new();
         private readonly Stopwatch _stopWatch = new();
-        public int TimesUpTime => 3000;
-        public int LeastRandomVal => 2000;
-        public int MaxRandomVal => 5000;
+        public int TimesUpTime => GameParameters.TimesUpTime;
+        public int LeastRandomVal => GameParameters.LeastRandomVal;
+        public int MaxRandomVal => GameParameters.MaxRandomVal;
         public bool FinishedTimer { get; set; }
         private bool _falseStart;
         public int RandomTimeToStartTimer { get; set; }

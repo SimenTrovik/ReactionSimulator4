@@ -112,7 +112,7 @@ namespace SoftwareDesignExam
         private void RegisterPlayerClickEventHandler(object sender, KeyEventArgs e)
         {
             if (!_activePlayerKeys.Contains(e.Key)) return;
-            _playerManager.RegisterPlayerReactionTime(e.Key, _timer.TimeLeft());
+            _playerManager.RegisterPlayerReactionTime(e.Key, _timer.GetTimeMs());
             _activePlayerKeys.Remove(e.Key);
             _gamePage.DisplayScoreByPlayer(_playerManager.GetPlayerByKey(e.Key));
         }
