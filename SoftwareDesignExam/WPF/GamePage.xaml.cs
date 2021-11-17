@@ -26,14 +26,9 @@ namespace SoftwareDesignExam.WPF
 
         private Timer timer = Timer.GetInstance();
 
-        private List<Border> _playerBorders = new();
-        private List<TextBlock> _playerTextBoxes = new();
-
         public GamePage()
         {
             InitializeComponent();
-            PopulateTextBoxList();
-            PopulateBorderList();
         }
 
         public void Start()
@@ -110,16 +105,7 @@ namespace SoftwareDesignExam.WPF
 
         private void ShowMenu(object sender, EventArgs e)
         {
-            HidePlayerBoxes();
             showMenuClickEvent.Invoke(this, e);
-        }
-
-        private void HidePlayerBoxes()
-        {
-            for (int i = 0; i < _playerBorders.Count; i++)
-            {
-                _playerBorders[i].Opacity = 0;
-            }
         }
 
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
@@ -152,43 +138,6 @@ namespace SoftwareDesignExam.WPF
                 TimerText.Text = "Done!";
                 TrafficLight.Fill = Colors.Red;
             });
-        }
-
-        public void DisplayPlayers(Dictionary<Key, IPlayer> registeredPlayers)
-        {
-            int _playerNumber = 0;
-
-            foreach (KeyValuePair<Key, IPlayer> kvp in registeredPlayers)
-            {
-                _playerTextBoxes[_playerNumber].Text =
-                    "Name: " + kvp.Value.Name + "\n" +
-                    "Difficulty: " + kvp.Value.GetPlayerType() + "\n" +
-                    "Key: " + kvp.Key.ToString() + "\n" +
-                    "Score: " + kvp.Value.Score;
-                _playerBorders[_playerNumber].Opacity = 1;
-
-                _playerNumber++;
-            }
-        }
-
-        void PopulateTextBoxList()
-        {
-            _playerTextBoxes.Add(Player1Text);
-            _playerTextBoxes.Add(Player2Text);
-            _playerTextBoxes.Add(Player3Text);
-            _playerTextBoxes.Add(Player4Text);
-            _playerTextBoxes.Add(Player5Text);
-            _playerTextBoxes.Add(Player6Text);
-        }
-
-        void PopulateBorderList()
-        {
-            _playerBorders.Add(Player1Border);
-            _playerBorders.Add(Player2Border);
-            _playerBorders.Add(Player3Border);
-            _playerBorders.Add(Player4Border);
-            _playerBorders.Add(Player5Border);
-            _playerBorders.Add(Player6Border);
         }
     }
 }

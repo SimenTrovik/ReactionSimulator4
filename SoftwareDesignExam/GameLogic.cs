@@ -36,12 +36,12 @@ namespace SoftwareDesignExam
         private void ResetPlayers()
         {
             _playerManager.ResetPlayers();
-            //_registerPlayerPage.ClearDisplayedPlayers();
+            _mainWindow.HidePlayerBoxes();
         }
 
         private void GameLoop()
         {
-            _gamePage.DisplayPlayers(_playerManager.GetPlayerDictionary());
+            _mainWindow.DisplayPlayers(_playerManager.GetPlayerDictionary());
             _activePlayerKeys = _playerManager.GetPlayerKeyList();
             _gamePage.Start();
             Task.Run(() =>
@@ -60,6 +60,7 @@ namespace SoftwareDesignExam
         private void NavigateToMenuPage()
         {
             _mainWindow.MainFrame.Navigate(_menuPage);
+            _mainWindow.HidePlayerBoxes();
         }
 
         private void NavigateToRegisterPlayerPage()
@@ -97,7 +98,7 @@ namespace SoftwareDesignExam
 
         private void DisplayPlayersEventHandler(Object sender, PlayerEventArgs e)
         {
-            _registerPlayerPage.DisplayPlayers(_playerManager.GetPlayerDictionary());
+            _mainWindow.DisplayPlayers(_playerManager.GetPlayerDictionary());
         }
 
         //gets and sends Highscores to page
@@ -134,7 +135,7 @@ namespace SoftwareDesignExam
         {
             if (!_activePlayerKeys.Contains(e.Key)) return;
             _playerManager.RegisterPlayerReactionTime(e.Key, _timer.GetTimeMs());
-            _gamePage.DisplayPlayers(_playerManager.GetPlayerDictionary());
+            _mainWindow.DisplayPlayers(_playerManager.GetPlayerDictionary());
             _activePlayerKeys.Remove(e.Key);
         }
 

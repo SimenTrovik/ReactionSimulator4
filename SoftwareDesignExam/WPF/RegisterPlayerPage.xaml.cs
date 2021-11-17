@@ -25,32 +25,16 @@ namespace SoftwareDesignExam.WPF
         private Key _currentKey = Key.A;
         private List<Key> _keyList = new();
         private List<String> _activePlayersList = new();
-        private int _playerNumber;
-
-        private List<Border> _playerBorders = new();
-        private List<TextBlock> _playerTextBlocks = new();
 
         public RegisterPlayerPage()
         {
             InitializeComponent();
-            PopulateTextBoxList();
-            PopulateBorderList();
         }
 
         private void StartGame(object sender, EventArgs e)
         {
             _keyList.Clear();
-            _playerNumber = 0;
-            HidePlayerBoxes();
             StartGameEvent?.Invoke(this, e);
-        }
-
-        private void HidePlayerBoxes()
-        {
-            for (int i = 0; i < _playerBorders.Count; i++)
-            {
-                _playerBorders[i].Opacity = 0;
-            }
         }
 
         private void AddPlayerButton_Click(object sender, RoutedEventArgs e)
@@ -64,22 +48,6 @@ namespace SoftwareDesignExam.WPF
             if (_isListeningForKeys && e.Key is >= Key.A and <= Key.Z)
             {
                 SetCurrentKey(e.Key);
-            }
-        }
-
-        public void DisplayPlayers(Dictionary<Key, IPlayer> registeredPlayers)
-        {
-            int _playerNumber = 0;
-
-            foreach (KeyValuePair<Key, IPlayer> kvp in registeredPlayers)
-            {
-                _playerTextBlocks[_playerNumber].Text =
-                    "Name: " + kvp.Value.Name + "\n" +
-                    "Difficulty: " + kvp.Value.GetPlayerType() + "\n" +
-                    "Key: " + kvp.Key.ToString() + "\n";
-                _playerBorders[_playerNumber].Opacity = 1;
-
-                _playerNumber++;
             }
         }
 
@@ -143,26 +111,6 @@ namespace SoftwareDesignExam.WPF
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        }
-
-        void PopulateTextBoxList()
-        {
-            _playerTextBlocks.Add(Player1Text);
-            _playerTextBlocks.Add(Player2Text);
-            _playerTextBlocks.Add(Player3Text);
-            _playerTextBlocks.Add(Player4Text);
-            _playerTextBlocks.Add(Player5Text);
-            _playerTextBlocks.Add(Player6Text);
-        }
-
-        void PopulateBorderList()
-        {
-            _playerBorders.Add(Player1Border);
-            _playerBorders.Add(Player2Border);
-            _playerBorders.Add(Player3Border);
-            _playerBorders.Add(Player4Border);
-            _playerBorders.Add(Player5Border);
-            _playerBorders.Add(Player6Border);
         }
     }
 }
