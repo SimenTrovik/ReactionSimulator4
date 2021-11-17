@@ -184,6 +184,7 @@ namespace SoftwareDesignExam.WPF
                         Player2Box.Opacity = 1;
                         Box2Name.Text = name;
                         Box2Difficulty.Text = difficulty;
+                        Box2Score.Text = score;
                         Box2Key.Text = key;
                         break;
                     case 3:
@@ -191,24 +192,28 @@ namespace SoftwareDesignExam.WPF
                         Box3Name.Text = name;
                         Box3Difficulty.Text = difficulty;
                         Box3Key.Text = key;
+                        Box3Score.Text = score;
                         break;
                     case 4:
                         Player4Box.Opacity = 1;
                         Box4Name.Text = name;
                         Box4Difficulty.Text = difficulty;
                         Box4Key.Text = key;
+                        Box4Score.Text = score;
                         break;
                     case 5:
                         Player5Box.Opacity = 1;
                         Box5Name.Text = name;
                         Box5Difficulty.Text = difficulty;
                         Box5Key.Text = key;
+                        Box5Score.Text = score;
                         break;
                     case 6:
                         Player6Box.Opacity = 1;
                         Box6Name.Text = name;
                         Box6Difficulty.Text = difficulty;
                         Box6Key.Text = key;
+                        Box6Score.Text = score;
                         break;
                 }
             }
