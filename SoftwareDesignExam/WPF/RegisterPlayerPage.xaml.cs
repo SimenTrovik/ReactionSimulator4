@@ -40,7 +40,7 @@ namespace SoftwareDesignExam.WPF
 
         private void AddPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            KeyPressGrid.Opacity = 1;
+            KeyPressGrid.Visibility = Visibility.Visible;
             _isListeningForKeys = true;
         }
 
@@ -112,7 +112,7 @@ namespace SoftwareDesignExam.WPF
             NormalRadio.IsChecked = true;
             InputNameTextBox.Text = "";
             CurrKey.Text = "Your chosen key: ";
-            KeyPressGrid.Opacity = 0;
+            KeyPressGrid.Visibility = Visibility.Hidden;
             _isListeningForKeys = false;
         }
 

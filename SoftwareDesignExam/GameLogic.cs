@@ -21,6 +21,7 @@ namespace SoftwareDesignExam
         private ScoreDao _scoreDao = new();
         private PlayerManager _playerManager = new();
         private List<Key> _activePlayerKeys = new();
+        private SoundManager _soundManager = new();
 
         public GameLogic()
         {
@@ -62,17 +63,20 @@ namespace SoftwareDesignExam
         {
             _mainWindow.MainFrame.Navigate(_menuPage);
             _mainWindow.HidePlayerBoxes();
+            _soundManager.MainMenuMusic();
         }
 
         private void NavigateToRegisterPlayerPage()
         {
             ResetPlayers();
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
+            _soundManager.RegisterPlayerMusic();
         }
 
         private void NavigateToShowHighScorePage()
         {
-            _mainWindow.MainFrame.Navigate(_showHighScorePage);
+	        _mainWindow.MainFrame.Navigate(_showHighScorePage);
+            _soundManager.HighscoreMenuMusic();
         }
 
         private void NavigateToGamePage()
