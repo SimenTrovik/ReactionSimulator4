@@ -1,5 +1,4 @@
 # SoftwareDesignExam
 
-## How to setup local database
-- in Package Manager Console:
-update-database
+## Notes:
+* When running the tests, the live database is wiped clean (If you're proud of your score, don't run the tests ;) ;) )
