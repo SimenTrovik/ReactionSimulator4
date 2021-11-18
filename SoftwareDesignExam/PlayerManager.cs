@@ -31,7 +31,7 @@ namespace SoftwareDesignExam
         {
             foreach (var player in _playerDictionary)
             {
-                player.Value.TimeInMs = 0;
+                player.Value.Score = 0;
             }
         }
 
