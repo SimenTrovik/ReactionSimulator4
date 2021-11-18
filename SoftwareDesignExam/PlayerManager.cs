@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.CodeDom;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.RightsManagement;
 using System.Windows.Input;
@@ -34,7 +35,8 @@ namespace SoftwareDesignExam
             var newPlayer = _playerFactory.GetPlayer(name, type);
             return _playerDictionary.TryAdd(key, newPlayer);
         }
-
+        // Returns the IPlayer object with the highest score.
+        // If all players have a score of 0, a new IPlayer object with the name "No one" is returned
         public IPlayer GetWinner()
         {
             IPlayer leadingPlayer = _playerFactory.GetPlayer("No one", PlayerType.Normal);
@@ -47,12 +49,12 @@ namespace SoftwareDesignExam
             }
             return leadingPlayer;
         }
-
+        // Deletes all active players
         public void ResetPlayers()
         {
             _playerDictionary.Clear();
         }
-
+        // Sets the score of all players to 0
         public void ResetScores()
         {
             foreach (var player in _playerDictionary)
@@ -60,37 +62,37 @@ namespace SoftwareDesignExam
                 player.Value.Score = 0;
             }
         }
-
+        // Saves the reaction time of a player.
+        // The calculation of score is done in the IPlayers Score property
         public void RegisterPlayerReactionTime(Key key, int time)
         {
             _playerDictionary[key].TimeInMs = time;
         }
-
+        // Returns true if Key is already in use
         public bool IsKeyTaken(Key key)
         {
             return _playerDictionary.ContainsKey(key);
         }
-
+        // Returns the amount of registered players
         public int GetAmountOfPlayers()
         {
             return _playerDictionary.Count;
         }
-
+        // Returns a list of all Keys in use
         public List<Key> GetPlayerKeyList()
         {
             return _playerDictionary.Keys.ToList();
         }
-
+        // Returns the IPlayer object registered with the provided Key
         public IPlayer GetPlayerByKey(Key key)
         {
             return _playerDictionary[key];
         }
-
+        // Returns a list of all IPlayer objects
         public List<IPlayer> GetPlayerList()
         {
             return _playerDictionary.Values.ToList();
         }
-
         // Returns the entire dictionary
         public Dictionary<Key, IPlayer> GetPlayerDictionary()
         {
