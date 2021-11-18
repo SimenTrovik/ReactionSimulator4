@@ -91,5 +91,62 @@ namespace Tests
             _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
             Assert.True(_manager.IsKeyTaken(Key.L));
         }
+
+        [Test]
+        public void ShouldGetWinnerNoone()
+        {
+            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+
+            _manager.RegisterPlayerReactionTime(Key.L, 0);
+            _manager.RegisterPlayerReactionTime(Key.M, 0);
+
+            //This has to be done to force the scores to be zero,
+            //because the score calculation is dependant on an active timer
+            _manager.ResetScores();
+
+            var winner = _manager.GetWinner();
+            Assert.AreEqual(winner.Name, "No one");
+        }
+
+        [Test]
+        public void ShouldReturnAmountOfPlayers()
+        {
+            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+            _manager.AddPlayer("Sasdf", PlayerType.Normal, Key.F);
+            _manager.AddPlayer("asdf", PlayerType.Easy, Key.R);
+
+            Assert.AreEqual(4, _manager.GetAmountOfPlayers());
+        }
+        [Test]
+        public void ShouldReturnPlayerKeysAsList()
+        {
+            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+            _manager.AddPlayer("Sasdf", PlayerType.Normal, Key.F);
+            _manager.AddPlayer("asdf", PlayerType.Easy, Key.R);
+
+            var list = _manager.GetPlayerKeyList();
+
+            Assert.That(list.Contains(Key.L));
+            Assert.That(list.Contains(Key.M));
+            Assert.That(list.Contains(Key.F));
+            Assert.That(list.Contains(Key.R));
+        }
+        [Test]
+        public void ShouldResetScores()
+        {
+            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+            
+            _manager.RegisterPlayerReactionTime(Key.L, 200);
+            _manager.RegisterPlayerReactionTime(Key.M, 300);
+
+            _manager.ResetScores();
+
+            Assert.That(_manager.GetPlayerByKey(Key.L).Score == 0);
+            Assert.That(_manager.GetPlayerByKey(Key.M).Score == 0);
+        }
     }
 }

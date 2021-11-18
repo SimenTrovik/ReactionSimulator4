@@ -41,7 +41,8 @@ namespace SoftwareDesignExam
         #region Methods
         private void ResetPlayers()
         {
-            _playerManager.ResetPlayers(); 
+            _playerManager.ResetPlayers();
+            _registerPlayerPage.ClearActivePlayers();
             _mainWindow.HidePlayerBoxes();
         }
 
@@ -81,7 +82,7 @@ namespace SoftwareDesignExam
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
             _soundManager.RegisterPlayerMusic();
         }
-        
+
         private void NavigateToShowHighScorePage()
         {
 	        _mainWindow.MainFrame.Navigate(_showHighScorePage);
@@ -91,6 +92,7 @@ namespace SoftwareDesignExam
         private void NavigateToGamePage()
         {
             _mainWindow.MainFrame.Navigate(_gamePage);
+            _soundManager.GamepageMusic();
         }
 
         private void NavigateToRegisterPlayersPageEventHandler(object sender, EventArgs e)
@@ -101,7 +103,7 @@ namespace SoftwareDesignExam
         //Button for MenuPage -> HighScorePage
         private void NavigateToShowHighScorePageEventHandler(object sender, EventArgs e)
         {
-	        NavigateToShowHighScorePage();
+            NavigateToShowHighScorePage();
         }
 
         private void NavigateToMenuPageEventHandler(object sender, EventArgs e)
@@ -122,16 +124,7 @@ namespace SoftwareDesignExam
 
         private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
         {
-            if (!_playerManager.IsKeyTaken(e.Key))
-            {
-                _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
-            }
-            else
-            {
-                //Todo should there be something here???
-                // Display "Key taken"
-            }
-
+            if (!_playerManager.IsKeyTaken(e.Key)) _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
         }
 
         private void StartGameEventHandler(object sender, EventArgs e)

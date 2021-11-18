@@ -5,10 +5,15 @@ using System.Windows.Input;
 
 namespace SoftwareDesignExam
 {
+    /*  
+     * This class is used for keeping track of information about the players participating in the game.
+     * It uses a ConcretePlayerFactory to create IPlayer 
+     */ 
     public class PlayerManager
     {
         #region Fields
         private readonly ConcretePlayerFactory _playerFactory;
+        // Stores the IPlayer objects, with the Keyboard Key they chose as Key in the dictionary
         private readonly Dictionary<Key, IPlayer> _playerDictionary;
         public PlayerManager()
         {
@@ -59,7 +64,7 @@ namespace SoftwareDesignExam
             return _playerDictionary.Count;
         }
 
-        public IPlayer GetWinner()
+        public Dictionary<Key, IPlayer> GetPlayerDictionary()
         {
             Key maxKey = Key.None;
             int maxScore = -1; 
@@ -86,13 +91,19 @@ namespace SoftwareDesignExam
             return _playerDictionary.Values.ToList();
         }
 
-        public Dictionary<Key, IPlayer> GetPlayerDictionary()
+        public IPlayer GetWinner()
         {
-            return _playerDictionary;
+            Key maxKey = Key.None;
+            int maxScore = 0;
+            foreach (var keyValuePair1 in _playerDictionary.Where(keyValuePair => keyValuePair.Value.Score > maxScore))
+            {
+                maxScore = keyValuePair1.Value.Score;
+                maxKey = keyValuePair1.Key;
+            }
+            return maxScore == 0 ? _playerFactory.GetPlayer("No one", PlayerType.Normal) : _playerDictionary[maxKey];
         }
-        #endregion
-
     }
+    // This enum keeps track of the available difficulties players can choose
     public enum PlayerType
     {
         Normal,
