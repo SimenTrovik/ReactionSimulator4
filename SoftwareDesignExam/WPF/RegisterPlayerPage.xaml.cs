@@ -99,6 +99,11 @@ namespace SoftwareDesignExam.WPF
             }
         }
 
+        public void ClearActivePlayers()
+        {
+            _activePlayersList.Clear();
+        }
+
         private void ResetFields()
         {
             NormalRadio.IsChecked = true;

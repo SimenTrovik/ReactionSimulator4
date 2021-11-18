@@ -66,6 +66,7 @@ namespace SoftwareDesignExam
         private void NavigateToRegisterPlayerPage()
         {
             ResetPlayers();
+            _registerPlayerPage.ClearActivePlayers();
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
         }
         
