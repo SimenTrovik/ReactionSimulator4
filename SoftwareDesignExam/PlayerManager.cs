@@ -15,6 +15,9 @@ namespace SoftwareDesignExam
         private readonly ConcretePlayerFactory _playerFactory;
         // Stores the IPlayer objects, with the Keyboard Key they chose as Key in the dictionary
         private readonly Dictionary<Key, IPlayer> _playerDictionary;
+        #endregion
+
+        #region Constructor
         public PlayerManager()
         {
             _playerFactory = new ConcretePlayerFactory();
@@ -22,7 +25,7 @@ namespace SoftwareDesignExam
         }
         #endregion
 
-        #region Constructor
+        #region Methods
         // Adds a new player to the dictionary
         // Returns true/false if the addition was successful or not.
         public bool AddPlayer(string name, PlayerType type, Key key)
@@ -31,9 +34,19 @@ namespace SoftwareDesignExam
             var newPlayer = _playerFactory.GetPlayer(name, type);
             return _playerDictionary.TryAdd(key, newPlayer);
         }
-        #endregion
 
-        #region Methods
+        public IPlayer GetWinner()
+        {
+            Key maxKey = Key.None;
+            int maxScore = 0;
+            foreach (var keyValuePair1 in _playerDictionary.Where(keyValuePair => keyValuePair.Value.Score > maxScore))
+            {
+                maxScore = keyValuePair1.Value.Score;
+                maxKey = keyValuePair1.Key;
+            }
+            return maxScore == 0 ? _playerFactory.GetPlayer("No one", PlayerType.Normal) : _playerDictionary[maxKey];
+        }
+
         public void ResetPlayers()
         {
             _playerDictionary.Clear();
@@ -51,9 +64,7 @@ namespace SoftwareDesignExam
         {
             _playerDictionary[key].TimeInMs = time;
         }
-        #endregion
 
-        #region Getters/Setters
         public bool IsKeyTaken(Key key)
         {
             return _playerDictionary.ContainsKey(key);
@@ -62,18 +73,6 @@ namespace SoftwareDesignExam
         public int GetAmountOfPlayers()
         {
             return _playerDictionary.Count;
-        }
-
-        public Dictionary<Key, IPlayer> GetPlayerDictionary()
-        {
-            Key maxKey = Key.None;
-            int maxScore = -1; 
-            foreach (var (key, value) in _playerDictionary.Where(keyValuePair => keyValuePair.Value.Score > maxScore))
-            {
-                maxScore= value.Score;
-                maxKey = key;
-            }
-            return maxScore == 0 ? _playerFactory.GetPlayer("No one", PlayerType.Normal) : _playerDictionary[maxKey];
         }
 
         public List<Key> GetPlayerKeyList()
@@ -91,17 +90,12 @@ namespace SoftwareDesignExam
             return _playerDictionary.Values.ToList();
         }
 
-        public IPlayer GetWinner()
+        // Returns the entire dictionary
+        public Dictionary<Key, IPlayer> GetPlayerDictionary()
         {
-            Key maxKey = Key.None;
-            int maxScore = 0;
-            foreach (var keyValuePair1 in _playerDictionary.Where(keyValuePair => keyValuePair.Value.Score > maxScore))
-            {
-                maxScore = keyValuePair1.Value.Score;
-                maxKey = keyValuePair1.Key;
-            }
-            return maxScore == 0 ? _playerFactory.GetPlayer("No one", PlayerType.Normal) : _playerDictionary[maxKey];
+            return _playerDictionary;
         }
+        #endregion
     }
     // This enum keeps track of the available difficulties players can choose
     public enum PlayerType
