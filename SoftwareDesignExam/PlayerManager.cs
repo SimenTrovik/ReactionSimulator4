@@ -71,14 +71,14 @@ namespace SoftwareDesignExam
 
         public IPlayer GetWinner()
         {
-            Key maxKey = Key.None;
-            int maxScore = 0; 
-            foreach (var (key, value) in _playerDictionary.Where(keyValuePair => keyValuePair.Value.Score > maxScore))
+            IPlayer leadingPlayer = _playerFactory.GetPlayer("No one", PlayerType.Normal);
+            foreach ((Key key, IPlayer player) in _playerDictionary)
             {
-                maxScore= value.Score;
-                maxKey = key;
+                if (player > leadingPlayer) { 
+                    leadingPlayer = player;
+                }
             }
-            return maxScore == 0 ? _playerFactory.GetPlayer("No one", PlayerType.Normal) : _playerDictionary[maxKey];
+            return leadingPlayer;
         }
 
     }
