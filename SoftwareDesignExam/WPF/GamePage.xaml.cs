@@ -92,7 +92,7 @@ namespace SoftwareDesignExam.WPF
         {
             Dispatcher.Invoke(() =>
             {
-                HeaderText.Text = $"{winner.Name} won!\n Score: {winner.Score}";
+                HeaderText.Text = $"{winner.Name} won! Score: {winner.Score}";
             });
         }
 
