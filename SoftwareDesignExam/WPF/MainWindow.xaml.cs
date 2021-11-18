@@ -10,17 +10,21 @@ namespace SoftwareDesignExam
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        #region Fields
         private List<Border> _playerBorders = new();
         private List<TextBlock> _playerTextBlocks = new();
+        #endregion
 
+        #region Constructor
         public MainWindow()
         {
             InitializeComponent();
             PopulateTextBoxList();
             PopulateBorderList();
         }
+        #endregion
 
+        #region Methods
         public void DisplayPlayers(Dictionary<Key, IPlayer> registeredPlayers)
         {
             int _playerNumber = 0;
@@ -75,4 +79,5 @@ namespace SoftwareDesignExam
             _playerBorders.Add(Player6Border);
         }
     }
+        #endregion
 }

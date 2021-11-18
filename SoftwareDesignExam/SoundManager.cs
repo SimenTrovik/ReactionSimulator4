@@ -12,14 +12,19 @@ using System.Windows.Media;
 namespace SoftwareDesignExam {
     
     class SoundManager {
+        #region Fields
         private string _path;
         MediaPlayer mediaPlayer = new();
         MediaPlayer soundEffects = new();
+        #endregion
 
+        #region Constructor
         public SoundManager() {
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\sounds\\";
         }
+        #endregion
 
+        #region Methods
         private void PlayMusic(string file) {
             mediaPlayer.Open(new Uri(_path + file + ".wav"));
             mediaPlayer.Volume = 0.3;
@@ -46,5 +51,6 @@ namespace SoftwareDesignExam {
         public void WhistleEffect() {
             PlayEffect(@"whistle");
         }
+        #endregion
     }
 }
