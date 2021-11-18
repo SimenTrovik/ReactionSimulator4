@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 namespace SoftwareDesignExam
 {
     public sealed class Timer {
+        #region Fields
         private static readonly Timer Instance = new();
         private readonly Stopwatch _stopWatch = new();
         public bool WaitingToStart { get; set; }
         public int RandomTimeToStartTimer { get; set; }
+        #endregion
 
+        #region Constructor
         private Timer() {}
+        #endregion
 
+        #region Methods
         public void StartTimer()
         {
             RandomTimeToStartTimer = new Random().Next(
@@ -42,7 +47,9 @@ namespace SoftwareDesignExam
             _stopWatch.Reset();
             WaitingToStart = true;
         }
+        #endregion
 
+        #region Getters/Setters
         public int GetTimeMs() {
             return _stopWatch.Elapsed.Milliseconds + _stopWatch.Elapsed.Seconds*1000;
         }
@@ -50,5 +57,6 @@ namespace SoftwareDesignExam
         public static Timer GetInstance() {
             return Instance;
         }
+        #endregion
     }
 }

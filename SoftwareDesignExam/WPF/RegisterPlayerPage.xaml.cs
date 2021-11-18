@@ -13,11 +13,14 @@ namespace SoftwareDesignExam.WPF
     /// Interaction logic for RegisterPlayerPage.xaml
     /// </summary>
 
+    #region Delegates
     public delegate void RegisterPlayerEvent(object sender, PlayerEventArgs e);
     public delegate void StartGameEvent(object sender, EventArgs e);
+#endregion
 
     public partial class RegisterPlayerPage : Page
     {
+        #region Fields
         public event RegisterPlayerEvent RegisterPlayerEvents;
         public event StartGameEvent StartGameEvent;
 
@@ -25,12 +28,16 @@ namespace SoftwareDesignExam.WPF
         private Key _currentKey = Key.A;
         private List<Key> _keyList = new();
         private List<String> _activePlayersList = new();
+        #endregion
 
+        #region Constructor
         public RegisterPlayerPage()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region Methods
         private void StartGame(object sender, EventArgs e)
         {
             if (_keyList.Count <= 0) return;
@@ -118,7 +125,8 @@ namespace SoftwareDesignExam.WPF
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            // Todo Do we need this method???
         }
+        #endregion
     }
 }
