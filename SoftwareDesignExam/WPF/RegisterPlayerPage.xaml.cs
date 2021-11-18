@@ -33,6 +33,7 @@ namespace SoftwareDesignExam.WPF
 
         private void StartGame(object sender, EventArgs e)
         {
+            if (_keyList.Count <= 0) return;
             _keyList.Clear();
             StartGameEvent?.Invoke(this, e);
         }
