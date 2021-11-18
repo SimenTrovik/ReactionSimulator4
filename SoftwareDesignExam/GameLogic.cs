@@ -82,6 +82,7 @@ namespace SoftwareDesignExam
         private void NavigateToGamePage()
         {
             _mainWindow.MainFrame.Navigate(_gamePage);
+            _soundManager.GamepageMusic();
         }
 
         private void NavigateToRegisterPlayersPageEventHandler(object sender, EventArgs e)
