@@ -28,10 +28,12 @@ namespace SoftwareDesignExam
             var newPlayer = _playerFactory.GetPlayer(name, type);
             return _playerDictionary.TryAdd(key, newPlayer);
         }
+        // Removes all registered players
         public void ResetPlayers()
         {
             _playerDictionary.Clear();
         }
+        // Sets the score of all players to 0
         public void ResetScores()
         {
             foreach (var player in _playerDictionary)
@@ -39,41 +41,44 @@ namespace SoftwareDesignExam
                 player.Value.Score = 0;
             }
         }
-
+        // Returns a List of all Keys in use
         public List<Key> GetPlayerKeyList()
         {
             return _playerDictionary.Keys.ToList();
         }
-
+        // Returns the player that uses the provided key
         public IPlayer GetPlayerByKey(Key key)
         {
             return _playerDictionary[key];
         }
+        // Returns all player objects as a List
         public List<IPlayer> GetPlayerList()
         {
             return _playerDictionary.Values.ToList();
         }
-
+        // Returns the entire
         public Dictionary<Key, IPlayer> GetPlayerDictionary()
         {
             return _playerDictionary;
         }
-
+        // Registers a reaction time for a player. Their score is calculated in the IPlayers Score property
         public void RegisterPlayerReactionTime(Key key, int time)
         {
             _playerDictionary[key].TimeInMs = time;
         }
-
+        // Returns the amount of players registered
         public int GetAmountOfPlayers()
         {
             return _playerDictionary.Count;
         }
-
+        // Returns true if the provided Key is already in use by a player
         public bool IsKeyTaken(Key key)
         {
             return _playerDictionary.ContainsKey(key);
         }
 
+        // Returns the player with the highest score.
+        // If all players have a score of 0, it will return a IPlayer object with the name "No one"
         public IPlayer GetWinner()
         {
             Key maxKey = Key.None;
