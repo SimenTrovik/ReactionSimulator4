@@ -90,6 +90,12 @@ namespace SoftwareDesignExam
         {
             return _playerDictionary.Values.ToList();
         }
+
+        // Returns the entire dictionary
+        public Dictionary<Key, IPlayer> GetPlayerDictionary()
+        {
+            return _playerDictionary;
+        }
         #endregion
     }
     // This enum keeps track of the available difficulties players can choose
