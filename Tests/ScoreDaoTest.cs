@@ -100,11 +100,11 @@ namespace Tests
 		[Test]
 		public void ShouldSaveListOfPlayersWithScore()
 		{
-			_manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-			_manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
-			_manager.AddPlayer("Steffan", PlayerType.Normal, Key.F);
-			_manager.AddPlayer("Torstein", PlayerType.Easy, Key.A);
-			_manager.AddPlayer("Ruben", PlayerType.Easy, Key.O);
+			_manager.AddPlayer("student1", PlayerType.Normal, Key.L);
+			_manager.AddPlayer("student2", PlayerType.Easy, Key.M);
+			_manager.AddPlayer("student3", PlayerType.Normal, Key.F);
+			_manager.AddPlayer("student4", PlayerType.Easy, Key.A);
+			_manager.AddPlayer("student5", PlayerType.Easy, Key.O);
 
 			_manager.RegisterPlayerReactionTime(Key.L, 900);
 

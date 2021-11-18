@@ -17,9 +17,9 @@ namespace Tests
         [Test]
         public void ShouldCreateNormalPlayer()
         {
-            var player = _factory.GetPlayer("Simen", PlayerType.Normal);
+            var player = _factory.GetPlayer("student1", PlayerType.Normal);
 
-            Assert.That(player.Name == "Simen");
+            Assert.That(player.Name == "student1");
             //Assert.That(player.ScoreMultiplier == 10);
             Assert.That(player.Score == 0);
             Assert.That(player.GetPlayerType() == PlayerType.Normal);
@@ -27,9 +27,9 @@ namespace Tests
         [Test]
         public void ShouldCreateEasyPlayer()
         {
-            var player = _factory.GetPlayer("Kjell", PlayerType.Easy);
+            var player = _factory.GetPlayer("student2", PlayerType.Easy);
 
-            Assert.That(player.Name == "Kjell");
+            Assert.That(player.Name == "student2");
            // Assert.That(player.ScoreMultiplier == 8);
             Assert.That(player.Score == 0);
             Assert.That(player.GetPlayerType() == PlayerType.Easy);

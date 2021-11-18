@@ -23,13 +23,13 @@ namespace Tests
         [Test]
         public void ShouldAddPlayers()
         {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.D);
+            _manager.AddPlayer("student1", PlayerType.Normal, Key.D);
             _manager.AddPlayer("Kjell", PlayerType.Easy, Key.A);
 
             var newPlayer1 = _manager.GetPlayerByKey(Key.D);
             var newPlayer2 = _manager.GetPlayerByKey(Key.A);
 
-            Assert.That(newPlayer1.Name == "Simen");
+            Assert.That(newPlayer1.Name == "student1");
             Assert.That(newPlayer1.GetPlayerType() == PlayerType.Normal);
             Assert.That(newPlayer2.Name == "Kjell");
             Assert.That(newPlayer2.GetPlayerType() == PlayerType.Easy);
@@ -37,27 +37,27 @@ namespace Tests
         [Test]
         public void ShouldReturnPlayersAsList()
         {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
-            _manager.AddPlayer("Steffan", PlayerType.Normal, Key.F);
-            _manager.AddPlayer("Torstein", PlayerType.Easy, Key.A);
-            _manager.AddPlayer("Ruben", PlayerType.Easy, Key.O);
+            _manager.AddPlayer("student1", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("student2", PlayerType.Easy, Key.M);
+            _manager.AddPlayer("student3", PlayerType.Normal, Key.F);
+            _manager.AddPlayer("student4", PlayerType.Easy, Key.A);
+            _manager.AddPlayer("student5", PlayerType.Easy, Key.O);
 
             var list = _manager.GetPlayerList();
 
-            Assert.That(list.Exists(item => item.Name == "Simen" && item.GetPlayerType() == PlayerType.Normal));
-            Assert.That(list.Exists(item => item.Name == "Martin" && item.GetPlayerType() == PlayerType.Easy));
-            Assert.That(list.Exists(item => item.Name == "Steffan" && item.GetPlayerType() == PlayerType.Normal));
-            Assert.That(list.Exists(item => item.Name == "Torstein" && item.GetPlayerType() == PlayerType.Easy));
-            Assert.That(list.Exists(item => item.Name == "Ruben" && item.GetPlayerType() == PlayerType.Easy));
+            Assert.That(list.Exists(item => item.Name == "student1" && item.GetPlayerType() == PlayerType.Normal));
+            Assert.That(list.Exists(item => item.Name == "student2" && item.GetPlayerType() == PlayerType.Easy));
+            Assert.That(list.Exists(item => item.Name == "student3" && item.GetPlayerType() == PlayerType.Normal));
+            Assert.That(list.Exists(item => item.Name == "student4" && item.GetPlayerType() == PlayerType.Easy));
+            Assert.That(list.Exists(item => item.Name == "student5" && item.GetPlayerType() == PlayerType.Easy));
 
             Assert.That(list.Count == 5);
         }
         [Test]
         public void ShouldCalculateScoreCorrectly()
         {
-            Assert.That(_manager.AddPlayer("Simen", PlayerType.Normal, Key.L));
-            Assert.True(_manager.AddPlayer("Martin", PlayerType.Easy, Key.M));
+            Assert.That(_manager.AddPlayer("student1", PlayerType.Normal, Key.L));
+            Assert.True(_manager.AddPlayer("student2", PlayerType.Easy, Key.M));
 
             _manager.RegisterPlayerReactionTime(Key.L, 250);
             _manager.RegisterPlayerReactionTime(Key.M, 250);
@@ -67,8 +67,8 @@ namespace Tests
         }
         [Test]
         public void ShouldResetPlayers() {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+            _manager.AddPlayer("student1", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("student2", PlayerType.Easy, Key.M);
 
             _manager.ResetPlayers();
 
@@ -76,8 +76,8 @@ namespace Tests
         }
         [Test]
         public void ShouldGetWinner() {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+            _manager.AddPlayer("student1", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("student2", PlayerType.Easy, Key.M);
 
             _manager.RegisterPlayerReactionTime(Key.L, 300);
             _manager.RegisterPlayerReactionTime(Key.M, 200);
@@ -88,15 +88,15 @@ namespace Tests
         [Test]
         public void ShouldReturnKeyIsTaken()
         {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("student1", PlayerType.Normal, Key.L);
             Assert.True(_manager.IsKeyTaken(Key.L));
         }
 
         [Test]
         public void ShouldGetWinnerNoone()
         {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+            _manager.AddPlayer("student1", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("student2", PlayerType.Easy, Key.M);
 
             _manager.RegisterPlayerReactionTime(Key.L, 0);
             _manager.RegisterPlayerReactionTime(Key.M, 0);
@@ -112,20 +112,20 @@ namespace Tests
         [Test]
         public void ShouldReturnAmountOfPlayers()
         {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
-            _manager.AddPlayer("Sasdf", PlayerType.Normal, Key.F);
-            _manager.AddPlayer("asdf", PlayerType.Easy, Key.R);
+            _manager.AddPlayer("student1", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("student2", PlayerType.Easy, Key.M);
+            _manager.AddPlayer("student6", PlayerType.Normal, Key.F);
+            _manager.AddPlayer("student7", PlayerType.Easy, Key.R);
 
             Assert.AreEqual(4, _manager.GetAmountOfPlayers());
         }
         [Test]
         public void ShouldReturnPlayerKeysAsList()
         {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
-            _manager.AddPlayer("Sasdf", PlayerType.Normal, Key.F);
-            _manager.AddPlayer("asdf", PlayerType.Easy, Key.R);
+            _manager.AddPlayer("student1", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("student2", PlayerType.Easy, Key.M);
+            _manager.AddPlayer("student6", PlayerType.Normal, Key.F);
+            _manager.AddPlayer("student7", PlayerType.Easy, Key.R);
 
             var list = _manager.GetPlayerKeyList();
 
@@ -137,8 +137,8 @@ namespace Tests
         [Test]
         public void ShouldResetScores()
         {
-            _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
-            _manager.AddPlayer("Martin", PlayerType.Easy, Key.M);
+            _manager.AddPlayer("student1", PlayerType.Normal, Key.L);
+            _manager.AddPlayer("student2", PlayerType.Easy, Key.M);
             
             _manager.RegisterPlayerReactionTime(Key.L, 200);
             _manager.RegisterPlayerReactionTime(Key.M, 300);
