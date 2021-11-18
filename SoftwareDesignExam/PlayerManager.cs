@@ -71,23 +71,14 @@ namespace SoftwareDesignExam
 
         public IPlayer GetWinner()
         {
-            // TODO This is bugged
             Key maxKey = Key.None;
             int maxScore = -1; 
-            foreach (var keyValuePair in _playerDictionary)
+            foreach (var (key, value) in _playerDictionary.Where(keyValuePair => keyValuePair.Value.Score > maxScore))
             {
-                if (keyValuePair.Value.Score > maxScore)
-                {
-                    maxScore= keyValuePair.Value.Score;
-                    maxKey = keyValuePair.Key;
-                }
+                maxScore= value.Score;
+                maxKey = key;
             }
-
-            if (maxScore == 0)
-            {
-                return _playerFactory.GetPlayer("No one", PlayerType.Normal);
-            }
-            return _playerDictionary[maxKey];
+            return maxScore == 0 ? _playerFactory.GetPlayer("No one", PlayerType.Normal) : _playerDictionary[maxKey];
         }
 
     }

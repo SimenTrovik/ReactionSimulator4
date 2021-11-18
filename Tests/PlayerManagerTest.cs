@@ -91,11 +91,5 @@ namespace Tests
             _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
             Assert.True(_manager.IsKeyTaken(Key.L));
         }
-        [Test]
-        public void s()
-        {
-
-        }
-
     }
 }
