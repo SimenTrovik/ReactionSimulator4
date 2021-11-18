@@ -72,7 +72,7 @@ namespace SoftwareDesignExam
         public IPlayer GetWinner()
         {
             Key maxKey = Key.None;
-            int maxScore = -1; 
+            int maxScore = 0; 
             foreach (var (key, value) in _playerDictionary.Where(keyValuePair => keyValuePair.Value.Score > maxScore))
             {
                 maxScore= value.Score;

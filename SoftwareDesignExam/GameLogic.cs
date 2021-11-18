@@ -67,13 +67,12 @@ namespace SoftwareDesignExam
         private void NavigateToRegisterPlayerPage()
         {
             ResetPlayers();
-            _registerPlayerPage.ClearActivePlayers();
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
         }
-        
+
         private void NavigateToShowHighScorePage()
         {
-	        _mainWindow.MainFrame.Navigate(_showHighScorePage);
+            _mainWindow.MainFrame.Navigate(_showHighScorePage);
         }
 
         private void NavigateToGamePage()
@@ -85,11 +84,11 @@ namespace SoftwareDesignExam
         {
             NavigateToRegisterPlayerPage();
         }
-        
+
         //Button for MenyPage -> HighScorePage
         private void NavigateToShowHighScorePageEventHandler(object sender, EventArgs e)
         {
-	        NavigateToShowHighScorePage();
+            NavigateToShowHighScorePage();
         }
 
         private void NavigateToMenuPageEventHandler(object sender, EventArgs e)
@@ -110,15 +109,7 @@ namespace SoftwareDesignExam
 
         private void AddPlayerEventHandler(Object sender, PlayerEventArgs e)
         {
-            if (!_playerManager.IsKeyTaken(e.Key))
-            {
-                _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
-            }
-            else
-            {
-                // Display "Key taken"
-            }
-
+            if (!_playerManager.IsKeyTaken(e.Key)) _playerManager.AddPlayer(e.Name, e.PlayerType, e.Key);
         }
 
         private void StartGameEventHandler(object sender, EventArgs e)
