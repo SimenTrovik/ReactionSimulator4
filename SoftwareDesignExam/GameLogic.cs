@@ -36,7 +36,7 @@ namespace SoftwareDesignExam
         private void ResetPlayers()
         {
             _playerManager.ResetPlayers();
-            //_registerPlayerPage.ClearDisplayedPlayers();
+            _mainWindow.HidePlayerBoxes();
         }
 
         private void GameLoop()
@@ -60,6 +60,7 @@ namespace SoftwareDesignExam
         private void NavigateToMenuPage()
         {
             _mainWindow.MainFrame.Navigate(_menuPage);
+            _mainWindow.HidePlayerBoxes();
         }
 
         private void NavigateToRegisterPlayerPage()
@@ -75,7 +76,6 @@ namespace SoftwareDesignExam
 
         private void NavigateToGamePage()
         {
-            _mainWindow.MainFrame.Navigate(_gamePage);
             _mainWindow.MainFrame.Navigate(_gamePage);
         }
 
