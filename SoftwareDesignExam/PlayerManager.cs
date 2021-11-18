@@ -19,7 +19,7 @@ namespace SoftwareDesignExam
         // Returns true/false if the addition was successful or not.
         public bool AddPlayer(string name, PlayerType type, Key key)
         {
-            if (name == null) return false;
+            if (string.IsNullOrEmpty(name)) return false;
             var newPlayer = _playerFactory.GetPlayer(name, type);
             return _playerDictionary.TryAdd(key, newPlayer);
         }
