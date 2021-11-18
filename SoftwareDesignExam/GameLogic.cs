@@ -41,6 +41,7 @@ namespace SoftwareDesignExam
 
         private void GameLoop()
         {
+            _playerManager.ResetScores();
             _mainWindow.DisplayPlayers(_playerManager.GetPlayerDictionary());
             _activePlayerKeys = _playerManager.GetPlayerKeyList();
             _gamePage.Start();
