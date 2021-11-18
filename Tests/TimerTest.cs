@@ -8,7 +8,7 @@ namespace Tests
 {
     public class TimerTest
     {
-        private readonly int _waitTime = 1; // For threads to catch up
+        private readonly int _waitTime = 3; // For threads to catch up
         private readonly Timer _timer = Timer.GetInstance();
 
         [TearDown]
@@ -64,20 +64,6 @@ namespace Tests
             Thread.Sleep(_waitTime);
             Thread.Sleep(_timer.RandomTimeToStartTimer + GameConfig.ReactionDeadline + 100);
             Assert.That(_timer.GetTimeMs() == 0);
-        }
-
-        //[Test]
-        public void ShouldUpdateWaitingToStart()
-        {
-            _timer.StartTimer();
-            Thread.Sleep(_waitTime);
-            Assert.That(_timer.WaitingToStart == false);
-            _timer.TimesUp();
-            Thread.Sleep(_waitTime);
-            Assert.That(_timer.WaitingToStart);
-            _timer.StartTimer();
-            Thread.Sleep(_waitTime);
-            Assert.That(_timer.WaitingToStart == false);
         }
     }
 }
