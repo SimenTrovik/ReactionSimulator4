@@ -25,9 +25,10 @@
         <Button Content="Start Game"
                 x:Name="StartGameButton"
                 Click="StartGame"
-                Foreground="Black"
+                BorderBrush="Black"
+                Foreground="White"
                 Background="IndianRed"
-                FontSize="26"
+                FontSize="40"
                 FontWeight="Medium" 
                 Margin="0,553,0,0" 
                 Width="304" 
@@ -39,6 +40,11 @@
                     <Setter Property="Cursor" Value="Hand"/>
                 </Style>
             </Button.Style>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
 
         </Button>
         <Button Foreground="Black" 
