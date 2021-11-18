@@ -3,10 +3,11 @@
     internal class NormalPlayer : IPlayer
     {
         public string Name { get; set; }
-        public int Score { get;  set; }
+        public int Score { get; set; }
         public double ScoreMultiplier { get; set; }
         private int _timeInMs;
 
+        // The setter for this property also calculates the score
         public int TimeInMs
         {
             get => _timeInMs;

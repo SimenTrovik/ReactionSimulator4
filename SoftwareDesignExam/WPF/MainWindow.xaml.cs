@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SoftwareDesignExam
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         #region Fields
         private List<Border> _playerBorders = new();
@@ -19,7 +15,7 @@ namespace SoftwareDesignExam
         public MainWindow()
         {
             InitializeComponent();
-            PopulateTextBoxList();
+            PopulateTextBlocksList();
             PopulateBorderList();
         }
         #endregion
@@ -27,39 +23,34 @@ namespace SoftwareDesignExam
         #region Methods
         public void DisplayPlayers(Dictionary<Key, IPlayer> registeredPlayers)
         {
-            int _playerNumber = 0;
+            var playerNumber = 0;
 
-            foreach (KeyValuePair<Key, IPlayer> kvp in registeredPlayers)
+            foreach (var (key, player) in registeredPlayers)
             {
-                string boxContent =
-                    "Name: " + kvp.Value.Name + "\n" +
-                    "Mode: " + kvp.Value.GetPlayerType() + "\n" +
-                    "Key: " + kvp.Key.ToString() + "\n";
+                var boxContent =
+                    "Name: " + player.Name + "\n" +
+                    "Mode: " + player.GetPlayerType() + "\n" +
+                    "Key: " + key + "\n";
 
-                if (!Timer.GetInstance().WaitingToStart)
-                {
-                    boxContent += "Score: " + kvp.Value.Score;
-                } else {
-                    boxContent += "Score: 0";
-                }
+                boxContent += !Timer.GetInstance().WaitingToStart ? "Score: " + player.Score : "Score: 0";
 
-                _playerTextBlocks[_playerNumber].Text = boxContent;
+                _playerTextBlocks[playerNumber].Text = boxContent;
 
-                _playerBorders[_playerNumber].Opacity = 1;
+                _playerBorders[playerNumber].Opacity = 1;
 
-                _playerNumber++;
+                playerNumber++;
             }
         }
 
-        public void HidePlayerBoxes()
+        public void HidePlayerBorders()
         {
-            for (int i = 0; i < _playerBorders.Count; i++)
+            foreach (var border in _playerBorders)
             {
-                _playerBorders[i].Opacity = 0;
+                border.Opacity = 0;
             }
         }
 
-        void PopulateTextBoxList()
+        private void PopulateTextBlocksList()
         {
             _playerTextBlocks.Add(Player1Text);
             _playerTextBlocks.Add(Player2Text);
@@ -69,7 +60,7 @@ namespace SoftwareDesignExam
             _playerTextBlocks.Add(Player6Text);
         }
 
-        void PopulateBorderList()
+        private void PopulateBorderList()
         {
             _playerBorders.Add(Player1Border);
             _playerBorders.Add(Player2Border);
@@ -79,5 +70,5 @@ namespace SoftwareDesignExam
             _playerBorders.Add(Player6Border);
         }
     }
-        #endregion
+    #endregion
 }

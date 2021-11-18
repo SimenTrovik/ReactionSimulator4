@@ -1,40 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Media;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace SoftwareDesignExam {
-    
-    class SoundManager {
+    internal class SoundManager {
         #region Fields
-        private string _path;
-        MediaPlayer mediaPlayer = new();
-        MediaPlayer soundEffects = new();
+        private readonly string _path;
+        private readonly MediaPlayer _mediaPlayer = new();
+        private readonly MediaPlayer _soundEffects = new();
         #endregion
 
         #region Constructor
         public SoundManager() {
-            _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\sounds\\";
+            _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Sounds\\";
         }
         #endregion
 
         #region Methods
         private void PlayMusic(string file) {
-            mediaPlayer.Open(new Uri(_path + file + ".wav"));
-            mediaPlayer.Volume = 0.3;
-            mediaPlayer.Play();
+            _mediaPlayer.Open(new Uri(_path + file + ".wav"));
+            _mediaPlayer.Volume = 0.3;
+            _mediaPlayer.Play();
         }
         private void PlayEffect(string file) {
-            soundEffects.Open(new Uri(_path + file + ".wav"));
-            soundEffects.Volume = 0.3;
-            soundEffects.SpeedRatio = 2;
-            soundEffects.Play();
+            _soundEffects.Open(new Uri(_path + file + ".wav"));
+            _soundEffects.Volume = 0.3;
+            _soundEffects.SpeedRatio = 2;
+            _soundEffects.Play();
         }
 
         public void MainMenuMusic() {
@@ -43,10 +36,10 @@ namespace SoftwareDesignExam {
         public void RegisterPlayerMusic() {
             PlayMusic(@"register_players_music");
         }
-        public void HighscoreMenuMusic() {
+        public void HighScoreMenuMusic() {
             PlayMusic(@"highscore_music");
         }
-        public void GamepageMusic() {
+        public void GamePageMusic() {
             PlayMusic(@"gamepage_music");
         }
         public void WhistleEffect() {

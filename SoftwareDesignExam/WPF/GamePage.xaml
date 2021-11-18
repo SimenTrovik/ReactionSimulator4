@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SoftwareDesignExam.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1600"
       Title="GamePage"
@@ -51,13 +50,14 @@
                 VerticalAlignment="Top">
             <Button.Style>
                 <Style TargetType="Button">
-                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Cursor" 
+                            Value="Hand"/>
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Meny"
+        <Button Content="Menu"
                 Opacity="1"
-                x:Name="MenyButton"
+                x:Name="MenuButton"
                 Click="ShowMenu"
                 Foreground="Black"
                 FontSize="26"
@@ -69,7 +69,8 @@
                 VerticalAlignment="Top">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
-                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Cursor" 
+                            Value="Hand"/>
                 </Style>
             </Button.Style>
         </Button>

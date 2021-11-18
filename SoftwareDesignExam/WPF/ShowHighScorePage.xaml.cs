@@ -1,58 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SoftwareDesignExam.ScoreDB;
 
-namespace SoftwareDesignExam.WPF {
-	/// <summary>
-	/// Interaction logic for ShowHighScorePage.xaml
-	/// </summary>
-	///
-
-	#region Delegates
-	public delegate void LoadHighScoreEvent(object sender, EventArgs e);
+namespace SoftwareDesignExam.WPF
+{
+    #region Delegates
+    public delegate void LoadHighScoreEvent(object sender, EventArgs e);
     #endregion
 
-	public partial class ShowHighScorePage : Page
-	{
-		#region Fields
-		public event ShowMenuClickEvent showMenuClickEvent;
-		public event LoadHighScoreEvent loadHighScoreEvent;
-		#endregion
+    public partial class ShowHighScorePage
+    {
+        #region Events
+        public event ShowMenuClickEvent ShowMenuClickEvent;
+        public event LoadHighScoreEvent LoadHighScoreEvent;
+        #endregion
 
-		#region Constructor
-		public ShowHighScorePage()
-		{
-			InitializeComponent();
-        }
-		#endregion
-
-		#region Methods
-		private void BackToMenu(object sender, RoutedEventArgs e)
+        #region Constructor
+        public ShowHighScorePage()
         {
-            showMenuClickEvent?.Invoke(this, e);
+            InitializeComponent();
+        }
+        #endregion
+
+        #region Methods
+        private void BackToMenu(object sender, RoutedEventArgs e)
+        {
+            ShowMenuClickEvent?.Invoke(this, e);
         }
 
-		public void DisplayHighScore(List<HighScore> highScoresList)
+        // Populates the high score table
+        public void DisplayHighScore(List<HighScore> highScoresList)
         {
             LvDataBinding.ItemsSource = highScoresList;
         }
 
-		private void HighScoreListBlock_OnLoaded(object sender, RoutedEventArgs e)
+        // Gets the list of high scores from the db
+        private void HighScoreListBlock_OnLoaded(object sender, RoutedEventArgs e)
         {
-            loadHighScoreEvent?.Invoke(this, e);
+            LoadHighScoreEvent?.Invoke(this, e);
         }
         #endregion
-	}
+    }
 }

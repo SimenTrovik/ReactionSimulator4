@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SoftwareDesignExam.ScoreDB;
 
@@ -8,11 +7,11 @@ namespace SoftwareDesignExam
 {
     public class ScoreDao
     {
-        ScoreContext _db;
+        private readonly ScoreContext _db;
 
         public ScoreDao()
         {
-            _db = new();
+            _db = new ScoreContext();
         }
 
         #region Methods
@@ -34,17 +33,12 @@ namespace SoftwareDesignExam
         // Saves List of IPlayers into DB
         public void SaveListOfPlayers(List<IPlayer> playerList)
         {
-            foreach (IPlayer player in playerList)
+            foreach (var player in playerList)
             {
-                if (player.Score != 0 && player.TimeInMs != 0)
-                {
-                    SavePlayer(player);
-                }
+                if (player.Score != 0 && player.TimeInMs != 0) SavePlayer(player);
             }
         }
-        #endregion
 
-        #region Getters/Setters
         //Returns All players on DB ordered by highest score to lowest
         public List<HighScore> GetHighScores()
         {

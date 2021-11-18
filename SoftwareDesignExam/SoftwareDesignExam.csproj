@@ -7,19 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="sounds\register_players_music.wav">
+    <Content Include="Sounds\register_players_music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="sounds\gamepage_music.wav">
+    <Content Include="Sounds\gamepage_music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="sounds\highscore_music.wav">
+    <Content Include="Sounds\highscore_music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="sounds\main_music.wav">
+    <Content Include="Sounds\main_music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="sounds\whistle.wav">
+    <Content Include="Sounds\whistle.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

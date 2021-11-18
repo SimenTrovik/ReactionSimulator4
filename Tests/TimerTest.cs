@@ -30,7 +30,7 @@ namespace Tests
         {
             _timer.StartTimer();
             Thread.Sleep(_waitTime);
-            Thread.Sleep(_timer.RandomTimeToStartTimer + 100);
+            Thread.Sleep(_timer.PreTimer + 100);
             double x = _timer.GetTimeMs();
             Assert.That(x > 0);
         }
@@ -51,7 +51,7 @@ namespace Tests
             _timer.StartTimer();
             Thread.Sleep(_waitTime);
             Assert.That(_timer.GetTimeMs() == 0);
-            Thread.Sleep(_timer.RandomTimeToStartTimer);
+            Thread.Sleep(_timer.PreTimer);
             Console.WriteLine("Time: "+_timer.GetTimeMs());
             Thread.Sleep(1);
             Assert.That(_timer.GetTimeMs() > 0 && _timer.GetTimeMs() < 100);
@@ -62,7 +62,7 @@ namespace Tests
         {
             _timer.StartTimer();
             Thread.Sleep(_waitTime);
-            Thread.Sleep(_timer.RandomTimeToStartTimer + GameConfig.ReactionDeadline + 100);
+            Thread.Sleep(_timer.PreTimer + GameConfig.ReactionDeadline + 100);
             Assert.That(_timer.GetTimeMs() == 0);
         }
     }

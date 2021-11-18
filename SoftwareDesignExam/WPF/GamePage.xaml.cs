@@ -1,33 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace SoftwareDesignExam.WPF
 {
-    /// <summary>
-    /// Interaction logic for GamePage.xaml
-    /// </summary>
-    /// 
-
     #region Delegates
     public delegate void RegisteredPlayerClickEvent(object sender, KeyEventArgs e);
     public delegate void PlayAgainClickEvent(object sender, EventArgs e);
     public delegate void ShowMenuClickEvent(object sender, EventArgs e);
     #endregion
 
-    public partial class GamePage : Page
+    public partial class GamePage
     {
         #region Fields
-        public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
-        public event PlayAgainClickEvent playAgainClickEvent;
-        public event ShowMenuClickEvent showMenuClickEvent;
+        public event RegisteredPlayerClickEvent RegisteredPlayerClickEvent;
+        public event PlayAgainClickEvent PlayAgainClickEvent;
+        public event ShowMenuClickEvent ShowMenuClickEvent;
 
-        private Timer timer = Timer.GetInstance();
+        private readonly Timer _timer = Timer.GetInstance();
         #endregion
 
         #region Constructor
@@ -38,40 +30,43 @@ namespace SoftwareDesignExam.WPF
         #endregion
 
         #region Methods
+        // This is called at the start of a new game. Handles everything the WPF needs to do during a game.
         public void Start()
         {
+            // This is threaded because the graphics on the WPF is not updated if this is on the main thread
             Task.Run(() =>
             {
-                timer.StartTimer();
-
+                // The timer starts(Pre-Timer)
+                _timer.StartTimer();
+                // Changes what is shown in the WPF
                 ReadyStyling();
-
                 HideOptions();
-
+                // Waits until the Pre-Timer is done
                 WaitForGoSignal();
-
+                // Changes what is shown in the WPF
                 GameOnStyling();
-
                 UpdateTimerTextWithCountdown();
-
+                // Changes the WPF when the time is over
                 TimesUpStyling();
-
+                // Makes the option buttons visible
                 ShowOptions();
             });
         }
 
+        // Pauses for the duration of the Pre-Timer
         private void WaitForGoSignal()
         {
-            while (timer.GetTimeMs() == 0) { Thread.Sleep(10); }
+            while (_timer.GetTimeMs() == 0) { Thread.Sleep(10); }
         }
 
+        // Updates the timer on screen
         private void UpdateTimerTextWithCountdown()
         {
-            while (timer.TimeLeft() > 0)
+            while (_timer.TimeLeft() > 0)
             {
                 Dispatcher.Invoke(() =>
                 {
-                    TimerText.Text = timer.TimeLeft().ToString();
+                    TimerText.Text = _timer.TimeLeft().ToString();
                 });
                 Thread.Sleep(10);
             }
@@ -82,7 +77,7 @@ namespace SoftwareDesignExam.WPF
             Dispatcher.Invoke(() =>
             {
                 PlayAgainButton.Opacity = 1;
-                MenyButton.Opacity = 1;
+                MenuButton.Opacity = 1;
             });
         }
 
@@ -91,10 +86,11 @@ namespace SoftwareDesignExam.WPF
             Dispatcher.Invoke(() =>
             {
                 PlayAgainButton.Opacity = 0;
-                MenyButton.Opacity = 0;
+                MenuButton.Opacity = 0;
             });
         }
 
+        // Displays the winner of a game on screen
         public void DisplayWinner(IPlayer winner)
         {
             Dispatcher.Invoke(() =>
@@ -103,24 +99,22 @@ namespace SoftwareDesignExam.WPF
             });
         }
 
-        public void Stop()
-        {
-            timer.TimesUp();
-        }
+        #endregion
 
+        #region EventInvokers
         public void RegisterPlayerClick_KeyDown(object sender, KeyEventArgs e)
         {
-            registeredPlayerClickEvent.Invoke(this, e);
+            RegisteredPlayerClickEvent.Invoke(this, e);
         }
 
         private void PlayAgain(object sender, EventArgs e)
         {
-            playAgainClickEvent.Invoke(this, e);
+            PlayAgainClickEvent.Invoke(this, e);
         }
 
         private void ShowMenu(object sender, EventArgs e)
         {
-            showMenuClickEvent.Invoke(this, e);
+            ShowMenuClickEvent.Invoke(this, e);
         }
 
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
@@ -128,7 +122,9 @@ namespace SoftwareDesignExam.WPF
             var window = Window.GetWindow(this);
             window.KeyDown += RegisterPlayerClick_KeyDown;
         }
+        #endregion
 
+        #region Styling
         private void ReadyStyling()
         {
             Dispatcher.Invoke(() =>
@@ -155,6 +151,6 @@ namespace SoftwareDesignExam.WPF
                 TrafficLight.Fill = Colors.Red;
             });
         }
+        #endregion
     }
-    #endregion
 }
