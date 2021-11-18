@@ -20,18 +20,25 @@ namespace SoftwareDesignExam.WPF {
 	/// </summary>
 	///
 
+	#region Delegates
 	public delegate void LoadHighScoreEvent(object sender, EventArgs e);
+    #endregion
 
 	public partial class ShowHighScorePage : Page
 	{
+		#region Fields
 		public event ShowMenuClickEvent showMenuClickEvent;
 		public event LoadHighScoreEvent loadHighScoreEvent;
+		#endregion
 
-        public ShowHighScorePage()
+		#region Constructor
+		public ShowHighScorePage()
 		{
 			InitializeComponent();
         }
+		#endregion
 
+		#region Methods
 		private void BackToMenu(object sender, RoutedEventArgs e)
         {
             showMenuClickEvent?.Invoke(this, e);
@@ -46,5 +53,6 @@ namespace SoftwareDesignExam.WPF {
         {
             loadHighScoreEvent?.Invoke(this, e);
         }
+        #endregion
 	}
 }

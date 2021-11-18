@@ -15,15 +15,8 @@ namespace SoftwareDesignExam
             _db = new();
         }
 
-        /*
-		 * MÅ GJØRES:
-		 * 
-		 * Skrive om DB modell, valg(hvorfor den er slik den er) og NF den er i og hvorfor
-		 * 
-		 */
-
-
-        // Saves ONE Player with anyscore into DB
+        #region Methods
+        // Saves ONE Player with any score into DB
         public void SavePlayer(IPlayer player)
         {
             HighScore highScore = new()
@@ -41,8 +34,6 @@ namespace SoftwareDesignExam
         // Saves List of IPlayers into DB
         public void SaveListOfPlayers(List<IPlayer> playerList)
         {
-            //sjekk hvis score er 0 så skal den ikke lagres
-
             foreach (IPlayer player in playerList)
             {
                 if (player.Score != 0 && player.TimeInMs != 0)
@@ -51,7 +42,9 @@ namespace SoftwareDesignExam
                 }
             }
         }
+        #endregion
 
+        #region Getters/Setters
         //Returns All players on DB ordered by highest score to lowest
         public List<HighScore> GetHighScores()
         {
@@ -68,5 +61,6 @@ namespace SoftwareDesignExam
 
             return playerHighScores;
         }
+        #endregion
     }
 }

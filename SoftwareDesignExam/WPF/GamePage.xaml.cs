@@ -14,23 +14,30 @@ namespace SoftwareDesignExam.WPF
     /// </summary>
     /// 
 
+    #region Delegates
     public delegate void RegisteredPlayerClickEvent(object sender, KeyEventArgs e);
     public delegate void PlayAgainClickEvent(object sender, EventArgs e);
     public delegate void ShowMenuClickEvent(object sender, EventArgs e);
+    #endregion
 
     public partial class GamePage : Page
     {
+        #region Fields
         public event RegisteredPlayerClickEvent registeredPlayerClickEvent;
         public event PlayAgainClickEvent playAgainClickEvent;
         public event ShowMenuClickEvent showMenuClickEvent;
 
         private Timer timer = Timer.GetInstance();
+        #endregion
 
+        #region Constructor
         public GamePage()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region Methods
         public void Start()
         {
             Task.Run(() =>
@@ -149,4 +156,5 @@ namespace SoftwareDesignExam.WPF
             });
         }
     }
+    #endregion
 }

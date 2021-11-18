@@ -12,6 +12,7 @@ namespace SoftwareDesignExam
 {
     class GameLogic
     {
+        #region Fields
         private MainWindow _mainWindow;
         private MenuPage _menuPage = new();
         private RegisterPlayerPage _registerPlayerPage = new();
@@ -22,7 +23,9 @@ namespace SoftwareDesignExam
         private PlayerManager _playerManager = new();
         private List<Key> _activePlayerKeys = new();
         private SoundManager _soundManager = new();
+        #endregion
 
+        #region Constructor
         public GameLogic()
         {
             _mainWindow = new MainWindow();
@@ -33,7 +36,9 @@ namespace SoftwareDesignExam
 
             NavigateToMenuPage();
         }
+        #endregion
 
+        #region Methods
         private void ResetPlayers()
         {
             _playerManager.ResetPlayers();
@@ -49,6 +54,9 @@ namespace SoftwareDesignExam
             _gamePage.Start();
             Task.Run(() =>
             {
+                // While there still are active players, the loop continues. Breaksgit show
+                //
+                //when no active players left, and game stops
                 while (_activePlayerKeys.Count != 0)
                 {
                     Thread.Sleep(10);
@@ -59,7 +67,7 @@ namespace SoftwareDesignExam
             });
         }
 
-
+        // We are using 1 main window, and this window navigates to different pages
         private void NavigateToMenuPage()
         {
             _mainWindow.MainFrame.Navigate(_menuPage);
@@ -70,6 +78,7 @@ namespace SoftwareDesignExam
         private void NavigateToRegisterPlayerPage()
         {
             ResetPlayers();
+            _registerPlayerPage.ClearActivePlayers();
             _mainWindow.MainFrame.Navigate(_registerPlayerPage);
             _soundManager.RegisterPlayerMusic();
         }
@@ -90,8 +99,8 @@ namespace SoftwareDesignExam
         {
             NavigateToRegisterPlayerPage();
         }
-
-        //Button for MenyPage -> HighScorePage
+        
+        //Button for MenuPage -> HighScorePage
         private void NavigateToShowHighScorePageEventHandler(object sender, EventArgs e)
         {
             NavigateToShowHighScorePage();
@@ -107,7 +116,7 @@ namespace SoftwareDesignExam
             _mainWindow.DisplayPlayers(_playerManager.GetPlayerDictionary());
         }
 
-        //gets and sends Highscores to page
+        //gets and sends high scores to page
         private void DisplayHighScoresEventHandler(Object sender, EventArgs e)
         {
             _showHighScorePage.DisplayHighScore(_scoreDao.GetHighScores());
@@ -158,5 +167,6 @@ namespace SoftwareDesignExam
         {
             _scoreDao.SaveListOfPlayers(_playerManager.GetPlayerList());
         }
+        #endregion
     }
 }
