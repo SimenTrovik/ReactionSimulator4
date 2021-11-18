@@ -33,6 +33,7 @@ namespace SoftwareDesignExam {
         private void PlayEffect(string file) {
             soundEffects.Open(new Uri(_path + file + ".wav"));
             soundEffects.Volume = 0.3;
+            soundEffects.SpeedRatio = 2;
             soundEffects.Play();
         }
 
