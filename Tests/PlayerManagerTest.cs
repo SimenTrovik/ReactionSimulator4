@@ -85,11 +85,17 @@ namespace Tests
             Assert.AreEqual(_manager.GetPlayerByKey(Key.M),_manager.GetWinner());
         }
 
+        [Test]
         public void ShouldReturnKeyIsTaken()
         {
             _manager.AddPlayer("Simen", PlayerType.Normal, Key.L);
             Assert.True(_manager.IsKeyTaken(Key.L));
+        }
+        [Test]
+        public void s()
+        {
 
         }
+
     }
 }

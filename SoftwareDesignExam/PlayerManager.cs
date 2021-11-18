@@ -73,7 +73,7 @@ namespace SoftwareDesignExam
         {
             // TODO This is bugged
             Key maxKey = Key.None;
-            int maxScore = 0; 
+            int maxScore = -1; 
             foreach (var keyValuePair in _playerDictionary)
             {
                 if (keyValuePair.Value.Score > maxScore)
@@ -81,6 +81,11 @@ namespace SoftwareDesignExam
                     maxScore= keyValuePair.Value.Score;
                     maxKey = keyValuePair.Key;
                 }
+            }
+
+            if (maxScore == 0)
+            {
+                return _playerFactory.GetPlayer("No one", PlayerType.Normal);
             }
             return _playerDictionary[maxKey];
         }
