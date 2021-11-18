@@ -37,14 +37,15 @@ namespace SoftwareDesignExam
 
         public IPlayer GetWinner()
         {
-            Key maxKey = Key.None;
-            int maxScore = 0;
-            foreach (var keyValuePair1 in _playerDictionary.Where(keyValuePair => keyValuePair.Value.Score > maxScore))
+            IPlayer leadingPlayer = _playerFactory.GetPlayer("No one", PlayerType.Normal);
+            foreach ((Key key, IPlayer player) in _playerDictionary)
             {
-                maxScore = keyValuePair1.Value.Score;
-                maxKey = keyValuePair1.Key;
+                if (player > leadingPlayer)
+                {
+                    leadingPlayer = player;
+                }
             }
-            return maxScore == 0 ? _playerFactory.GetPlayer("No one", PlayerType.Normal) : _playerDictionary[maxKey];
+            return leadingPlayer;
         }
 
         public void ResetPlayers()
@@ -88,18 +89,6 @@ namespace SoftwareDesignExam
         public List<IPlayer> GetPlayerList()
         {
             return _playerDictionary.Values.ToList();
-        }
-
-        public IPlayer GetWinner()
-        {
-            IPlayer leadingPlayer = _playerFactory.GetPlayer("No one", PlayerType.Normal);
-            foreach ((Key key, IPlayer player) in _playerDictionary)
-            {
-                if (player > leadingPlayer) { 
-                    leadingPlayer = player;
-                }
-            }
-            return leadingPlayer;
         }
         #endregion
     }
