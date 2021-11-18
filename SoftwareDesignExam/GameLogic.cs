@@ -61,6 +61,8 @@ namespace SoftwareDesignExam
                 {
                     Thread.Sleep(10);
                 }
+                SoundManager effectSoundManager = new();
+                effectSoundManager.WhistleEffect();
                 _gamePage.Stop();
                 SaveHighScores();
                 _gamePage.DisplayWinner(_playerManager.GetWinner());
