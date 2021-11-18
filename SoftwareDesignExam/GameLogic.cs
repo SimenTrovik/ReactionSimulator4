@@ -37,6 +37,7 @@ namespace SoftwareDesignExam
         private void ResetPlayers()
         {
             _playerManager.ResetPlayers();
+            _registerPlayerPage.ClearActivePlayers();
             _mainWindow.HidePlayerBoxes();
         }
 
