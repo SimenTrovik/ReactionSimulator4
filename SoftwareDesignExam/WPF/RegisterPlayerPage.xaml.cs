@@ -93,9 +93,11 @@ namespace SoftwareDesignExam.WPF
                     Key = key
                 };
 
-                RegisterPlayerEvents?.Invoke(this, data);
-                _keyList.Add(_currentKey);
-                _activePlayersList.Add(name);
+                if(_keyList.Count<6){
+                    RegisterPlayerEvents?.Invoke(this, data);
+                    _keyList.Add(_currentKey);
+                    _activePlayersList.Add(name);
+                }
                 ResetFields();
             }
         }
